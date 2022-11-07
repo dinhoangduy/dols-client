@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "start": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -14,10 +14,8 @@
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@fontsource/roboto": "^4.5.8",
-    "@mui/icons-material": "^5.10.6",
-    "@mui/lab": "^5.0.0-alpha.102",
-    "@mui/material": "^5.10.8",
     "@reduxjs/toolkit": "^1.8.5",
+    "antd": "^4.23.6",
     "axios": "^1.1.2",
     "emoji-mart": "3.0.1",
     "moment": "^2.29.4",
