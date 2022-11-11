@@ -1,0 +1,77 @@
+.mainPage {
+  // Ant CSS
+  .site-layout-content {
+    min-height: 280px;
+    padding: 24px;
+  }
+  #components-layout-demo-top .logo {
+    float: left;
+    width: 120px;
+    height: 31px;
+    margin: 16px 24px 16px 0;
+    background: rgba(255, 255, 255, 0.3);
+  }
+  .ant-row-rtl #components-layout-demo-top .logo {
+    float: right;
+    margin: 16px 0 16px 24px;
+  }
+
+  // My CSS
+  .ant-row {
+    min-height: 150px;
+    background: rgb(244, 244, 244);
+    border: 1px solid rgba(0, 0, 0, 0.437);
+    padding: 16px 0 16px 0;
+  }
+
+  .mainSection {
+    .textIntro {
+      width: 90%;
+
+      h1 {
+        font-size: 4rem;
+        line-height: 100%;
+        margin-bottom: 1.1rem;
+      }
+      p {
+        font-size: 1.2rem;
+        line-height: 120%;
+        margin-bottom: 1.1rem;
+        color: gray;
+      }
+    }
+
+    .btnPrimary {
+      border-radius: 5px;
+      padding: 3px 20px;
+      font-size: 1.2rem;
+      background-color: #e16259;
+      border: none;
+      color: white;
+      font-weight: bold;
+      transition: all 0.3s ease-in-out;
+      cursor: pointer;
+      box-shadow: 1px 2px rgba(0, 0, 0, 0.1);
+      margin-bottom: 1.1rem;
+    }
+    .btnPrimary:hover {
+      background-color: #983c3c;
+    }
+
+    .textAssociate {
+      font-size: 0.9rem;
+      color: gray;
+    }
+    .imgsAssociate {
+      filter: grayscale(1);
+
+      img {
+      }
+    }
+
+    .imgIntro {
+      background-image: url("https://www.notion.so/cdn-cgi/image/format=auto,width=640,quality=100/front-static/pages/product/home-page-hero-refreshed-v3.png");
+      background-size: cover;
+    }
+  }
+}
