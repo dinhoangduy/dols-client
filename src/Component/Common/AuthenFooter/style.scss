@@ -1,0 +1,72 @@
+.footerAuthenPage {
+    .footerSection {
+      align-items: unset;
+  
+      p {
+        padding: 0;
+        margin-bottom: 5px;
+        font-weight: 500;
+        font-size: 1.1rem;
+      }
+      ul {
+        list-style-type: none;
+        line-height: 1.6rem;
+        font-size: 0.9rem;
+      }
+      li {
+        color: gray;
+      }
+      li:hover {
+        color: #e16259;
+        text-decoration: underline;
+      }
+    }
+  
+    .footerFinal {
+      align-items: center;
+      justify-content: center;
+  
+      .col {
+        display: flex;
+        gap: 16px;
+  
+        p {
+          color: gray;
+          font-weight: 500;
+          font-size: 1rem;
+          margin: 0;
+        }
+  
+        a > p {
+          color: black;
+          font-size: 1rem;
+        }
+  
+        .anticon {
+          font-size: 1.5rem;
+          color: gray;
+        }
+  
+        .anticon-twitter:hover {
+          color: #1da1f2;
+        }
+  
+        .anticon-linkedin:hover {
+          color: #0077b5;
+        }
+  
+        .anticon-facebook:hover {
+          color: #4267b2;
+        }
+  
+        .anticon-instagram:hover {
+          color: #405de6;
+        }
+  
+        .anticon-youtube:hover {
+          color: #ff0000;
+        }
+      }
+    }
+  }
+  

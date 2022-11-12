@@ -4,7 +4,8 @@ import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import authUtil from "../../../utils/authUtils";
 
 import Loading from "../../Common/Loading";
-import Header from "../../Common/Header/Header";
+import Header from "../../Common/Header/header";
+import AuthenFooter from "../../Common/AuthenFooter/authenFooter"
 
 import "./styles.scss";
 
@@ -33,6 +34,7 @@ const AuthLayout = () => {
                 <Header />
                 {/* {isLoading ? <Loading></Loading> : <Outlet />} */}
                 <Outlet/>
+                <AuthenFooter/>
             </div>
         </div>
     );

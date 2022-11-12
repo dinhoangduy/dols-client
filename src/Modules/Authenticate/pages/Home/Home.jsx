@@ -3,19 +3,9 @@ import { useState, useEffect, useRef } from "react";
 import "./style.scss";
 
 // AntD
-import {
-  Breadcrumb,
-  Layout,
-  Menu,
-  Col,
-  Divider,
-  Row,
-  Space,
-  Typography,
-  Button,
-  Carousel,
-} from "antd";
+import { Layout, Menu, Col, Row, Space, Typography, Carousel } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
+
 //
 
 function getItem(label, key) {
@@ -27,15 +17,19 @@ function getItem(label, key) {
 
 const { Header, Content, Footer } = Layout;
 const { Title, Paragraph, Text, Link } = Typography;
-const items = [
-  getItem("Company home", "1"),
-  getItem("Design docs", "2"),
-  getItem("Website publishing", "3"),
-];
 
 const Home = () => {
+  const language = [
+    { label: "item 1", key: "item-1" }, // remember to pass the key prop
+    { label: "item 2", key: "item-2" },
+  ];
+  const carouselItem = [
+    getItem("Company home", "1"),
+    getItem("Design docs", "2"),
+    getItem("Website publishing", "3"),
+  ];
+
   const refCarousel = useRef(null);
-  const refMenu = useRef(null);
 
   const onClick = (e) => {
     refCarousel.current.goTo(e.key - 1);
@@ -218,7 +212,7 @@ const Home = () => {
 
               <Row className="secondRow">
                 <Col flex="450px" className="secondaryMenu">
-                  <Menu ref={refMenu} onClick={onClick} items={items} />
+                  <Menu onClick={onClick} items={carouselItem} />
                 </Col>
                 <Col flex="auto" className="secondarySlideshow">
                   <Carousel
@@ -248,6 +242,7 @@ const Home = () => {
                 </Col>
               </Row>
             </div>
+
             <div className="secondarySection">
               <Row className="firstRow">
                 <Col flex="auto">
@@ -319,6 +314,7 @@ const Home = () => {
                 </Col>
               </Row>
             </div>
+
             <div className="secondarySection">
               <Row className="firstRow">
                 <Col flex="auto">
