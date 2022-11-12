@@ -1,0 +1,280 @@
+.pricingPage {
+  width: 100%;
+  // Ant CSS
+  .ant-layout-content {
+    min-height: 280px;
+    padding: 75px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+    overflow: hidden;
+  }
+  .ant-row {
+    position: relative;
+    min-height: 150px;
+    background: rgb(243, 243, 243);
+    // border: 1px solid rgba(0, 0, 0, 0.437);
+    padding: 16px 0 16px 0;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 0;
+  }
+
+  // My CSS
+  .introSection {
+    .textWrap {
+      width: 90%;
+
+      h1 {
+        font-size: 3.5rem;
+        line-height: 100%;
+        margin-bottom: 40px;
+        font-weight: bold;
+        color: black;
+      }
+
+      p {
+        font-size: 1.1rem;
+        line-height: 120%;
+        margin-bottom: 1.1rem;
+        color: gray;
+      }
+    }
+    .associateWrap {
+      font-size: 0.8rem;
+      color: gray;
+
+      p {
+        margin: 0 0 15px 0;
+      }
+
+      .imgWrap {
+        filter: grayscale(1);
+        display: flex;
+        gap: 20px;
+
+        img {
+          opacity: 0.6;
+          height: 20px;
+        }
+      }
+    }
+  }
+
+  .cardSection {
+    position: relative;
+    gap: 5%;
+
+    .cardWrap {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      padding-top: 5px;
+    }
+
+    .titleWrap {
+      line-height: 1rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 10px 20px;
+
+      img {
+        width: 40px;
+        margin-bottom: 16px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+        font-weight: 500;
+      }
+
+      p {
+        font-size: 1.1rem;
+        font-weight: 400;
+        line-height: 1.4rem;
+      }
+    }
+
+    .priceWrap {
+      height: 120px;
+      padding: 30px 20px 0 20px;
+      line-height: 0.7rem;
+
+      h1 {
+        font-size: 2.4rem;
+        font-weight: bold;
+      }
+      small {
+        color: gray;
+        font-size: 0.8rem;
+      }
+    }
+
+    .btn {
+      margin: 15px 20px;
+      padding: 5px 0;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #e16259;
+      border-radius: 5px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: all 0.15s ease-in-out;
+    }
+    .btn:hover {
+      background: #e1625948;
+    }
+
+    .btn.extra {
+      color: white;
+      background: #e16259;
+    }
+    .btn.extra:hover {
+      background: #96453f;
+    }
+
+    .desWrap {
+      padding: 0 20px;
+      list-style-type: none;
+
+      li {
+        font-size: 1.1rem;
+        font-weight: 400;
+      }
+      .anticon {
+        font-size: 0.7rem;
+        padding-right: 5px;
+      }
+    }
+  }
+  .extraWrap {
+    padding: 5px 10px;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: none;
+    display: flex;
+    align-items: center;
+    p {
+      margin: 0;
+      padding: 0;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+  }
+
+  .compareSection {
+    .tableTitle {
+      font-size: 2rem;
+      color: black;
+      font-weight: bold;
+    }
+
+    .tableWrap {
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+
+      .headerText {
+        font-size: 1.1rem;
+        font-weight: 500;
+        margin: 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      }
+      .overallText {
+        font-size: 1.1rem;
+        margin: 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        height: 1.5rem;
+      }
+      .anticon {
+        font-size: 0.8rem;
+      }
+    }
+
+    .miniPrice {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-left: 2%;
+
+      .title {
+        font-size: 1.1rem;
+      }
+
+      .price {
+        position: relative;
+        height: 7rem;
+        line-height: 0.8rem;
+        color: gray;
+
+        h1 {
+          font-weight: bold;
+          font-size: 2.4rem;
+        }
+        small {
+          line-height: 1rem;
+
+          font-size: 0.8rem;
+        }
+        p {
+          line-height: 2rem;
+
+          font-size: 0.8rem;
+        }
+        .anticon {
+          position: absolute;
+          top: -10px;
+          left: 0;
+          font-size: 4rem;
+        }
+      }
+
+      .btn {
+        padding: 5px 0;
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #e16259;
+        border-radius: 5px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: all 0.15s ease-in-out;
+      }
+      .btn:hover {
+        background: #e1625948;
+      }
+
+      .btn.extra {
+        color: white;
+        background: #e16259;
+      }
+      .btn.extra:hover {
+        background: #96453f;
+      }
+    }
+  }
+
+  hr {
+    height: 1px;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .gray {
+    color: gray;
+  }
+  .orange {
+    color: #e2a020;
+  }
+  .blue {
+    color: #3aa0da;
+  }
+  .red {
+    color: #eb5757;
+  }
+  .purple {
+    color: #6b5cbd;
+  }
+}

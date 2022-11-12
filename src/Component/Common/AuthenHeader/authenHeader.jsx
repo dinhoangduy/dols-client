@@ -137,12 +137,14 @@ const AuthenHeader = () => {
       <Row>
         <Col flex="auto">
           <ul>
-            <li>
-              <p>
-                <img src={vite} alt="" />
-                Vite
-              </p>
-            </li>
+            <a href="./">
+              <li>
+                <p>
+                  <img src={vite} alt="" />
+                  Vite
+                </p>
+              </li>
+            </a>
             <li>
               <Dropdown
                 overlay={products}
@@ -172,7 +174,7 @@ const AuthenHeader = () => {
             </li>
             <li>
               <Dropdown
-                overlay={downloads}
+                overlay={resources}
                 trigger={["click"]}
                 overlayStyle={{ width: "250px", paddingTop: "16px" }}
               >
@@ -181,7 +183,7 @@ const AuthenHeader = () => {
                 </p>
               </Dropdown>
             </li>
-            <a href="#">
+            <a href="./pricing">
               <li>
                 <p>Pricing</p>
               </li>
