@@ -1,8 +1,12 @@
 .mainPage {
+  width: 100%;
   // Ant CSS
   .site-layout-content {
     min-height: 280px;
-    padding: 24px;
+    padding: 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
   }
   #components-layout-demo-top .logo {
     float: left;
@@ -18,10 +22,14 @@
 
   // My CSS
   .ant-row {
+    position: relative;
     min-height: 150px;
-    background: rgb(244, 244, 244);
-    border: 1px solid rgba(0, 0, 0, 0.437);
+    background: rgb(243, 243, 243);
+    // border: 1px solid rgba(0, 0, 0, 0.437);
     padding: 16px 0 16px 0;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 0;
   }
 
   .mainSection {
@@ -32,12 +40,21 @@
         font-size: 4rem;
         line-height: 100%;
         margin-bottom: 1.1rem;
+        font-weight: bold;
       }
       p {
         font-size: 1.2rem;
         line-height: 120%;
         margin-bottom: 1.1rem;
         color: gray;
+      }
+    }
+    .imgIntro {
+      text-align: right;
+      height: 100%;
+      img {
+        height: 100%;
+        width: auto;
       }
     }
 
@@ -49,7 +66,7 @@
       border: none;
       color: white;
       font-weight: bold;
-      transition: all 0.3s ease-in-out;
+      transition: all 0.15s ease-in-out;
       cursor: pointer;
       box-shadow: 1px 2px rgba(0, 0, 0, 0.1);
       margin-bottom: 1.1rem;
@@ -61,17 +78,286 @@
     .textAssociate {
       font-size: 0.9rem;
       color: gray;
+
+      p {
+        margin: 0 0 5px 0;
+      }
     }
     .imgsAssociate {
       filter: grayscale(1);
 
       img {
+        opacity: 0.6;
+        height: 20px;
+      }
+    }
+  }
+
+  .primarySection {
+    .primaryText {
+      margin-left: 5rem;
+      width: 90%;
+
+      img {
+        margin-bottom: 1.1rem;
+        max-width: 6rem;
+      }
+      h1 {
+        font-size: 2rem;
+        line-height: 100%;
+        margin-bottom: 1.1rem;
+        font-weight: bold;
+      }
+      p {
+        font-size: 1rem;
+        line-height: 150%;
+        margin-bottom: 1.1rem;
+        color: gray;
       }
     }
 
-    .imgIntro {
-      background-image: url("https://www.notion.so/cdn-cgi/image/format=auto,width=640,quality=100/front-static/pages/product/home-page-hero-refreshed-v3.png");
-      background-size: cover;
+    .primaryImage {
+      width: 100%;
+      img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        box-shadow: 1px 1px rgba(0, 0, 0, 0.05);
+        border-radius: 36px;
+      }
+    }
+  }
+
+  hr {
+    opacity: 0.2;
+  }
+
+  .secondarySection {
+    width: 100%;
+
+    .firstRow {
+      .secondaryText {
+        width: 90%;
+
+        h1 {
+          font-size: 2.2rem;
+          line-height: 100%;
+          margin-bottom: 1.1rem;
+          font-weight: bold;
+        }
+        p {
+          font-size: 1.1rem;
+          line-height: 120%;
+          margin-bottom: 1.1rem;
+          color: gray;
+        }
+      }
+      .secondaryImg {
+        height: 100%;
+        text-align: right;
+        img {
+          height: 100%;
+          max-width: 40%;
+        }
+      }
+
+      .btn {
+        border-radius: 5px;
+        padding: 3px 20px;
+        font-size: 1.2rem;
+        background-color: #e16259;
+        border: none;
+        color: white;
+        font-weight: bold;
+        transition: all 0.15s ease-in-out;
+        cursor: pointer;
+        margin-bottom: 1.1rem;
+      }
+      .btn.viewAll {
+        background-color: white !important;
+        color: black;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+      }
+      .btn:hover {
+        background-color: #983c3c;
+      }
+    }
+
+    .secondRow {
+      width: 100%;
+      height: 100%;
+      gap: 50px;
+
+      .secondarySlideshow {
+        width: 100%;
+        text-align: right;
+
+        img {
+          width: 70%;
+          box-shadow: 0px 2px rgba(0, 0, 0, 0.05);
+        }
+      }
+
+      .ant-menu-title-content {
+        font-size: 1.1rem;
+        color: black;
+        font-weight: bold;
+      }
+
+      .ant-menu-title-content:hover {
+        color: rgb(0, 0, 182);
+      }
+
+      .secondaryTemplate {
+        width: 100%;
+        height: 100%;
+
+        .imageWrapper {
+          position: relative;
+          width: 100%;
+          height: 100%;
+
+          img {
+            height: auto;
+            width: 100%;
+            border-radius: 15px;
+          }
+
+          button {
+            position: absolute;
+            top: 50%;
+            right: 50%;
+            padding: 5px 15px;
+            border-radius: 15px;
+            border: none;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            font-size: 1rem;
+            font-weight: 500;
+            opacity: 0;
+            transition: all 0.15s ease-in-out;
+            pointer-events: none;
+          }
+
+          img:hover + button {
+            opacity: 1;
+          }
+        }
+
+        .imageAssociateWrapper {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          margin-bottom: 0.5rem;
+
+          img {
+            height: 25px;
+          }
+        }
+
+        .textWrapper {
+          p {
+            font-size: 1.1rem;
+            line-height: 120%;
+            margin-bottom: 1.1rem;
+            color: gray;
+            font-weight: 400;
+          }
+          blockquote p::before {
+            content: "\201C";
+          }
+          blockquote p::after {
+            content: "\201D";
+          }
+        }
+
+        .commentorWrapper {
+          display: flex;
+          align-items: center;
+
+          img {
+            width: 70px;
+          }
+
+          .text {
+            text-align: left;
+
+            p {
+              font-size: 0.9rem;
+              margin: 0;
+              padding: 0;
+              font-weight: 400;
+            }
+            small {
+              font-size: 0.9rem;
+              color: gray;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .tertiarySection {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .textWrapper {
+      position: absolute;
+      text-align: center;
+      max-width: 30%;
+
+      h1 {
+        font-size: 2.2rem;
+        line-height: 100%;
+        margin-bottom: 1.1rem;
+        font-weight: bold;
+      }
+      p {
+        font-size: 1.1rem;
+        line-height: 120%;
+        margin-bottom: 1.1rem;
+        color: gray;
+      }
+      .btn {
+        border-radius: 5px;
+        padding: 5px 0;
+        min-width: 225px;
+        font-size: 1.2rem;
+        background-color: #e16259;
+        border: none;
+        color: white;
+        font-weight: bold;
+        transition: all 0.15s ease-in-out;
+        cursor: pointer;
+        box-shadow: 1px 2px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1.1rem;
+      }
+      .btn:hover {
+        background-color: #983c3c;
+      }
+    }
+    .imgWrapper {
+      text-align: right;
+      height: 100%;
+      img {
+        height: 80px;
+        width: auto;
+      }
+    }
+    .backgroundImg {
+      width: 100%;
+      img {
+        max-width: 300px;
+        position: relative;
+        left: 50px;
+        bottom: -120px;
+      }
     }
   }
 }
