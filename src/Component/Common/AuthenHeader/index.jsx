@@ -261,7 +261,7 @@ const AuthenHeader = () => {
                           </a>
                           <a href="">
                             <button className="btn">
-                              Download Notion <CloudDownloadOutlined />
+                              Download DOLS <CloudDownloadOutlined />
                             </button>
                           </a>
                         </ul>

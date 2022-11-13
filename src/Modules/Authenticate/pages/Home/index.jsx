@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import "./style.scss";
+import vite from  "./vite.svg"
 
 // AntD
 import { Layout, Menu, Col, Row, Space, Typography, Carousel } from "antd";
@@ -423,16 +424,16 @@ const Home = () => {
             <Row className="tertiarySection">
               <div className="imgWrapper">
                 <img
-                  src="https://www.notion.so/cdn-cgi/image/format=auto,width=256,quality=100/front-static/shared/icons/notion-app-icon-3d.png"
+                  src={vite}
                   alt=""
                 />
               </div>
               <div className="textWrapper">
-                <h1>Try Notion today</h1>
+                <h1>Try DOLS today</h1>
                 <p>
                   Get started for free. Add your whole team as your needs grow.
                 </p>
-                <button className="btn">Try Notion Free</button>
+                <button className="btn">Try DOLS Free</button>
                 <p>
                   On a big team? <u>Contact sales</u>
                 </p>
