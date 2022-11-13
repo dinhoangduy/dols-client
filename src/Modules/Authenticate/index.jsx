@@ -1,34 +1,38 @@
-import React from "react";
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Forgot from './pages/Forgot';
 import Home from './pages/Home/Home';
+import Onboarding from './pages/Signup/Onboarding';
 
 const Authenticate = () => {
-    const location = useLocation();
+  const location = useLocation();
 
-    const pageList = {
-        '/login': {
-            component: <Login/>
-        },
-        '/sign-up': {
-            component: <Signup/>
-        },
-        '/forgot-password': {
-            component: <Forgot/>
-        },
-        '/': {
-            component: <Home/>
-        },
-    }
+  const pageList = {
+    '/login': {
+      component: <Login />,
+    },
+    '/sign-up': {
+      component: <Signup />,
+    },
+    '/onboarding': {
+      component: <Onboarding />,
+    },
+    '/forgot-password': {
+      component: <Forgot />,
+    },
+    '/': {
+      component: <Home />,
+    },
+  };
 
-    const renderAuthenticatedPage = () => {
-        return pageList[location.pathname].component;
-    }
+  const renderAuthenticatedPage = () => {
+    return pageList[location.pathname].component;
+  };
 
-    return renderAuthenticatedPage();
+  return renderAuthenticatedPage();
 };
 
 export default Authenticate;
