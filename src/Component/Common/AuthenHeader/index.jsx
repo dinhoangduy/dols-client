@@ -261,7 +261,7 @@ const AuthenHeader = () => {
                           </a>
                           <a href="">
                             <button className="btn">
-                              Download Notion <CloudDownloadOutlined />
+                              Download Vite <CloudDownloadOutlined />
                             </button>
                           </a>
                         </ul>
@@ -303,7 +303,7 @@ const AuthenHeader = () => {
                             </ul>
                           </li>
                           <li>
-                            <small>Notion for</small>
+                            <small>Vite for</small>
                             <ul>
                               <a href="#">
                                 <li>Startups</li>
