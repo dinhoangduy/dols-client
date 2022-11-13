@@ -29,6 +29,7 @@ function App() {
             <Route path="sign-up" element={<Authenticate />} />
             <Route path="onboarding" element={<Authenticate />} />
             <Route index element={<Authenticate />} />
+            <Route path="pricing" element={<Authenticate />} />
           </Route>
 
           <Route path="*" element={<NotFound />} />
