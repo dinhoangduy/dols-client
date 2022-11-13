@@ -276,7 +276,7 @@ const Pricing = () => {
               <div className="cardWrap">
                 <div className="titleWrap">
                   <img
-                    src="https://www.Vite.so/front-static/pages/pricing/personal.png"
+                    src="https://www.notion.so/front-static/pages/pricing/personal.png"
                     alt=""
                   />
                   <h1 className="orange">Personal</h1>
@@ -307,7 +307,7 @@ const Pricing = () => {
                     </li>
                   </Tooltip>
                   <Tooltip
-                    title="Vite runs in your web browser with no installation required. Or download our app for Mac, Windows, iOS, or Android."
+                    title="Notion runs in your web browser with no installation required. Or download our app for Mac, Windows, iOS, or Android."
                     placement="right"
                   >
                     <li>
@@ -316,7 +316,7 @@ const Pricing = () => {
                     </li>
                   </Tooltip>
                   <Tooltip
-                    title="Access the Vite API to build custom integrations for your team."
+                    title="Access the Notion API to build custom integrations for your team."
                     placement="right"
                   >
                     <li>
@@ -334,7 +334,7 @@ const Pricing = () => {
               <div className="cardWrap">
                 <div className="titleWrap">
                   <img
-                    src="https://www.Vite.so/front-static/pages/pricing/personal.png"
+                    src="https://www.notion.so/front-static/pages/pricing/personal.png"
                     alt=""
                   />
                   <h1 className="blue">Personal</h1>
@@ -365,7 +365,7 @@ const Pricing = () => {
                     </li>
                   </Tooltip>
                   <Tooltip
-                    title="Vite runs in your web browser with no installation required. Or download our app for Mac, Windows, iOS, or Android."
+                    title="Notion runs in your web browser with no installation required. Or download our app for Mac, Windows, iOS, or Android."
                     placement="right"
                   >
                     <li>
@@ -374,7 +374,7 @@ const Pricing = () => {
                     </li>
                   </Tooltip>
                   <Tooltip
-                    title="Access the Vite API to build custom integrations for your team."
+                    title="Access the Notion API to build custom integrations for your team."
                     placement="right"
                   >
                     <li>
@@ -392,7 +392,7 @@ const Pricing = () => {
               <div className="cardWrap">
                 <div className="titleWrap">
                   <img
-                    src="https://www.Vite.so/front-static/pages/pricing/personal.png"
+                    src="https://www.notion.so/front-static/pages/pricing/personal.png"
                     alt=""
                   />
                   <h1 className="red">Personal</h1>
@@ -423,7 +423,7 @@ const Pricing = () => {
                     </li>
                   </Tooltip>
                   <Tooltip
-                    title="Vite runs in your web browser with no installation required. Or download our app for Mac, Windows, iOS, or Android."
+                    title="Notion runs in your web browser with no installation required. Or download our app for Mac, Windows, iOS, or Android."
                     placement="right"
                   >
                     <li>
@@ -432,7 +432,7 @@ const Pricing = () => {
                     </li>
                   </Tooltip>
                   <Tooltip
-                    title="Access the Vite API to build custom integrations for your team."
+                    title="Access the Notion API to build custom integrations for your team."
                     placement="right"
                   >
                     <li>
@@ -450,7 +450,7 @@ const Pricing = () => {
               <div className="cardWrap">
                 <div className="titleWrap">
                   <img
-                    src="https://www.Vite.so/front-static/pages/pricing/personal.png"
+                    src="https://www.notion.so/front-static/pages/pricing/personal.png"
                     alt=""
                   />
                   <h1 className="purple">Personal</h1>
@@ -481,7 +481,7 @@ const Pricing = () => {
                     </li>
                   </Tooltip>
                   <Tooltip
-                    title="Vite runs in your web browser with no installation required. Or download our app for Mac, Windows, iOS, or Android."
+                    title="Notion runs in your web browser with no installation required. Or download our app for Mac, Windows, iOS, or Android."
                     placement="right"
                   >
                     <li>
@@ -490,7 +490,7 @@ const Pricing = () => {
                     </li>
                   </Tooltip>
                   <Tooltip
-                    title="Access the Vite API to build custom integrations for your team."
+                    title="Access the Notion API to build custom integrations for your team."
                     placement="right"
                   >
                     <li>
@@ -588,7 +588,7 @@ const Pricing = () => {
               </Col>
               <Col flex="auto" className="secondaryImg">
                 <img
-                  src="https://www.Vite.so/cdn-cgi/image/format=auto,width=1920,quality=100/front-static/shared/illustrations/teamwork.png"
+                  src="https://www.notion.so/cdn-cgi/image/format=auto,width=1920,quality=100/front-static/shared/illustrations/teamwork.png"
                   alt=""
                 />
               </Col>
@@ -598,21 +598,21 @@ const Pricing = () => {
               <Col flex={1} className="secondaryTemplate">
                 <div className="imageAssociateWrapper">
                   <img
-                    src="https://www.Vite.so/front-static/shared/logos/color/match-v2.png"
+                    src="https://www.notion.so/front-static/shared/logos/color/match-v2.png"
                     alt=""
                   />
                 </div>
                 <div className="textWrapper">
                   <blockquote>
                     <p>
-                      Vite is a workspace that adapts to your needs. It’s as
+                      Notion is a workspace that adapts to your needs. It’s as
                       minimal or as powerful as you need it to be.
                     </p>
                   </blockquote>
                 </div>
                 <div className="commentorWrapper">
                   <img
-                    src="https://www.Vite.so/cdn-cgi/image/format=auto,width=1920,quality=100/front-static/shared/people/rahim-makani.png"
+                    src="https://www.notion.so/cdn-cgi/image/format=auto,width=1920,quality=100/front-static/shared/people/rahim-makani.png"
                     alt=""
                   />
                   <div className="text">
@@ -624,14 +624,14 @@ const Pricing = () => {
               <Col flex={1} className="secondaryTemplate">
                 <div className="imageAssociateWrapper">
                   <img
-                    src="https://www.Vite.so/front-static/shared/logos/color/loom.png"
+                    src="https://www.notion.so/front-static/shared/logos/color/loom.png"
                     alt=""
                   />
                 </div>
                 <div className="textWrapper">
                   <blockquote>
                     <p>
-                      Vite continues to be the easiest way to get information
+                      Notion continues to be the easiest way to get information
                       centralized somewhere and shout it out to someone else.
                       For us, that’s extremely important because half our team
                       is remote.
@@ -640,7 +640,7 @@ const Pricing = () => {
                 </div>
                 <div className="commentorWrapper">
                   <img
-                    src="https://www.Vite.so/cdn-cgi/image/format=auto,width=1920,quality=100/front-static/shared/people/vinay-hiremath.png"
+                    src="https://www.notion.so/cdn-cgi/image/format=auto,width=1920,quality=100/front-static/shared/people/vinay-hiremath.png"
                     alt=""
                   />
                   <div className="text">
@@ -652,21 +652,21 @@ const Pricing = () => {
               <Col flex={1} className="secondaryTemplate">
                 <div className="imageAssociateWrapper">
                   <img
-                    src="https://www.Vite.so/front-static/shared/logos/color/figma.png"
+                    src="https://www.notion.so/front-static/shared/logos/color/figma.png"
                     alt=""
                   />
                 </div>
                 <div className="textWrapper">
                   <blockquote>
                     <p>
-                      Vite’s ease of use is one of its hallmarks. It helps you
+                      Notion’s ease of use is one of its hallmarks. It helps you
                       visually navigate content and remember where something is.
                     </p>
                   </blockquote>
                 </div>
                 <div className="commentorWrapper">
                   <img
-                    src="https://www.Vite.so/cdn-cgi/image/format=auto,width=1920,quality=100/front-static/shared/people/marie-szuts.png"
+                    src="https://www.notion.so/cdn-cgi/image/format=auto,width=1920,quality=100/front-static/shared/people/marie-szuts.png"
                     alt=""
                   />
                   <div className="text">
@@ -706,14 +706,14 @@ const Pricing = () => {
                     key="2"
                   >
                     <p>
-                      We want to make it easy for you to take Vite for a spin
+                      We want to make it easy for you to take Notion for a spin
                       with multiple members before you start paying. Here's how
                       to do that:
                     </p>
                     <ul>
                       <li>
                         <p>
-                          Create a new Vite workspace, and select Team as the
+                          Create a new Notion workspace, and select Team as the
                           type when asked.
                         </p>
                       </li>
@@ -756,23 +756,23 @@ const Pricing = () => {
           <Row className="tertiarySection">
             <div className="imgWrapper">
               <img
-                src="https://www.Vite.so/cdn-cgi/image/format=auto,width=256,quality=100/front-static/shared/icons/Vite-app-icon-3d.png"
+                src="https://www.notion.so/cdn-cgi/image/format=auto,width=256,quality=100/front-static/shared/icons/notion-app-icon-3d.png"
                 alt=""
               />
             </div>
             <div className="textWrapper">
-              <h1>Try Vite today</h1>
+              <h1>Try Notion today</h1>
               <p>
                 Get started for free. Add your whole team as your needs grow.
               </p>
-              <button className="btn">Try Vite Free</button>
+              <button className="btn">Try Notion Free</button>
               <p>
                 On a big team? <u>Contact sales</u>
               </p>
             </div>
             <div className="backgroundImg">
               <img
-                src="https://www.Vite.so/cdn-cgi/image/format=auto,width=384,quality=100/front-static/pages/product/sitting-character.png"
+                src="https://www.notion.so/cdn-cgi/image/format=auto,width=384,quality=100/front-static/pages/product/sitting-character.png"
                 alt=""
               />
             </div>
