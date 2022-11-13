@@ -86,7 +86,7 @@ const Home = () => {
               </Col>
               <Col flex="auto" className="imgIntro">
                 <img
-                  src="https://www.notion.so/cdn-cgi/image/format=auto,width=640,quality=100/front-static/pages/product/home-page-hero-refreshed-v3.png"
+                  src="https://www.Vite.so/cdn-cgi/image/format=auto,width=640,quality=100/front-static/pages/product/home-page-hero-refreshed-v3.png"
                   alt=""
                 />
               </Col>
@@ -95,14 +95,14 @@ const Home = () => {
             <Row className="primarySection">
               <Col flex="auto" className="primaryImage">
                 <img
-                  src="https://project-management.com/wp-content/uploads/2021/02/notion-pros-cons-screenshot-2022-1.png"
+                  src="https://project-management.com/wp-content/uploads/2021/02/Vite-pros-cons-screenshot-2022-1.png"
                   alt=""
                 />
               </Col>
               <Col flex="750px">
                 <div className="primaryText">
                   <img
-                    src="https://www.notion.so/cdn-cgi/image/format=auto,width=128,quality=100/front-static/pages/product/spot/spot-team-up.png"
+                    src="https://www.Vite.so/cdn-cgi/image/format=auto,width=128,quality=100/front-static/pages/product/spot/spot-team-up.png"
                     alt=""
                   />
                   <h1>Team up without the chaos</h1>
@@ -117,14 +117,14 @@ const Home = () => {
             <Row className="primarySection">
               <Col flex="auto" className="primaryImage">
                 <img
-                  src="https://clickup.com/blog/wp-content/uploads/2022/06/notion.png"
+                  src="https://clickup.com/blog/wp-content/uploads/2022/06/Vite.png"
                   alt=""
                 />
               </Col>
               <Col flex="750px">
                 <div className="primaryText">
                   <img
-                    src="https://www.notion.so/cdn-cgi/image/format=auto,width=96,quality=100/front-static/pages/product/spot/spot-context.png"
+                    src="https://www.Vite.so/cdn-cgi/image/format=auto,width=96,quality=100/front-static/pages/product/spot/spot-context.png"
                     alt=""
                   />
                   <h1>Never ask “What’s the context?” again</h1>
@@ -147,7 +147,7 @@ const Home = () => {
               <Col flex="750px">
                 <div className="primaryText">
                   <img
-                    src="https://www.notion.so/cdn-cgi/image/format=auto,width=384,quality=100/front-static/pages/product/spot/spot-workflow.png"
+                    src="https://www.Vite.so/cdn-cgi/image/format=auto,width=384,quality=100/front-static/pages/product/spot/spot-workflow.png"
                     alt=""
                   />
                   <h1>Build the workflow you want</h1>
@@ -163,14 +163,14 @@ const Home = () => {
             <Row className="primarySection">
               <Col flex="auto" className="primaryImage">
                 <img
-                  src="https://media.glassdoor.com/template/l/3304926/notion-labs-template-1639769045149.jpg"
+                  src="https://media.glassdoor.com/template/l/3304926/Vite-labs-template-1639769045149.jpg"
                   alt=""
                 />
               </Col>
               <Col flex="750px">
                 <div className="primaryText">
                   <img
-                    src="https://www.notion.so/cdn-cgi/image/format=auto,width=64,quality=100/front-static/pages/product/spot/spot-ecosystem.png"
+                    src="https://www.Vite.so/cdn-cgi/image/format=auto,width=64,quality=100/front-static/pages/product/spot/spot-ecosystem.png"
                     alt=""
                   />
                   <h1>Benefit from a global ecosystem of creators</h1>
