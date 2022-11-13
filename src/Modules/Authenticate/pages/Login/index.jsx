@@ -62,9 +62,11 @@ const Login = () => {
   return (
     <div className="auth">
       {loading && <Loading />}
-      <div className="auth__logo">
-        <img src={logo} alt="dols.logo" />
-      </div>
+      <Link to="/">
+        <div className="auth__logo">
+          <img src={logo} alt="dols.logo" />
+        </div>
+      </Link>
 
       <main>
         <Row justify="center" align="center">

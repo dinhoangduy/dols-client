@@ -1,14 +1,17 @@
-import React from "react";
-import vite from "./vite.svg";
-import "./style.scss";
+import React from 'react';
+import './style.scss';
+
+import logo from '../../../assets/images/logo.png';
 
 // AntD
-import { Col, Row, Dropdown, Menu, Collapse } from "antd";
+import { Col, Row, Dropdown, Menu, Collapse } from 'antd';
 import {
   DownOutlined,
   CloudDownloadOutlined,
   MenuOutlined,
-} from "@ant-design/icons";
+} from '@ant-design/icons';
+
+import { Link } from 'react-router-dom';
 
 const { Panel } = Collapse;
 
@@ -16,29 +19,29 @@ const AuthenHeader = () => {
   const products = (
     <Menu>
       <Menu.Item>
-        <a href="##" style={{ color: "black" }}>
-          <p style={{ margin: 0, fontSize: "1rem", fontWeight: "500" }}>Home</p>
-          <small style={{ fontSize: "0.8rem", color: "gray" }}>
+        <a href="##" style={{ color: 'black' }}>
+          <p style={{ margin: 0, fontSize: '1rem', fontWeight: '500' }}>Home</p>
+          <small style={{ fontSize: '0.8rem', color: 'gray' }}>
             Docs, projects, & wikis
           </small>
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a href="##" style={{ color: "black" }}>
-          <p style={{ margin: 0, fontSize: "1rem", fontWeight: "500" }}>
+        <a href="##" style={{ color: 'black' }}>
+          <p style={{ margin: 0, fontSize: '1rem', fontWeight: '500' }}>
             Template gallery
           </p>
-          <small style={{ fontSize: "0.8rem", color: "gray" }}>
+          <small style={{ fontSize: '0.8rem', color: 'gray' }}>
             Setups to get you started
           </small>
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a href="##" style={{ color: "black" }}>
-          <p style={{ margin: 0, fontSize: "1rem", fontWeight: "500" }}>
+        <a href="##" style={{ color: 'black' }}>
+          <p style={{ margin: 0, fontSize: '1rem', fontWeight: '500' }}>
             Customer Stories
           </p>
-          <small style={{ fontSize: "0.8rem", color: "gray" }}>
+          <small style={{ fontSize: '0.8rem', color: 'gray' }}>
             See how teams use Dols
           </small>
         </a>
@@ -46,21 +49,21 @@ const AuthenHeader = () => {
       <Menu.Item>
         <a
           href="##"
-          style={{ color: "black", display: "flex", flexDirection: "column" }}
+          style={{ color: 'black', display: 'flex', flexDirection: 'column' }}
         >
           <button
             style={{
-              border: "1px solid rgba(0, 0, 0, 0.1)",
-              fontWeight: "500",
-              fontSize: "1rem",
-              borderRadius: "5px",
-              textAlign: "center",
+              border: '1px solid rgba(0, 0, 0, 0.1)',
+              fontWeight: '500',
+              fontSize: '1rem',
+              borderRadius: '5px',
+              textAlign: 'center',
             }}
           >
             <CloudDownloadOutlined /> Download Dols
           </button>
           <small
-            style={{ fontSize: "0.8rem", color: "gray", textAlign: "center" }}
+            style={{ fontSize: '0.8rem', color: 'gray', textAlign: 'center' }}
           >
             Mac, Windows, iOS & Android
           </small>
@@ -71,22 +74,22 @@ const AuthenHeader = () => {
   const downloads = (
     <Menu>
       <Menu.Item>
-        <a href="##" style={{ color: "black" }}>
-          <p style={{ margin: 0, fontSize: "1rem", fontWeight: "500" }}>
+        <a href="##" style={{ color: 'black' }}>
+          <p style={{ margin: 0, fontSize: '1rem', fontWeight: '500' }}>
             iOS & Android
           </p>
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a href="##" style={{ color: "black" }}>
-          <p style={{ margin: 0, fontSize: "1rem", fontWeight: "500" }}>
+        <a href="##" style={{ color: 'black' }}>
+          <p style={{ margin: 0, fontSize: '1rem', fontWeight: '500' }}>
             Mac & Windows
           </p>
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a href="##" style={{ color: "black" }}>
-          <p style={{ margin: 0, fontSize: "1rem", fontWeight: "500" }}>
+        <a href="##" style={{ color: 'black' }}>
+          <p style={{ margin: 0, fontSize: '1rem', fontWeight: '500' }}>
             Web Clipper
           </p>
         </a>
@@ -96,41 +99,41 @@ const AuthenHeader = () => {
   const resources = (
     <Menu>
       <Menu.Item>
-        <a href="##" style={{ color: "black" }}>
-          <p style={{ margin: 0, fontSize: "1rem", fontWeight: "500" }}>Blog</p>
+        <a href="##" style={{ color: 'black' }}>
+          <p style={{ margin: 0, fontSize: '1rem', fontWeight: '500' }}>Blog</p>
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a href="##" style={{ color: "black" }}>
-          <p style={{ margin: 0, fontSize: "1rem", fontWeight: "500" }}>
+        <a href="##" style={{ color: 'black' }}>
+          <p style={{ margin: 0, fontSize: '1rem', fontWeight: '500' }}>
             Guides & turtorials
           </p>
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a href="##" style={{ color: "black" }}>
-          <p style={{ margin: 0, fontSize: "1rem", fontWeight: "500" }}>
+        <a href="##" style={{ color: 'black' }}>
+          <p style={{ margin: 0, fontSize: '1rem', fontWeight: '500' }}>
             Webinars
           </p>
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a href="##" style={{ color: "black" }}>
-          <p style={{ margin: 0, fontSize: "1rem", fontWeight: "500" }}>
+        <a href="##" style={{ color: 'black' }}>
+          <p style={{ margin: 0, fontSize: '1rem', fontWeight: '500' }}>
             Help center
           </p>
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a href="##" style={{ color: "black" }}>
-          <p style={{ margin: 0, fontSize: "1rem", fontWeight: "500" }}>
+        <a href="##" style={{ color: 'black' }}>
+          <p style={{ margin: 0, fontSize: '1rem', fontWeight: '500' }}>
             API docs
           </p>
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a href="##" style={{ color: "black" }}>
-          <p style={{ margin: 0, fontSize: "1rem", fontWeight: "500" }}>
+        <a href="##" style={{ color: 'black' }}>
+          <p style={{ margin: 0, fontSize: '1rem', fontWeight: '500' }}>
             Community
           </p>
         </a>
@@ -144,19 +147,18 @@ const AuthenHeader = () => {
         <Row>
           <Col flex={3}>
             <ul>
-              <a href="./">
+              <a href="/">
                 <li>
                   <p>
-                    <img src={vite} alt="" />
-                    Vite
+                    <img src={logo} alt="" />
                   </p>
                 </li>
               </a>
               <li className="authenResponsive">
                 <Dropdown
                   overlay={products}
-                  trigger={["click"]}
-                  overlayStyle={{ width: "250px", paddingTop: "16px" }}
+                  trigger={['click']}
+                  overlayStyle={{ width: '250px', paddingTop: '16px' }}
                 >
                   <p>
                     Product <DownOutlined />
@@ -166,8 +168,8 @@ const AuthenHeader = () => {
               <li className="authenResponsive">
                 <Dropdown
                   overlay={downloads}
-                  trigger={["click"]}
-                  overlayStyle={{ width: "250px", paddingTop: "16px" }}
+                  trigger={['click']}
+                  overlayStyle={{ width: '250px', paddingTop: '16px' }}
                 >
                   <p>
                     Download <DownOutlined />
@@ -182,8 +184,8 @@ const AuthenHeader = () => {
               <li className="authenResponsive">
                 <Dropdown
                   overlay={resources}
-                  trigger={["click"]}
-                  overlayStyle={{ width: "250px", paddingTop: "16px" }}
+                  trigger={['click']}
+                  overlayStyle={{ width: '250px', paddingTop: '16px' }}
                 >
                   <p>
                     Resource <DownOutlined />
@@ -205,13 +207,15 @@ const AuthenHeader = () => {
                 </li>
               </a>
               <div className="vr"></div>
-              <a href="#">
-                <li>
-                  <p>Log in</p>
-                </li>
-              </a>
               <li>
-                <button className="btn">Get Dols Free</button>
+                <Link to="login">
+                  <p>Log in</p>
+                </Link>
+              </li>
+              <li>
+                <Link to="sign-up">
+                  <button className="btn">Get Dols Free</button>
+                </Link>
               </li>
             </ul>
           </Col>
@@ -221,11 +225,10 @@ const AuthenHeader = () => {
         <Row>
           <Col>
             <ul>
-              <a href="./">
+              <a href="/">
                 <li>
                   <p>
-                    <img src={vite} alt="" />
-                    Vite
+                    <img src={logo} alt="" />
                   </p>
                 </li>
               </a>
