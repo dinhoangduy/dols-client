@@ -135,7 +135,7 @@ const AuthenHeader = () => {
   return (
     <div className="authenHeader">
       <Row>
-        <Col flex="auto">
+        <Col flex={3}>
           <ul>
             <a href="./">
               <li>
@@ -190,7 +190,7 @@ const AuthenHeader = () => {
             </a>
           </ul>
         </Col>
-        <Col>
+        <Col flex="auto">
           <ul>
             <a href="#">
               <li>

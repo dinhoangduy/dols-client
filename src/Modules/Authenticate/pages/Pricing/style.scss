@@ -1,4 +1,5 @@
 .pricingPage {
+  margin-top: 7.5%;
   width: 100%;
   // Ant CSS
   .ant-layout-content {
@@ -171,8 +172,12 @@
     .tableWrap {
       display: flex;
       flex-direction: column;
-      gap: 50px;
+      gap: 75px;
+      margin-bottom: 5%;
 
+      .ant-table-cell {
+        max-width: 9rem;
+      }
       .headerText {
         font-size: 1.1rem;
         font-weight: 500;
