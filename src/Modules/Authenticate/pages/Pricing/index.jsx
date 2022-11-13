@@ -3,15 +3,17 @@ import { useState, useEffect, useRef } from "react";
 import "./style.scss";
 
 // AntD
-import { Layout, Col, Row, Tooltip, Space, Table, Tag } from "antd";
+import { Layout, Col, Row, Tooltip, Table, Collapse } from "antd";
 import {
   CheckOutlined,
   QuestionCircleOutlined,
   WechatOutlined,
+  ArrowRightOutlined,
 } from "@ant-design/icons";
 //
 
 const { Header, Content, Footer } = Layout;
+const { Panel } = Collapse;
 
 const Pricing = () => {
   // Table content
@@ -570,6 +572,210 @@ const Pricing = () => {
                 </Col>
               </Row>
             </Col>
+          </Row>
+
+          <hr />
+
+          <div className="secondarySection">
+            <Row className="firstRow">
+              <Col flex="auto">
+                <div className="secondaryText">
+                  <h1>Used by the world’s most innovative teams</h1>
+                  <button className="btn viewAll">
+                    Read all customer stories <ArrowRightOutlined />
+                  </button>
+                </div>
+              </Col>
+              <Col flex="auto" className="secondaryImg">
+                <img
+                  src="https://www.notion.so/cdn-cgi/image/format=auto,width=1920,quality=100/front-static/shared/illustrations/teamwork.png"
+                  alt=""
+                />
+              </Col>
+            </Row>
+
+            <Row className="secondRow">
+              <Col flex={1} className="secondaryTemplate">
+                <div className="imageAssociateWrapper">
+                  <img
+                    src="https://www.notion.so/front-static/shared/logos/color/match-v2.png"
+                    alt=""
+                  />
+                </div>
+                <div className="textWrapper">
+                  <blockquote>
+                    <p>
+                      Notion is a workspace that adapts to your needs. It’s as
+                      minimal or as powerful as you need it to be.
+                    </p>
+                  </blockquote>
+                </div>
+                <div className="commentorWrapper">
+                  <img
+                    src="https://www.notion.so/cdn-cgi/image/format=auto,width=1920,quality=100/front-static/shared/people/rahim-makani.png"
+                    alt=""
+                  />
+                  <div className="text">
+                    <p>Rahim Makani</p>
+                    <small>Director of Product</small>
+                  </div>
+                </div>
+              </Col>
+              <Col flex={1} className="secondaryTemplate">
+                <div className="imageAssociateWrapper">
+                  <img
+                    src="https://www.notion.so/front-static/shared/logos/color/loom.png"
+                    alt=""
+                  />
+                </div>
+                <div className="textWrapper">
+                  <blockquote>
+                    <p>
+                      Notion continues to be the easiest way to get information
+                      centralized somewhere and shout it out to someone else.
+                      For us, that’s extremely important because half our team
+                      is remote.
+                    </p>
+                  </blockquote>
+                </div>
+                <div className="commentorWrapper">
+                  <img
+                    src="https://www.notion.so/cdn-cgi/image/format=auto,width=1920,quality=100/front-static/shared/people/vinay-hiremath.png"
+                    alt=""
+                  />
+                  <div className="text">
+                    <p>Vinay Hiremath</p>
+                    <small>Co-founder and Head of Engineering</small>
+                  </div>
+                </div>
+              </Col>
+              <Col flex={1} className="secondaryTemplate">
+                <div className="imageAssociateWrapper">
+                  <img
+                    src="https://www.notion.so/front-static/shared/logos/color/figma.png"
+                    alt=""
+                  />
+                </div>
+                <div className="textWrapper">
+                  <blockquote>
+                    <p>
+                      Notion’s ease of use is one of its hallmarks. It helps you
+                      visually navigate content and remember where something is.
+                    </p>
+                  </blockquote>
+                </div>
+                <div className="commentorWrapper">
+                  <img
+                    src="https://www.notion.so/cdn-cgi/image/format=auto,width=1920,quality=100/front-static/shared/people/marie-szuts.png"
+                    alt=""
+                  />
+                  <div className="text">
+                    <p>Marie Szuts</p>
+                    <small>Head of People Ops</small>
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </div>
+
+          <hr />
+
+          <Row className="questionSection">
+            <Col flex="auto">
+              <div className="titleWrap">
+                <h1>Questions & answers</h1>
+                <p>
+                  Can’t find the answer here? <a href="#">Contact support</a>
+                </p>
+              </div>
+              <div className="collapseWrap">
+                <Collapse bordered={false}>
+                  <Panel
+                    header="What happens when I go over the guest limit on my Personal Plan"
+                    key="1"
+                  >
+                    <p>
+                      Upgrade to the Personal Pro Plan for unlimited guests, or
+                      the Team Plan if you collaborate with the same group of
+                      people automatically. You can also review and remove
+                      inactive guests in Settings & Members.
+                    </p>
+                  </Panel>
+                  <Panel
+                    header="How can my team try out Dols for free?"
+                    key="2"
+                  >
+                    <p>
+                      We want to make it easy for you to take Notion for a spin
+                      with multiple members before you start paying. Here's how
+                      to do that:
+                    </p>
+                    <ul>
+                      <li>
+                        <p>
+                          Create a new Notion workspace, and select Team as the
+                          type when asked.
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          You'll be enrolled in a Team Plan free trial that
+                          gives you access to Team Plan features with trial
+                          limits on block content, guests and version history.
+                          When you hit those limits, you can upgrade.
+                        </p>
+                      </li>
+                    </ul>
+                  </Panel>
+                  <Panel
+                    header="What happens when I go over the block storage limit on my Team Trial"
+                    key="3"
+                  >
+                    <p>
+                      You can still read, edit, and organize existing content
+                      blocks as usual, but you won’t be able to add new content
+                      blocks.
+                      <br />
+                      However, you can delete existing content blocks to free up
+                      your storage.
+                    </p>
+                  </Panel>
+                </Collapse>
+                <div className="smallText">
+                  <small>Still have more questions?</small>
+                  <small>
+                    Learn more in our <a href="#">help center</a>.
+                  </small>
+                </div>
+              </div>
+            </Col>
+          </Row>
+
+          <hr />
+
+          <Row className="tertiarySection">
+            <div className="imgWrapper">
+              <img
+                src="https://www.notion.so/cdn-cgi/image/format=auto,width=256,quality=100/front-static/shared/icons/notion-app-icon-3d.png"
+                alt=""
+              />
+            </div>
+            <div className="textWrapper">
+              <h1>Try Notion today</h1>
+              <p>
+                Get started for free. Add your whole team as your needs grow.
+              </p>
+              <button className="btn">Try Notion Free</button>
+              <p>
+                On a big team? <u>Contact sales</u>
+              </p>
+            </div>
+            <div className="backgroundImg">
+              <img
+                src="https://www.notion.so/cdn-cgi/image/format=auto,width=384,quality=100/front-static/pages/product/sitting-character.png"
+                alt=""
+              />
+            </div>
           </Row>
 
           <hr />
