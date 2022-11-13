@@ -50,7 +50,7 @@ const Home = () => {
                     Every team.
                   </h1>
                   <p>
-                    We’re more than a doc. Or a table. Customize Notion to work
+                    We’re more than a doc. Or a table. Customize DOLS to work
                     the way you do.
                   </p>
                 </div>

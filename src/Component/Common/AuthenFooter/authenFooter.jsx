@@ -19,7 +19,7 @@ const AuthenFooter = () => {
         <Col flex={1}>
           <p>
             <img src={vite} alt="" />
-            Vite
+            DOLS
           </p>
         </Col>
         <Col flex={1}>
