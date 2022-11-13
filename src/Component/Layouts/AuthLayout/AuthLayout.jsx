@@ -4,7 +4,7 @@ import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import authUtil from "../../../utils/authUtils";
 
 import Loading from "../../Common/Loading";
-import AuthenHeader from "../../Common/AuthenHeader/AuthenHeader";
+import AuthenHeader from "../../Common/AuthenHeader";
 import AuthenFooter from "../../Common/AuthenFooter/authenFooter"
 
 import "./styles.scss";
