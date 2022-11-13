@@ -31,10 +31,8 @@ const AuthLayout = () => {
   return (
     <div className="container">
       <div className="auth-layout">
-        <AuthenHeader />
         {/* {isLoading ? <Loading></Loading> : <Outlet />} */}
         <Outlet />
-        <AuthenFooter />
       </div>
     </div>
   );
