@@ -2,6 +2,14 @@
     .footerSection {
       align-items: unset;
   
+      .logo{
+        img{
+          width: 10 0px;
+          height:auto;
+          object-fit: cover;
+        }
+      }
+
       p {
         padding: 0;
         margin-bottom: 5px;

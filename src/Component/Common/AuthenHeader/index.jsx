@@ -1,17 +1,17 @@
-import React from 'react';
-import './style.scss';
+import React from "react";
+import "./style.scss";
 
-import logo from '../../../assets/images/logo.png';
+import logo from "../../../assets/images/logo.png";
 
 // AntD
-import { Col, Row, Dropdown, Menu, Collapse } from 'antd';
+import { Col, Row, Dropdown, Menu, Collapse } from "antd";
 import {
   DownOutlined,
   CloudDownloadOutlined,
   MenuOutlined,
-} from '@ant-design/icons';
+} from "@ant-design/icons";
 
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const { Panel } = Collapse;
 
@@ -19,51 +19,51 @@ const AuthenHeader = () => {
   const products = (
     <Menu>
       <Menu.Item>
-        <a href="##" style={{ color: 'black' }}>
-          <p style={{ margin: 0, fontSize: '1rem', fontWeight: '500' }}>Home</p>
-          <small style={{ fontSize: '0.8rem', color: 'gray' }}>
-            Docs, projects, & wikis
+        <a href="##" style={{ color: "black" }}>
+          <p style={{ margin: 0, fontSize: "1rem", fontWeight: "500" }}>Trang chủ</p>
+          <small style={{ fontSize: "0.8rem", color: "gray" }}>
+            Tài liệu, dự án và từ điển
           </small>
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a href="##" style={{ color: 'black' }}>
-          <p style={{ margin: 0, fontSize: '1rem', fontWeight: '500' }}>
-            Template gallery
+        <a href="##" style={{ color: "black" }}>
+          <p style={{ margin: 0, fontSize: "1rem", fontWeight: "500" }}>
+            Thư viện mẫu
           </p>
-          <small style={{ fontSize: '0.8rem', color: 'gray' }}>
-            Setups to get you started
+          <small style={{ fontSize: "0.8rem", color: "gray" }}>
+            Thiệt lập để bắt đầu ngay
           </small>
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a href="##" style={{ color: 'black' }}>
-          <p style={{ margin: 0, fontSize: '1rem', fontWeight: '500' }}>
-            Customer Stories
+        <a href="##" style={{ color: "black" }}>
+          <p style={{ margin: 0, fontSize: "1rem", fontWeight: "500" }}>
+            Mẩu truyện của khách hàng
           </p>
-          <small style={{ fontSize: '0.8rem', color: 'gray' }}>
-            See how teams use Dols
+          <small style={{ fontSize: "0.8rem", color: "gray" }}>
+            Xem cách các nhóm sử dụng DOLS
           </small>
         </a>
       </Menu.Item>
       <Menu.Item>
         <a
           href="##"
-          style={{ color: 'black', display: 'flex', flexDirection: 'column' }}
+          style={{ color: "black", display: "flex", flexDirection: "column" }}
         >
           <button
             style={{
-              border: '1px solid rgba(0, 0, 0, 0.1)',
-              fontWeight: '500',
-              fontSize: '1rem',
-              borderRadius: '5px',
-              textAlign: 'center',
+              border: "1px solid rgba(0, 0, 0, 0.1)",
+              fontWeight: "500",
+              fontSize: "1rem",
+              borderRadius: "5px",
+              textAlign: "center",
             }}
           >
-            <CloudDownloadOutlined /> Download Dols
+            <CloudDownloadOutlined /> Tải DOLS
           </button>
           <small
-            style={{ fontSize: '0.8rem', color: 'gray', textAlign: 'center' }}
+            style={{ fontSize: "0.8rem", color: "gray", textAlign: "center" }}
           >
             Mac, Windows, iOS & Android
           </small>
@@ -74,23 +74,23 @@ const AuthenHeader = () => {
   const downloads = (
     <Menu>
       <Menu.Item>
-        <a href="##" style={{ color: 'black' }}>
-          <p style={{ margin: 0, fontSize: '1rem', fontWeight: '500' }}>
+        <a href="##" style={{ color: "black" }}>
+          <p style={{ margin: 0, fontSize: "1rem", fontWeight: "500" }}>
             iOS & Android
           </p>
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a href="##" style={{ color: 'black' }}>
-          <p style={{ margin: 0, fontSize: '1rem', fontWeight: '500' }}>
+        <a href="##" style={{ color: "black" }}>
+          <p style={{ margin: 0, fontSize: "1rem", fontWeight: "500" }}>
             Mac & Windows
           </p>
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a href="##" style={{ color: 'black' }}>
-          <p style={{ margin: 0, fontSize: '1rem', fontWeight: '500' }}>
-            Web Clipper
+        <a href="##" style={{ color: "black" }}>
+          <p style={{ margin: 0, fontSize: "1rem", fontWeight: "500" }}>
+            Ghim trang web
           </p>
         </a>
       </Menu.Item>
@@ -99,42 +99,42 @@ const AuthenHeader = () => {
   const resources = (
     <Menu>
       <Menu.Item>
-        <a href="##" style={{ color: 'black' }}>
-          <p style={{ margin: 0, fontSize: '1rem', fontWeight: '500' }}>Blog</p>
+        <a href="##" style={{ color: "black" }}>
+          <p style={{ margin: 0, fontSize: "1rem", fontWeight: "500" }}>Blog</p>
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a href="##" style={{ color: 'black' }}>
-          <p style={{ margin: 0, fontSize: '1rem', fontWeight: '500' }}>
-            Guides & turtorials
+        <a href="##" style={{ color: "black" }}>
+          <p style={{ margin: 0, fontSize: "1rem", fontWeight: "500" }}>
+            Hướng dẫn
           </p>
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a href="##" style={{ color: 'black' }}>
-          <p style={{ margin: 0, fontSize: '1rem', fontWeight: '500' }}>
-            Webinars
+        <a href="##" style={{ color: "black" }}>
+          <p style={{ margin: 0, fontSize: "1rem", fontWeight: "500" }}>
+            Hội thảo
           </p>
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a href="##" style={{ color: 'black' }}>
-          <p style={{ margin: 0, fontSize: '1rem', fontWeight: '500' }}>
-            Help center
+        <a href="##" style={{ color: "black" }}>
+          <p style={{ margin: 0, fontSize: "1rem", fontWeight: "500" }}>
+            Hỗ trợ
           </p>
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a href="##" style={{ color: 'black' }}>
-          <p style={{ margin: 0, fontSize: '1rem', fontWeight: '500' }}>
-            API docs
+        <a href="##" style={{ color: "black" }}>
+          <p style={{ margin: 0, fontSize: "1rem", fontWeight: "500" }}>
+            Tài liệu API
           </p>
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a href="##" style={{ color: 'black' }}>
-          <p style={{ margin: 0, fontSize: '1rem', fontWeight: '500' }}>
-            Community
+        <a href="##" style={{ color: "black" }}>
+          <p style={{ margin: 0, fontSize: "1rem", fontWeight: "500" }}>
+            Cộng động
           </p>
         </a>
       </Menu.Item>
@@ -147,29 +147,29 @@ const AuthenHeader = () => {
         <Row>
           <Col flex={3}>
             <ul>
-              <a href="/">
-                <li>
-                  <p>
+              <li>
+                <p>
+                  <Link to="/">
                     <img src={logo} alt="" />
-                  </p>
-                </li>
-              </a>
+                  </Link>
+                </p>
+              </li>
               <li className="authenResponsive">
                 <Dropdown
                   overlay={products}
-                  trigger={['click']}
-                  overlayStyle={{ width: '250px', paddingTop: '16px' }}
+                  trigger={["click"]}
+                  overlayStyle={{ width: "250px", paddingTop: "16px" }}
                 >
                   <p>
-                    Product <DownOutlined />
+                    Sản phẩm <DownOutlined />
                   </p>
                 </Dropdown>
               </li>
               <li className="authenResponsive">
                 <Dropdown
                   overlay={downloads}
-                  trigger={['click']}
-                  overlayStyle={{ width: '250px', paddingTop: '16px' }}
+                  trigger={["click"]}
+                  overlayStyle={{ width: "250px", paddingTop: "16px" }}
                 >
                   <p>
                     Download <DownOutlined />
@@ -178,23 +178,25 @@ const AuthenHeader = () => {
               </li>
               <li className="authenResponsive">
                 <p>
-                  Solution <DownOutlined />
+                  Giải pháp <DownOutlined />
                 </p>
               </li>
               <li className="authenResponsive">
                 <Dropdown
                   overlay={resources}
-                  trigger={['click']}
-                  overlayStyle={{ width: '250px', paddingTop: '16px' }}
+                  trigger={["click"]}
+                  overlayStyle={{ width: "250px", paddingTop: "16px" }}
                 >
                   <p>
-                    Resource <DownOutlined />
+                    Tài nguyên <DownOutlined />
                   </p>
                 </Dropdown>
               </li>
               <a href="./pricing" className="authenResponsive">
                 <li>
-                  <p>Pricing</p>
+                  <Link to="pricing">
+                    <p>Giá cả</p>
+                  </Link>
                 </li>
               </a>
             </ul>
@@ -203,18 +205,18 @@ const AuthenHeader = () => {
             <ul>
               <a href="#">
                 <li>
-                  <p>Contact sales</p>
+                  <p>Liên hệ bán hàng</p>
                 </li>
               </a>
               <div className="vr"></div>
               <li>
                 <Link to="login">
-                  <p>Log in</p>
+                  <p>Đăng nhập</p>
                 </Link>
               </li>
               <li>
                 <Link to="sign-up">
-                  <button className="btn">Get Dols Free</button>
+                  <button className="btn">Sử dụng DOLS miễn phí</button>
                 </Link>
               </li>
             </ul>
@@ -248,77 +250,77 @@ const AuthenHeader = () => {
                     showArrow={false}
                   >
                     <Collapse bordered={false}>
-                      <Panel header="Product" key="1" showArrow={false}>
+                      <Panel header="Sản phẩm" key="1" showArrow={false}>
                         <ul className="firstType">
                           <a href="#">
-                            <li>Overview</li>
+                            <li>Tổng quát</li>
                           </a>
                           <a href="#">
-                            <li>Template gallery</li>
+                            <li>Thư viện mẫu</li>
                           </a>
                           <a href="#">
-                            <li>Customer stories</li>
+                            <li>Mẩu truyện của khách hàng</li>
                           </a>
                           <a href="#">
-                            <li>Connections</li>
+                            <li>Các kết nối</li>
                           </a>
-                          <a href="">
+                          <a href="#">
                             <button className="btn">
-                              Download DOLS <CloudDownloadOutlined />
+                              Tải DOLS <CloudDownloadOutlined />
                             </button>
                           </a>
                         </ul>
                       </Panel>
-                      <Panel header="Solution" key="2" showArrow={false}>
+                      <Panel header="Giải pháp" key="2" showArrow={false}>
                         <ul className="secondType">
                           <li>
-                            <small>By team Size</small>
+                            <small>Theo độ lớn nhóm</small>
                             <ul>
                               <a href="#">
-                                <li>Overview</li>
+                                <li>Tông quát</li>
                               </a>
                               <a href="#">
-                                <li>Template gallery</li>
+                                <li>Thư viện mẫu</li>
                               </a>
                               <a href="#">
-                                <li>Customer stories</li>
+                                <li>Mẩu truyện của khách hàng</li>
                               </a>
                               <a href="#">
-                                <li>Connections</li>
+                                <li>Các kết nối</li>
                               </a>
                             </ul>
                           </li>
                           <li>
-                            <small>By team function</small>
+                            <small>Dựa vào cách hoạt động nhóm</small>
                             <ul>
                               <a href="#">
-                                <li>Design</li>
+                                <li>Thiết kế</li>
                               </a>
                               <a href="#">
-                                <li>Engineering</li>
+                                <li>Kỹ thuật</li>
                               </a>
                               <a href="#">
-                                <li>Product</li>
+                                <li>Sản phẩm</li>
                               </a>
                               <a href="#">
-                                <li>Managers</li>
+                                <li>Quản lý</li>
                               </a>
                             </ul>
                           </li>
                           <li>
-                            <small>Notion for</small>
+                            <small>DOLS dành cho</small>
                             <ul>
                               <a href="#">
-                                <li>Startups</li>
+                                <li>Khởi nghiệp</li>
                               </a>
                               <a href="#">
-                                <li>Remote work</li>
+                                <li>Làm tại nhà</li>
                               </a>
                               <a href="#">
-                                <li>Education</li>
+                                <li>Học tập</li>
                               </a>
                               <a href="#">
-                                <li>Nonprofits</li>
+                                <li>Phi lợi nhuận</li>
                               </a>
                             </ul>
                           </li>
@@ -333,17 +335,17 @@ const AuthenHeader = () => {
                             <li>Mac & Windows</li>
                           </a>
                           <a href="#">
-                            <li>Web Clipper</li>
+                            <li>Ghim trang web</li>
                           </a>
                         </ul>
                       </Panel>
                       <Panel
-                        header={<a href="./pricing">Pricing</a>}
+                        header={<Link to="pricing">Giá cả</Link>}
                         key="5"
                         showArrow={false}
                       ></Panel>
                       <Panel
-                        header={<a href="#">Contact sales</a>}
+                        header={<a href="#">Liên hệ bán hàng</a>}
                         key="6"
                         showArrow={false}
                       ></Panel>

@@ -1,13 +1,13 @@
-import React from 'react';
-import { useState, useEffect, useRef } from 'react';
-import './style.scss';
-import vite from './vite.svg';
+import React from "react";
+import { useState, useEffect, useRef } from "react";
+import "./style.scss";
+import vite from "./vite.svg";
 
 // AntD
-import { Layout, Menu, Col, Row, Space, Typography, Carousel } from 'antd';
-import { ArrowRightOutlined } from '@ant-design/icons';
-import AuthenHeader from '../../../../Component/Common/AuthenHeader';
-import AuthenFooter from '../../../../Component/Common/AuthenFooter/authenFooter';
+import { Layout, Menu, Col, Row, Space, Typography, Carousel } from "antd";
+import { ArrowRightOutlined } from "@ant-design/icons";
+import AuthenHeader from "../../../../Component/Common/AuthenHeader";
+import AuthenFooter from "../../../../Component/Common/AuthenFooter";
 
 //
 
@@ -23,13 +23,13 @@ const { Title, Paragraph, Text, Link } = Typography;
 
 const Home = () => {
   const language = [
-    { label: 'item 1', key: 'item-1' }, // remember to pass the key prop
-    { label: 'item 2', key: 'item-2' },
+    { label: "item 1", key: "item-1" }, // remember to pass the key prop
+    { label: "item 2", key: "item-2" },
   ];
   const carouselItem = [
-    getItem('Company home', '1'),
-    getItem('Design docs', '2'),
-    getItem('Website publishing', '3'),
+    getItem("Trang chủ doanh nghiệp", "1"),
+    getItem("Thiết kế tài liệu", "2"),
+    getItem("Xuất bản trang web", "3"),
   ];
 
   const refCarousel = useRef(null);
@@ -50,18 +50,18 @@ const Home = () => {
                 <Col flex="auto">
                   <div className="textIntro">
                     <h1>
-                      One workspace.
+                      Một không gian làm việc.
                       <br />
-                      Every team.
+                      Cho mọi nhóm.
                     </h1>
                     <p>
-                      We’re more than a doc. Or a table. Customize DOLS to work
-                      the way you do.
+                      Chúng tôi nhiều hơn chỉ là doc. Hay một table. Tùy chỉnh
+                      DOLS để làm việc theo cách của bạn.
                     </p>
                   </div>
-                  <button className="btnPrimary">Get Dols Free</button>
+                  <button className="btnPrimary">Sử dụng DOLS miễn phí</button>
                   <div className="textAssociate">
-                    <p>Trusted by teams at</p>
+                    <p>Được tin bởi</p>
                   </div>
                   <Space
                     direction="horizontal"
@@ -111,10 +111,10 @@ const Home = () => {
                       src="https://www.notion.so/cdn-cgi/image/format=auto,width=128,quality=100/front-static/pages/product/spot/spot-team-up.png"
                       alt=""
                     />
-                    <h1>Team up without the chaos</h1>
+                    <h1>Hợp tác với không sự hỗn loạn</h1>
                     <p>
-                      Connect your teams, projects, and docs in Notion — so you
-                      can bust silos and move as one.
+                      Kết nối với nhóm, dự án và docs ở DOLS - Để bạn có thể
+                      hoàn thành một lần và hợp sức với nhau.
                     </p>
                   </div>
                 </Col>
@@ -133,11 +133,11 @@ const Home = () => {
                       src="https://www.notion.so/cdn-cgi/image/format=auto,width=96,quality=100/front-static/pages/product/spot/spot-context.png"
                       alt=""
                     />
-                    <h1>Never ask “What’s the context?” again</h1>
+                    <h1>again Không cần phải hỏi "Cái này có gì vậy?" nữa</h1>
                     <p>
-                      Stale wikis aren't helpful. Neither are floating docs. In
-                      Notion, your daily work and knowledge live side by side —
-                      so you never lose context.
+                      Các từ điển cũ không có giúp ích gì. Hay các docs nổi.
+                      Trong DOLS, các việc hằng ngày và kiến thức của bạn sẽ
+                      đồng hành - vì thế bạn sẽ không vào lạc hướng
                     </p>
                   </div>
                 </Col>
@@ -156,11 +156,11 @@ const Home = () => {
                       src="https://www.notion.so/cdn-cgi/image/format=auto,width=384,quality=100/front-static/pages/product/spot/spot-workflow.png"
                       alt=""
                     />
-                    <h1>Build the workflow you want</h1>
+                    <h1>Xây dựng quy trình làm việc theo ý bạn</h1>
                     <p>
-                      Customize Notion to make it work the way you want it to.
-                      Just drag and drop to craft the dashboard, website, doc,
-                      or system you need.
+                      Tùy chỉnh DOLS để làm việc theo ý bạn muốn. Chi cần kéo và
+                      thả để tạo một bảng điều khiển, website, tài liệu, hoặc hệ
+                      thống bạn cần.
                     </p>
                   </div>
                 </Col>
@@ -179,12 +179,15 @@ const Home = () => {
                       src="https://www.notion.so/cdn-cgi/image/format=auto,width=64,quality=100/front-static/pages/product/spot/spot-ecosystem.png"
                       alt=""
                     />
-                    <h1>Benefit from a global ecosystem of creators</h1>
+                    <h1>
+                      Hưởng lợi từ hệ sinh thái toàn cầu của những người sáng
+                      tạo
+                    </h1>
                     <p>
-                      Get inspiration from thousands of community-made
-                      templates, integrations, and events.
+                      Lấy cảm hứng từ hàng ngàn sản phẩm do cộng đồng tạo ra -
+                      mẫu, tích hợp và sự kiện.
                       <br />
-                      You'll never want for resources or support.
+                      Bạn sẽ không bao giờ muốn tài nguyên hoặc hỗ trợ.
                     </p>
                   </div>
                 </Col>
@@ -197,15 +200,15 @@ const Home = () => {
                   <Col flex="auto">
                     <div className="secondaryText">
                       <h1>
-                        Built for endless uses.
+                        Được xây dựng để sử dụng vô tận.
                         <br />
-                        Across all teams.
+                        Trên tất cả các nhóm.
                       </h1>
                       <p>
-                        Notion solves problems common and unique to every team.
-                        These are just a few.
+                        DOLS giải quyết các vấn đề thường gặp và duy nhất cho
+                        các team. Đây chỉ là chút ít.
                       </p>
-                      <button className="btn">Get Dols Free</button>
+                      <button className="btn">Sử dụng DOLS miễn phí</button>
                     </div>
                   </Col>
                   <Col flex="auto" className="secondaryImg">
@@ -254,16 +257,16 @@ const Home = () => {
                   <Col flex="auto">
                     <div className="secondaryText">
                       <h1>
-                        Start with a template.
+                        Bắt đầu với một mẫu.
                         <br />
-                        Modify it however you need.
+                        Chỉnh sửa theo nhu cầu của bạn.
                       </h1>
                       <p>
-                        Choose from thousands of free, pre-built setups — for
-                        work and life.
+                        Chọn trong hàng nghìn mẫu miễn phí đã có sẵn - cho công
+                        việc và cuộc sống.
                       </p>
                       <button className="btn viewAll">
-                        See all template <ArrowRightOutlined />
+                        Xem tất cả mẫu <ArrowRightOutlined />
                       </button>
                     </div>
                   </Col>
@@ -283,11 +286,11 @@ const Home = () => {
                           src="https://www.notion.so/cdn-cgi/image/format=auto,width=1920,quality=100/https://images.ctfassets.net/spoqsaf9291f/3rgtX4i8gix6nmIZGPXx10/3b828a7354b27fe894ae5ad145bc44e8/Hero.jpg"
                           alt=""
                         />
-                        <button>View template</button>
+                        <button>Xem mẫu</button>
                       </a>
                     </div>
                     <div className="textWrapper">
-                      <a href="">Company home</a>
+                      <a href="">Trang chủ doanh nghiệp</a>
                     </div>
                   </Col>
                   <Col flex={1} className="secondaryTemplate">
@@ -297,11 +300,11 @@ const Home = () => {
                           src="https://www.notion.so/cdn-cgi/image/format=auto,width=1920,quality=100/https://images.ctfassets.net/spoqsaf9291f/4436AdRCPMLYAHECuw6y3/0329c1cf2f7a3f0eca8ba1156774bf63/Hero.png"
                           alt=""
                         />
-                        <button>View template</button>
+                        <button>Xem mẫu</button>
                       </a>
                     </div>
                     <div className="textWrapper">
-                      <a href="">Roadmap</a>
+                      <a href="">Lộ trình</a>
                     </div>
                   </Col>
                   <Col flex={1} className="secondaryTemplate">
@@ -311,11 +314,11 @@ const Home = () => {
                           src="https://www.notion.so/cdn-cgi/image/format=auto,width=1920,quality=100/https://images.ctfassets.net/spoqsaf9291f/2tpiTr9meibfgSPFKexFjs/a3ae2e8911a8d956e7b5d392c33ef8f8/meeting-notes.png"
                           alt=""
                         />
-                        <button>View template</button>
+                        <button>Xem mẫu</button>
                       </a>
                     </div>
                     <div className="textWrapper">
-                      <a href="">Meeting notes</a>
+                      <a href="">Ghi chú cuộc họp</a>
                     </div>
                   </Col>
                 </Row>
@@ -325,9 +328,10 @@ const Home = () => {
                 <Row className="firstRow">
                   <Col flex="auto">
                     <div className="secondaryText">
-                      <h1>Used by the world’s most innovative teams</h1>
+                      <h1>Được sử dụng bởi các nhóm sáng tạo nhất thế giới</h1>
                       <button className="btn viewAll">
-                        Read all customer stories <ArrowRightOutlined />
+                        Đọc tất cả các câu chuyện của khách hàng{" "}
+                        <ArrowRightOutlined />
                       </button>
                     </div>
                   </Col>
@@ -350,8 +354,9 @@ const Home = () => {
                     <div className="textWrapper">
                       <blockquote>
                         <p>
-                          Notion is a workspace that adapts to your needs. It’s
-                          as minimal or as powerful as you need it to be.
+                          DOLS là một không gian làm việc thích nghi với nhau
+                          cầu của bạn. Nó tối thiểu hoặc mạnh mẽ theo cách bạn
+                          muốn.
                         </p>
                       </blockquote>
                     </div>
@@ -362,7 +367,7 @@ const Home = () => {
                       />
                       <div className="text">
                         <p>Rahim Makani</p>
-                        <small>Director of Product</small>
+                        <small>Giám đốc sản phẩm</small>
                       </div>
                     </div>
                   </Col>
@@ -376,10 +381,10 @@ const Home = () => {
                     <div className="textWrapper">
                       <blockquote>
                         <p>
-                          Notion continues to be the easiest way to get
-                          information centralized somewhere and shout it out to
-                          someone else. For us, that’s extremely important
-                          because half our team is remote.
+                          DOLS là cách dễ nhất để có được thông tin tập trung ở
+                          đâu đó và truyền và cho người khác. Đối với chúng tôi,
+                          đó là một điều cực kỳ quan trọng vì nửa nhóm tôi làm
+                          việc tại nhà.
                         </p>
                       </blockquote>
                     </div>
@@ -390,7 +395,7 @@ const Home = () => {
                       />
                       <div className="text">
                         <p>Vinay Hiremath</p>
-                        <small>Co-founder and Head of Engineering</small>
+                        <small>Đồng sáng lập và Trưởng phòng Kỹ thuật</small>
                       </div>
                     </div>
                   </Col>
@@ -404,9 +409,8 @@ const Home = () => {
                     <div className="textWrapper">
                       <blockquote>
                         <p>
-                          Notion’s ease of use is one of its hallmarks. It helps
-                          you visually navigate content and remember where
-                          something is.
+                          DOLS tiện lợi sử dụng là một dấu ấn của nó. Nó giúp
+                          bạn dễ dàng điều hướng thông tin và nhớ cái gì đó.
                         </p>
                       </blockquote>
                     </div>
@@ -417,7 +421,7 @@ const Home = () => {
                       />
                       <div className="text">
                         <p>Marie Szuts</p>
-                        <small>Head of People Ops</small>
+                        <small>Trưởng phòng Nhân sự</small>
                       </div>
                     </div>
                   </Col>
@@ -431,14 +435,13 @@ const Home = () => {
                   <img src={vite} alt="" />
                 </div>
                 <div className="textWrapper">
-                  <h1>Try DOLS today</h1>
+                  <h1>Thử DOLS ngày hôm nay</h1>
                   <p>
-                    Get started for free. Add your whole team as your needs
-                    grow.
+                    Bắt đầu miễn phí. Thêm cả nhóm bạn với nhu cầu phát triển. 
                   </p>
-                  <button className="btn">Try DOLS Free</button>
+                  <button className="btn">Thử DOLS miễn phí</button>
                   <p>
-                    On a big team? <u>Contact sales</u>
+                    Trong một nhóm lớn ? <u>Liên hệ bán hàng ngay</u>
                   </p>
                 </div>
                 <div className="backgroundImg">
