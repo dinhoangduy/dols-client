@@ -5,7 +5,7 @@ import authUtil from '../../../utils/authUtils';
 
 import Loading from '../../Common/Loading';
 import AuthenHeader from '../../Common/AuthenHeader';
-import AuthenFooter from '../../Common/AuthenFooter/authenFooter';
+import AuthenFooter from '../../Common/AuthenFooter';
 
 import './styles.scss';
 
