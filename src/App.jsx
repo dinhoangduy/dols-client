@@ -9,22 +9,32 @@ import "antd/dist/antd.min.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import AuthLayout from "./Component/Layouts/AuthLayout/AuthLayout";
-import AppLayout from "./Component/Layouts/AppLayout/AppLayout";
+import SingleLayout from "./Component/Layouts/AuthLayout/AuthLayout";
 import Authenticate from "./Modules/Authenticate";
+import TeamLayout from "./Component/Layouts/TeamLayout/TeamLayout";
+import TeamApp from "./Modules/Team/App";
 
 import Workspace from "./Modules/Workspace";
 import NotFound from "./Modules/NotFound";
 
 function App() {
+
     return (
         <>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<AppLayout />}>
+                    <Route path="/" element={<SingleLayout />}>
                         <Route
-                            path="/id/:workspaceID"
+                            path="/single/:workspaceID"
                             element={<Workspace />}
                         />
+                    </Route>
+                    <Route path="/" element={<TeamLayout />}>
+                        <Route
+                            path="/team"
+                            element={<TeamApp />}
+                        >
+                        </Route>
                     </Route>
                     <Route path="/" element={<AuthLayout />}>
                         <Route path="login" element={<Authenticate />} />

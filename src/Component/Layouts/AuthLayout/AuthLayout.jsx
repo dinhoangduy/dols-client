@@ -4,7 +4,6 @@ import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import authUtil from "../../../utils/authUtils";
 
 import Loading from "../../Common/Loading";
-import Header from "../../Common/Header/Header";
 
 import "./styles.scss";
 
@@ -30,7 +29,6 @@ const AuthLayout = () => {
     return (
         <div className="container">
             <div className="auth-layout">
-                <Header />
                 {/* {isLoading ? <Loading></Loading> : <Outlet />} */}
                 <Outlet/>
             </div>
