@@ -84,8 +84,6 @@ const Onboarding = () => {
   const onCreateAccount = (value) => {
     const data = { ...value, image: imageUrl };
     dispatch(setUserRegister({ ...user, ...data }));
-
-    console.log();
   };
 
   const handleSignUp = async (value) => {
@@ -97,7 +95,7 @@ const Onboarding = () => {
 
       if (!res) return setLoading(false);
 
-      localStorage.setItem('token', res?.data.token);
+      localStorage.setItem('token', res?.data);
       navigate('/');
     } catch (error) {
       setLoading(false);
