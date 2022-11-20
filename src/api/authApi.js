@@ -5,7 +5,7 @@ const authApi = {
   login: (params) => axiosClient.post('clients/login', params),
   sendMail: (params) => axiosClient.post('clients/require-register', params),
   active: (params) => axiosClient.post('clients/active', params),
-  verifyToken: () => axiosClient.post('auth/verify-token'),
+  verifyToken: () => axiosClient.get('workspace'),
 };
 
 export default authApi;

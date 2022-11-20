@@ -136,7 +136,7 @@ const BlankTemplate = (props) => {
                 
                     <CKEditor
                         editor={ClassicEditor}
-                        data={content}
+                        // data={content}
                         // onChange={updateContent}
                         // onFocus={updateEditorHeight}
                         // onBlur={updateEditorHeight}

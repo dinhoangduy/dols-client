@@ -1,6 +1,7 @@
 .workspace {
     display: flex;
     // grid-template-columns: 200px 1fr ;
+    width: 100%;
     min-height: 100vh;
     .ant-layout-sider-trigger{
         background-color: #ddd;
@@ -17,5 +18,9 @@
             justify-content: space-between;
             align-items: center;
         }
+    }
+
+    .ant-menu{
+        user-select: none;
     }
 }

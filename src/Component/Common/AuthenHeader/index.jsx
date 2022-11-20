@@ -194,7 +194,7 @@ const AuthenHeader = () => {
               </li>
               <a href="./pricing" className="authenResponsive">
                 <li>
-                  <Link to="pricing">
+                  <Link to="/pricing">
                     <p>Giá cả</p>
                   </Link>
                 </li>
@@ -210,12 +210,12 @@ const AuthenHeader = () => {
               </a>
               <div className="vr"></div>
               <li>
-                <Link to="login">
+                <Link to="/login">
                   <p>Đăng nhập</p>
                 </Link>
               </li>
               <li>
-                <Link to="sign-up">
+                <Link to="/sign-up">
                   <button className="btn">Sử dụng DOLS miễn phí</button>
                 </Link>
               </li>

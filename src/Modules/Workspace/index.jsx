@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Col, Row } from "antd";
 import {
     AppstoreOutlined,
@@ -10,8 +10,14 @@ import {
     MenuUnfoldOutlined,
     PieChartOutlined,
     StarOutlined,
+    FileAddOutlined,
     SaveOutlined,
+    LogoutOutlined,
+    AppstoreAddOutlined
 } from "@ant-design/icons";
+import {
+    Divider
+} from "@mui/material";
 import { Button, Menu, Layout } from "antd";
 const { Header, Sider, Content } = Layout;
 import { useEffect } from "react";
@@ -25,6 +31,7 @@ import workspaceApi from "../../api/workspaceApi";
 
 const Workspace = () => {
     const location = useLocation();
+    const navigate = useNavigate();
 
     // ** Menu slider
     const [collapsed, setCollapsed] = useState(false);
@@ -34,9 +41,17 @@ const Workspace = () => {
 
     // ** End of -> Menu slider
 
-    // ** Get workspace ID and load all board
-    // ** End of -> Get workspace ID and load all board
-    const handleChangeBoard = () => {};
+    // ** Util Functions
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        navigate("/home");
+    }
+    // ** End of -> Util Functions
+
+    const handleChangeBoard = (item) => {
+        setCurrentTemplate(item.templateId);
+        setCurrentBoardID(item.id);
+    };
 
     function getItem(label, key, icon, children, type) {
         return {
@@ -48,67 +63,97 @@ const Workspace = () => {
         };
     }
 
-    // ** Loop qua danh sach workspace de render danh sach workspace
-    // ** Loop qua danh sach board cua workspce de render ra danh sach cac board
-    // ** Them vao bang cach push vao mang, roi gop cac mang vao thang items
-    const items = [
-        getItem("Dinh hoang duy...", "1", <PieChartOutlined />, [
-            getItem("Dinh hoang duy...", "2"),
-            getItem("Oanh...", "3"),
-            getItem("Create workspace", "4"),
-            getItem("Log out", "5"),
-        ]),
-        getItem(
-            <span onClick={handleChangeBoard}>Board 1</span>,
-            "BlankTemplate",
-            <DesktopOutlined />
-        ),
-        getItem(
-            <span onClick={handleChangeBoard}>Board 2</span>,
-            "KanbanTemplate",
-            <ContainerOutlined />
-        ),
-    ];
+
+  
+    const renderWorkspaceTitle = (item) => {
+        return getItem(item.name, item.id)
+    }
+
+    const renderBoardTitle = (item) => {
+        console.log("item::",item.id);
+        return getItem( <span onClick={()=> {handleChangeBoard(item)}}>{item.description}</span>,item.id,<PieChartOutlined/>)
+    }
+
+    const renderAllWorkspaceAndBoard = () => {
+        let res = [];
+        let allTitle = getItem("Bảng điều khiển",'bangdieukhine',<ContainerOutlined/>);
+        allTitle[`children`] = [];
+        let allBoard = [];
+        allWorkspaceData.forEach(item => {
+            allTitle?.children.push(renderWorkspaceTitle(item))
+        })
+        allTitle?.children.push(getItem("Tạo vùng làm việc", 'taovunglamviec',<FileAddOutlined />))
+        allTitle?.children.push(getItem(<span onClick={handleLogout}>Đăng xuất</span>, "dangxuat",<LogoutOutlined />))
+        res.push(allTitle);
+
+        res.push(getItem("Thêm bảng mới", 'thembangmoi',<AppstoreAddOutlined />))
+        res.push(getItem(<Divider/>, 'divider2',<Divider/>));
+        currentWorkspaceData?.board?.forEach(item => {
+            res.push(renderBoardTitle(item))
+        })
+
+        return res;
+    }
+    
 
     // ** Get board ID and load board
     const nameMapTemplate = {
-        blanktemplate: {
+        "674e1995-80a0-467a-b48f-312502538210": {
             handle: (boardID) => {
                 return <BlankTemplate />;
             },
         },
-        kanbantemplate: {
-            blanktemplate: {
-                handle: (boardID) => {
-                    return <KanbanTemplate />;
-                },
-            },
-        },
+        // kanbantemplate: {
+        //     blanktemplate: {
+        //         handle: (boardID) => {
+        //             return <KanbanTemplate />;
+        //         },
+        //     },
+        // },
     };
     const [workspaceID, setWorkspaceID] = useState("");
-    const [workspaceData, setWorkspaceData] = useState({});
+    const [allWorkspaceData, setAllWorkspaceData] = useState([]);
+    const [currentWorkspaceData, setCurrentWorkspaceData] = useState({});
     const [currentBoardID, setCurrentBoardID] = useState("");
+    const [items, setItems] = useState([]);
+    const [currentTemplate, setCurrentTemplate] = useState('');
     // const [template, setTemplate] = useState('BlankTemplate');
-
+    console.log("currentBoardID",currentBoardID);
     useEffect(() => {
         setWorkspaceID(location.pathname.split("/").slice(-1)[0]);
     }, [location]);
 
     useEffect(() => {
         const fetchWorkspace = async () => {
-            const data = await workspaceApi.getAll();
-            console.log(data);
+            let data = await workspaceApi.getAll();
+            data = data.data;
+            setAllWorkspaceData(data);
+            // setCurrentWorkspaceData(data[0]);
         };
 
         fetchWorkspace();
     }, [workspaceID]);
 
-    // useEffect(() => {
-    //   setTemplate(boardID);
-    // },[boardID])
+    useEffect(() => {
+        let current = allWorkspaceData.filter(item => item.id === workspaceID);
+        setCurrentWorkspaceData(current[0])
+        setCurrentBoardID(current[0]?.board[0].id);
+    },[allWorkspaceData])
+
+    useEffect(() => {
+        let res = renderAllWorkspaceAndBoard();
+          setItems(res);
+    }, [workspaceID,currentWorkspaceData])
+
+    useEffect(() => {
+        let res = currentWorkspaceData?.board?.filter(item => item.id === currentBoardID);
+        console.log("Res", res);
+        if(res){
+            setCurrentTemplate(res[0].templateId)
+        }
+    },[currentBoardID])
 
     // ** End of -> Get workspace ID and load board
-
     return (
         <div className="workspace">
             <Sider
@@ -120,7 +165,8 @@ const Workspace = () => {
                 <div className="logo" />
                 <Menu
                     theme="light"
-                    // defaultSelectedKeys={['BlankTemplate']}
+                    // defaultSelectedKeys={[currentBoardID]}
+                    selectedKeys={[currentBoardID]}
                     mode="inline"
                     items={items}
                 />
@@ -134,8 +180,7 @@ const Workspace = () => {
                     </div>
                 </div>
                 <div className="main__content">
-                    {/* Danh sach board, load ra roi render */}
-                    {/* {nameMapTemplate[template].handle(boardID)} */}
+                    {nameMapTemplate[currentTemplate]?.handle(currentBoardID)}
                 </div>
             </div>
         </div>
