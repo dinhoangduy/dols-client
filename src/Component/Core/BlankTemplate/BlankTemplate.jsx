@@ -13,34 +13,90 @@ import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import Moment from "moment";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import taskApi from "/src/api/taskApi";
+import boardApi from "/src/api/boardApi";
 
 import "/src/css/custom-editor.css";
 import { useLocation } from "react-router-dom";
+import EmojiPicker from "../../../Modules/Workspace/EmojiPicker";
+import { useMemo } from "react";
 
+import { useDebouncedCallback } from "use-debounce";
+import { Button, message, Popconfirm, Tooltip } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    updateBoardTemplateContent,
+    upadateTitleBoard,
+    upadateIconBoard,
+    deleteBoard,
+} from "../../../redux/features/currentWorkspaceSlice";
+import { DeleteOutlined } from "@ant-design/icons";
 
 let timer;
 const timeout = 500;
 let isModalClosed = false;
 
-const BlankTemplate = (props) => {
-
-    const boardId = props.boardId;
-    const [task, setTask] = useState(props.task);
+const BlankTemplate = ({
+    boardID,
+    workspaceData,
+    setIsSavaLoading,
+    setCurrentBoardID,
+}) => {
+    const dispatch = useDispatch();
+    const currentWorkspaceData = useSelector((state) => state.workspace.value);
+    const [data, setData] = useState(() => {
+        let [data] = currentWorkspaceData?.board?.filter(
+            (item) => item.id === boardID
+        );
+        return data;
+    });
     const [title, setTitle] = useState("");
+    const [icon, setIcon] = useState("");
     const [content, setContent] = useState("");
     const editorWrapperRef = useRef();
 
     useEffect(() => {
-        setTask(props.task);
-        setTitle(props.task !== undefined ? props.task.title : "");
-        setContent(props.task !== undefined ? props.task.content : "");
-        if (props.task !== undefined) {
-            isModalClosed = false;
+        let [data] = currentWorkspaceData?.board?.filter(
+            (item) => item.id === boardID
+        );
+        setData(data);
+    }, [boardID]);
+    useEffect(() => {
+        setTitle(data.title);
+        setIcon(data.icon);
+        setContent(data.description);
+    }, [data]);
 
-            updateEditorHeight();
+    const updateTitle = async (e) => {
+        setTitle(e.target.value);
+        try {
+            let res = await boardApi.update(boardID, {
+                title: e.target.value,
+                workspaceId: currentWorkspaceData.id,
+            });
+            if (res) {
+                dispatch(upadateTitleBoard({ boardID, title: e.target.value }));
+            }
+        } catch (err) {
+            alert(err);
         }
-    }, [props.task]);
+    };
+    const updateContent = useDebouncedCallback(async (event, editor) => {
+        setIsSavaLoading(true);
+        const data = editor.getData();
+        dispatch(
+            updateBoardTemplateContent({ boardID: boardID, content: data })
+        );
+        try {
+            console.log(data);
+            let res = await boardApi.update(boardID, {
+                description: data,
+                workspaceId: workspaceData.id,
+            });
+            if (res) setIsSavaLoading(false);
+        } catch (err) {
+            alert(err);
+        }
+    }, 1000);
 
     const updateEditorHeight = () => {
         setTimeout(() => {
@@ -52,65 +108,41 @@ const BlankTemplate = (props) => {
         }, timeout);
     };
 
-    const onClose = () => {
-        isModalClosed = true;
-        props.onUpdate(task);
-        props.onClose();
-    };
-
-    const deleteTask = async () => {
+    const onIconChange = async (newIcon) => {
+        setIcon(newIcon);
         try {
-            await taskApi.delete(boardId, task.id);
-            props.onDelete(task);
-            setTask(undefined);
+            let res = await boardApi.update(boardID, {
+                icon: newIcon,
+                workspaceId: workspaceData.id,
+            });
+
+            if (res) {
+                dispatch(upadateIconBoard({ boardID, newIcon }));
+            }
         } catch (err) {
             alert(err);
         }
     };
 
-    const updateTitle = async (e) => {
-        clearTimeout(timer);
-        const newTitle = e.target.value;
-        timer = setTimeout(async () => {
-            try {
-                await taskApi.update(boardId, task.id, { title: newTitle });
-            } catch (err) {
-                alert(err);
+    const handleDeleteBoard = async () => {
+        try {
+            let res = await boardApi.delete(boardID);
+            if (res) {
+                dispatch(deleteBoard({ boardID }));
             }
-        }, timeout);
+            setCurrentBoardID(workspaceData.board[0].id);
 
-        task.title = newTitle;
-        setTitle(newTitle);
-        props.onUpdate(task);
-    };
-
-    const updateContent = async (event, editor) => {
-        clearTimeout(timer);
-        const data = editor.getData();
-
-        console.log({ isModalClosed });
-
-        if (!isModalClosed) {
-            timer = setTimeout(async () => {
-                try {
-                    await taskApi.update(boardId, task.id, { content: data });
-                } catch (err) {
-                    alert(err);
-                }
-            }, timeout);
-
-            task.content = data;
-            setContent(data);
-            props.onUpdate(task);
-        }
+            message.success("Xóa thành công!");
+        } catch {}
     };
 
     return (
         <>
-            
+            <div style={{ display: "flex" }}>
+                <EmojiPicker icon={icon} onChange={onIconChange} />
                 <TextField
                     value={title}
-                    // onChange={updateTitle}
+                    onChange={updateTitle}
                     placeholder="Untitled"
                     variant="outlined"
                     fullWidth
@@ -127,21 +159,41 @@ const BlankTemplate = (props) => {
                         marginBottom: "10px",
                     }}
                 />
-                {/* <Typography variant="body2" fontWeight="700">
-                    {task !== undefined
-                        ? Moment(task.createdAt).format("YYYY-MM-DD")
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <Typography variant="body2" fontWeight="700" fontSize="10px">
+                    Lần cập nhật cuối{" "}
+                    {data !== undefined
+                        ? Moment(data.updateAt).format("HH:mm A DD-MM-YYYY")
                         : ""}
-                </Typography> */}
-                <Divider sx={{ margin: "1.5rem 0" }} />
-                
-                    <CKEditor
-                        editor={ClassicEditor}
-                        // data={content}
-                        // onChange={updateContent}
-                        // onFocus={updateEditorHeight}
-                        // onBlur={updateEditorHeight}
-                    />
-             
+                </Typography>
+                <Popconfirm
+                    title="Bạn thật sự muốn xóa chứa？"
+                    placement="bottomLeft"
+                    okText="Xóa"
+                    cancelText="Trở về"
+                    onConfirm={handleDeleteBoard}
+                >
+                    <Tooltip title="Xóa bảng" placement="left">
+                        <DeleteOutlined
+                            style={{
+                                color: "red",
+                                fontSize: "16px",
+                                cursor: "pointer",
+                            }}
+                        />
+                    </Tooltip>
+                </Popconfirm>
+            </div>
+            <Divider sx={{ margin: "1.5rem 0" }} />
+
+            <CKEditor
+                editor={ClassicEditor}
+                data={content}
+                onChange={updateContent}
+                onFocus={updateEditorHeight}
+                onBlur={updateEditorHeight}
+            />
         </>
     );
 };
