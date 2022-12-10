@@ -168,7 +168,7 @@ const BlankTemplate = ({
                         : ""}
                 </Typography>
                 <Popconfirm
-                    title="Bạn thật sự muốn xóa chứa？"
+                    title="Bạn thật sự muốn xóa chứ？"
                     placement="bottomLeft"
                     okText="Xóa"
                     cancelText="Trở về"

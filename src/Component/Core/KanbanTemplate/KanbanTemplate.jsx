@@ -6,6 +6,7 @@ import {
     TextField,
     IconButton,
     Card,
+    Tooltip,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
@@ -16,14 +17,19 @@ import taskApi from "/src/api/taskApi";
 import TaskModal from "./TaskModal";
 import boardApi from "../../../api/boardApi";
 import dataApi from "../../../api/dataApi";
+import { message, Popconfirm } from "antd";
+import { DeleteOutlined } from "@ant-design/icons";
+import { deleteBoard } from "../../../redux/features/currentWorkspaceSlice";
+import { useDispatch } from "react-redux";
 
 let timer;
 const timeout = 500;
 
-const KanbanTemplate = ({ boardId, workspaceData }) => {
-    const [data, setData] = useState([]);
+const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
+    const dispatch = useDispatch();
     const [selectedTask, setSelectedTask] = useState(undefined);
     const [currentBoardData, setCurrentBoardData] = useState({});
+    const [data, setData] = useState([]);
     useEffect(() => {
         workspaceData.board.forEach((item) => {
             if (item.id === boardId) {
@@ -31,13 +37,14 @@ const KanbanTemplate = ({ boardId, workspaceData }) => {
             }
         });
     }, [boardId]);
-    console.log(currentBoardData);
-
     useEffect(() => {
         setData(currentBoardData?.datas);
     }, [currentBoardData]);
-
     console.log(data);
+
+    useEffect(() => {
+        refreshBoard();
+    },[])
 
     const onDragEnd = async ({ source, destination }) => {
         if (!destination) return;
@@ -50,53 +57,117 @@ const KanbanTemplate = ({ boardId, workspaceData }) => {
         const sourceCol = data[sourceColIndex];
         const destinationCol = data[destinationColIndex];
 
+        console.log("sourceCol", sourceCol);
+        console.log("destinationCol", destinationCol);
+        console.log("source", source);
+        console.log("destination", destination);
+
         const sourceSectionId = sourceCol.id;
         const destinationSectionId = destinationCol.id;
 
         const sourceTasks = [...sourceCol.task];
         const destinationTasks = [...destinationCol.task];
 
+        console.log("sourceTasks", sourceTasks);
+        console.log("destinationTasks", destinationTasks);
+
+        console.log(data);
+
+        let taskId = sourceTasks[source.index].id;
+
         if (source.droppableId !== destination.droppableId) {
             const [removed] = sourceTasks.splice(source.index, 1);
             destinationTasks.splice(destination.index, 0, removed);
-            data[sourceColIndex].task = sourceTasks;
-            data[destinationColIndex].task = destinationTasks;
-        } else {
-            const [removed] = destinationTasks.splice(source.index, 1);
-            destinationTasks.splice(destination.index, 0, removed);
-            data[destinationColIndex].task = destinationTasks;
-        }
 
-        try {
-            await taskApi.updatePosition(boardId, {
-                resourceList: sourceTasks,
-                destinationList: destinationTasks,
-                resourceSectionId: sourceSectionId,
-                destinationSectionId: destinationSectionId,
+            const clone = [];
+            data.forEach((item) => {
+                let taskClone = [...item.task];
+                let itemClone = { ...item };
+                itemClone.task = taskClone;
+
+                clone.push(itemClone);
             });
-            setData(data);
-        } catch (err) {
-            alert(err);
+            clone[sourceColIndex].task = [...sourceTasks];
+            clone[destinationColIndex].task = [...destinationTasks];
+
+            setData(clone);
+
+            try {
+                await taskApi.update(taskId, {
+                    dataId: clone[destinationColIndex].id,
+                });
+            } catch (err) {
+                alert(err);
+            }
+        } else {
+            // const [removed] = destinationTasks.splice(source.index, 1);
+            // destinationTasks.splice(destination.index, 0, removed);
+            // const clone = [];
+            // data.forEach((item) => {
+            //     let taskClone = [...item.task];
+            //     let itemClone = { ...item };
+            //     itemClone.task = taskClone;
+            //     const clone2 = [];
+            //     itemClone.task.forEach(item2 => {
+            //         let position = item2.position;
+            //         let itemClone = { ...item2 };
+            //         itemClone.position = position;
+            //         clone2.push(itemClone);
+            //     })
+            //     itemClone.task = clone2;
+            //     clone.push(itemClone);
+            // });
+            // clone[destinationColIndex].task = destinationTasks;
+            // ** update position
+            // clone[destinationColIndex].task.forEach((item,index) => {
+            //     // item.position = index + 1;
+            //     console.log(item.position);
+            // })
+            // setData(clone);
+            // ** save
+            // try {
+            //     await taskApi.updateMultiple({
+            //         tasks: destinationTasks,
+            //         dataId:
+            //     });
+            //     setData(data);
+            // } catch (err) {
+            //     alert(err);
+            // }
         }
     };
+
+    const refreshBoard = async () => {
+        let boardAfterUpdate = await boardApi.getOne(boardId);
+        setData(boardAfterUpdate.data.datas);
+    }
 
     const createSection = async () => {
         try {
-            const section = await sectionApi.create(boardId);
-            setData([...data, section]);
+            const section = await dataApi.create({
+                heading: "Chưa có tiêu đề",
+                boardId: boardId,
+            });
+            if (section) {
+                const res = await dataApi.getOne(section.data);
+                if (res) {
+                    let clone = [...data, res.data];
+                    console.log(clone);
+                    setData(clone);
+                }
+            }
         } catch (err) {
             alert(err);
         }
     };
-
     const deleteSection = async (sectionId) => {
-        try {
-            await sectionApi.delete(boardId, sectionId);
-            const newData = [...data].filter((e) => e.id !== sectionId);
-            setData(newData);
-        } catch (err) {
-            alert(err);
-        }
+        // try {
+        //     await dataApi.delete(boardId, sectionId);
+        //     const newData = [...data].filter((e) => e.id !== sectionId);
+        //     setData(newData);
+        // } catch (err) {
+        //     alert(err);
+        // }
     };
 
     const updateSectionTitle = async (e, sectionId) => {
@@ -104,49 +175,66 @@ const KanbanTemplate = ({ boardId, workspaceData }) => {
         const newTitle = e.target.value;
         const newData = [...data];
         const index = newData.findIndex((e) => e.id === sectionId);
-        newData[index].title = newTitle;
-        setData(newData);
-        timer = setTimeout(async () => {
-            try {
-                await sectionApi.update(boardId, sectionId, {
-                    title: newTitle,
-                });
-            } catch (err) {
-                alert(err);
-            }
-        }, timeout);
+
+        const clone = [];
+        data.forEach((item) => {
+            let heading = item.heading;
+            let itemClone = { ...item };
+            itemClone.heading = heading;
+            clone.push(itemClone);
+        });
+        clone[index].heading = newTitle;
+
+        setData(clone);
+
+        try {
+            await dataApi.update(sectionId, {
+                heading: newTitle,
+                boardId: boardId,
+            });
+            // let board = boardApi.getOne(boardId);
+        } catch (err) {
+            alert(err);
+        }
     };
 
     const createTask = async (sectionId) => {
         try {
-            const task = await taskApi.create(boardId, { sectionId });
-            const newData = [...data];
-            const index = newData.findIndex((e) => e.id === sectionId);
-            newData[index].task.unshift(task);
-            setData(newData);
+            let res = data.filter(item => item.id === sectionId);
+            console.log(res[0]);
+
+            const task = await taskApi.create({
+                title: "Task mới",
+                content: "",
+                position: res[0].task.length + 2,
+                dataId: sectionId,
+            });
+            console.log(task);
+
+            refreshBoard();
+
         } catch (err) {
             alert(err);
         }
     };
 
     const onUpdateTask = (task) => {
-        const newData = [...data];
-        const sectionIndex = newData.findIndex((e) => e.id === task.section.id);
-        const taskIndex = newData[sectionIndex].task.findIndex(
-            (e) => e.id === task.id
-        );
-        newData[sectionIndex].task[taskIndex] = task;
-        setData(newData);
+        refreshBoard();
     };
 
     const onDeleteTask = (task) => {
-        const newData = [...data];
-        const sectionIndex = newData.findIndex((e) => e.id === task.section.id);
-        const taskIndex = newData[sectionIndex].task.findIndex(
-            (e) => e.id === task.id
-        );
-        newData[sectionIndex].task.splice(taskIndex, 1);
-        setData(newData);
+        refreshBoard();
+    };
+
+    const handleDeleteBoard = async () => {
+        try {
+            let res = await boardApi.delete(boardId);
+            if (res) {
+                dispatch(deleteBoard({ boardID: boardId }));
+                setCurrentBoardID(workspaceData.board[0].id);
+                message.success("Xóa thành công!");
+            }
+        } catch {}
     };
 
     return (
@@ -158,19 +246,36 @@ const KanbanTemplate = ({ boardId, workspaceData }) => {
                     justifyContent: "space-between",
                 }}
             >
-                <Button onClick={createSection}>
-                    {currentBoardData.title}
-                </Button>
+                {workspaceData.name}
             </Box>
-            <Box
-                sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                }}
-            >
-                <Button onClick={createSection}>Thêm cột</Button>
-            </Box>
+            <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+                <Box
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                    }}
+                >
+                    <Button onClick={createSection}>Thêm cột</Button>
+                </Box>
+                <Popconfirm
+                    title="Bạn thật sự muốn xóa chứ？"
+                    placement="bottomLeft"
+                    okText="Xóa"
+                    cancelText="Trở về"
+                    onConfirm={handleDeleteBoard}
+                >
+                    <Tooltip title="Xóa bảng" placement="left">
+                        <DeleteOutlined
+                            style={{
+                                color: "red",
+                                fontSize: "16px",
+                                cursor: "pointer",
+                            }}
+                        />
+                    </Tooltip>
+                </Popconfirm>
+            </div>
             <Divider sx={{ margin: "40px 0" }} />
             <DragDropContext onDragEnd={onDragEnd}>
                 <Box
@@ -189,7 +294,7 @@ const KanbanTemplate = ({ boardId, workspaceData }) => {
                                 width: "300px",
                                 minHeight: "400px",
                                 backgroundColor: "#1d3557",
-                                marginRight: "10px"
+                                marginRight: "10px",
                             }}
                         >
                             <Droppable
@@ -212,6 +317,7 @@ const KanbanTemplate = ({ boardId, workspaceData }) => {
                                                 alignItems: "center",
                                                 justifyContent: "space-between",
                                                 marginBottom: "10px",
+                                                backgroundColor: "#faedcd",
                                             }}
                                         >
                                             <TextField
@@ -236,7 +342,7 @@ const KanbanTemplate = ({ boardId, workspaceData }) => {
                                                             fontWeight: "700",
                                                         },
                                                 }}
-                                                style={{paddingLeft: "10px"}}
+                                                style={{ paddingLeft: "10px" }}
                                             />
                                             <IconButton
                                                 variant="outlined"

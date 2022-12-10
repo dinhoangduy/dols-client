@@ -42,6 +42,11 @@ const Login = () => {
       });
   };
 
+  const mapErorToVn = {
+    'The account has been baned!' : 'Tài khoản của bạn đã bị khoá!',
+    'The password is incorrect!': 'Sai mật khẩu!'
+  }
+
   const handleLogin = async (value) => {
     setLoading(true);
 
@@ -55,7 +60,8 @@ const Login = () => {
       navigate('/');
     } catch (error) {
       setLoading(false);
-      message.error(error.data.message);
+      let message2 = mapErorToVn[error.data.message] ? mapErorToVn[error.data.message] : 'Xảy ra lỗi!';
+      message.error(message2);
     }
   };
 

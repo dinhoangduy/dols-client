@@ -61,7 +61,7 @@ const TaskModal = props => {
 
   const deleteTask = async () => {
     try {
-      await taskApi.delete(boardId, task.id)
+      await taskApi.delete(task.id)
       props.onDelete(task)
       setTask(undefined)
     } catch (err) {
@@ -74,15 +74,16 @@ const TaskModal = props => {
     const newTitle = e.target.value
     timer = setTimeout(async () => {
       try {
-        await taskApi.update(boardId, task.id, { title: newTitle })
+        await taskApi.update(task.id, {
+          "title": newTitle,
+          "dataId": task.dataId
+        })
       } catch (err) {
         alert(err)
       }
     }, timeout)
 
-    task.title = newTitle
     setTitle(newTitle)
-    props.onUpdate(task)
   }
 
   const updateContent = async (event, editor) => {
@@ -94,15 +95,15 @@ const TaskModal = props => {
     if (!isModalClosed) {
       timer = setTimeout(async () => {
         try {
-          await taskApi.update(boardId, task.id, { content: data })
+          await taskApi.update(task.id, { content: data, dataId: task.dataId
+           })
         } catch (err) {
           alert(err)
         }
       }, timeout);
 
-      task.content = data
       setContent(data)
-      props.onUpdate(task)
+      // props.onUpdate(task)
     }
   }
 

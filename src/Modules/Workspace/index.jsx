@@ -220,12 +220,13 @@ const Workspace = () => {
                 setIsSavaLoading,
                 setCurrentBoardID
             ) => {
+
                 return (
                     <KanbanTemplate
-                    boardId={boardID}
-                    workspaceData={workspaceData}
-                    setIsSavaLoading={setIsSavaLoading}
-                    setCurrentBoardID={setCurrentBoardID}
+                        boardId={boardID}
+                        workspaceData={workspaceData}
+                        setIsSavaLoading={setIsSavaLoading}
+                        setCurrentBoardID={setCurrentBoardID}
                     />
                 );
             },
@@ -249,7 +250,7 @@ const Workspace = () => {
                             heading: ["Việc cần làm", "Đang làm", "Đã xong"],
                             boardId: res.data,
                         });
-                       
+
                         if (res2) {
                             let boardNew = await boardApi.getOne(res.data);
                             console.log(boardNew);
@@ -261,19 +262,9 @@ const Workspace = () => {
                                 dataId: boardNew.data.datas[0].id,
                             });
                             if (task) {
-                                let data = {
-                                    title: title,
-                                    icon: "📙",
-                                    description: `<h2><a href="https://emojipedia.org/travel-places">🚀</a>Xin chào bạn, lại là DOLS đây !<a href="https://emojipedia.org/travel-places">🚀</a></h2><p>&nbsp;</p><h2><a href="https://emojipedia.org/four-leaf-clover/">🍀</a>Đây là nơi mà bạn có thể ghi bất cứ thứ gì mà bạn muốn…</h2><p>&nbsp;</p><h2><a href="https://emojipedia.org/new-years-eve/">🎊</a>Chỉ có cái bạn không nghĩ ra chứ không có cái DOLS không có&nbsp;</h2>`,
-                                    position:
-                                        currentWorkspaceData.board.length + 4,
-                                    favourite: "string",
-                                    favouritePosition:
-                                        currentWorkspaceData.board.length + 4,
-                                    workspaceId: workspaceID,
-                                    templateId: template,
-                                    id: res.data,
-                                };
+                                let boardNew2 = await boardApi.getOne(res.data);
+                                console.log("boardNew", boardNew2);
+                                let data = boardNew2.data;
                                 dispatch(addNewBoardToWorkspace(data));
 
                                 setOpen(false);
@@ -394,7 +385,8 @@ const Workspace = () => {
                     collapsed={collapsed}
                     theme="light"
                     onCollapse={(value) => setCollapsed(value)}
-                    style={{height: "100vh", overflowY:"scroll"}}
+
+                    // className="slider-menu"
                 >
                     <div className="logo" />
                     <Menu
@@ -403,6 +395,11 @@ const Workspace = () => {
                         selectedKeys={[currentBoardID]}
                         mode="inline"
                         items={items}
+                        style={{
+                            height: "calc(100vh - 48px)",
+                            overflowY: "scroll",
+                        }}
+                        className="slider-menu"
                     />
                 </Sider>
                 <div className="main">
