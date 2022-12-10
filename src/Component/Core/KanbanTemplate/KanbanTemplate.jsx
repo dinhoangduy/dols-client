@@ -8,6 +8,7 @@ import {
     Card,
     Tooltip,
 } from "@mui/material";
+import Moment from "moment";
 import { useEffect, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
@@ -17,10 +18,11 @@ import taskApi from "/src/api/taskApi";
 import TaskModal from "./TaskModal";
 import boardApi from "../../../api/boardApi";
 import dataApi from "../../../api/dataApi";
-import { message, Popconfirm } from "antd";
+import { DatePicker, message, Popconfirm } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
-import { deleteBoard } from "../../../redux/features/currentWorkspaceSlice";
+import { deleteBoard, upadateIconBoard, upadateTitleBoard } from "../../../redux/features/currentWorkspaceSlice";
 import { useDispatch } from "react-redux";
+import EmojiPicker from "../../../Modules/Workspace/EmojiPicker";
 
 let timer;
 const timeout = 500;
@@ -44,7 +46,7 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
 
     useEffect(() => {
         refreshBoard();
-    },[])
+    },[boardId])
 
     const onDragEnd = async ({ source, destination }) => {
         if (!destination) return;
@@ -100,46 +102,35 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
                 alert(err);
             }
         } else {
-            // const [removed] = destinationTasks.splice(source.index, 1);
-            // destinationTasks.splice(destination.index, 0, removed);
-            // const clone = [];
-            // data.forEach((item) => {
-            //     let taskClone = [...item.task];
-            //     let itemClone = { ...item };
-            //     itemClone.task = taskClone;
-            //     const clone2 = [];
-            //     itemClone.task.forEach(item2 => {
-            //         let position = item2.position;
-            //         let itemClone = { ...item2 };
-            //         itemClone.position = position;
-            //         clone2.push(itemClone);
-            //     })
-            //     itemClone.task = clone2;
-            //     clone.push(itemClone);
-            // });
-            // clone[destinationColIndex].task = destinationTasks;
+            const [removed] = destinationTasks.splice(source.index, 1);
+            destinationTasks.splice(destination.index, 0, removed);
+           
+            
             // ** update position
-            // clone[destinationColIndex].task.forEach((item,index) => {
-            //     // item.position = index + 1;
-            //     console.log(item.position);
-            // })
-            // setData(clone);
+            destinationTasks.forEach((item,index) => {
+                item.position = index + 1;
+            })
+            setData(clone);
             // ** save
-            // try {
-            //     await taskApi.updateMultiple({
-            //         tasks: destinationTasks,
-            //         dataId:
-            //     });
-            //     setData(data);
-            // } catch (err) {
-            //     alert(err);
-            // }
+            try {
+                await taskApi.updateTaskOfData({
+                    tasks: destinationTasks,
+                    dataId: data[destinationColIndex].id
+                });
+                refreshBoard();
+            } catch (err) {
+                alert(err);
+            }
         }
     };
 
     const refreshBoard = async () => {
         let boardAfterUpdate = await boardApi.getOne(boardId);
-        setData(boardAfterUpdate.data.datas);
+        let res = boardAfterUpdate.data.datas.sort((a,b) => {
+           return parseInt(a.content) - parseInt(b.content);
+        })
+        console.log("resss",res);
+        setData(res);
     }
 
     const createSection = async () => {
@@ -147,6 +138,7 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
             const section = await dataApi.create({
                 heading: "Chưa có tiêu đề",
                 boardId: boardId,
+                content: `${data.length + 2}`
             });
             if (section) {
                 const res = await dataApi.getOne(section.data);
@@ -161,13 +153,12 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
         }
     };
     const deleteSection = async (sectionId) => {
-        // try {
-        //     await dataApi.delete(boardId, sectionId);
-        //     const newData = [...data].filter((e) => e.id !== sectionId);
-        //     setData(newData);
-        // } catch (err) {
-        //     alert(err);
-        // }
+        try {
+            await dataApi.delete(sectionId);
+            refreshBoard();
+        } catch (err) {
+            alert(err);
+        }
     };
 
     const updateSectionTitle = async (e, sectionId) => {
@@ -236,9 +227,46 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
             }
         } catch {}
     };
+    const [title, setTitle] = useState("");
 
+    const [icon, setIcon] = useState("");
+    useEffect(() => {
+        setTitle(currentBoardData.title);
+        setIcon(currentBoardData.icon);
+    }, [currentBoardData]);
+
+    const updateTitle = async (e) => {
+        setTitle(e.target.value);
+        try {
+            let res = await boardApi.update(boardId, {
+                title: e.target.value,
+                workspaceId: workspaceData.id,
+            });
+            if (res) {
+                dispatch(upadateTitleBoard({ boardID: boardId, title: e.target.value }));
+            }
+        } catch (err) {
+            alert(err);
+        }
+    };
+    const onIconChange = async (newIcon) => {
+        setIcon(newIcon);
+        try {
+            let res = await boardApi.update(boardId, {
+                icon: newIcon,
+                workspaceId: workspaceData.id,
+            });
+
+            if (res) {
+                dispatch(upadateIconBoard({ boardID: boardId, newIcon }));
+            }
+        } catch (err) {
+            alert(err);
+        }
+    };
     return (
         <>
+              
             <Box
                 sx={{
                     display: "flex",
@@ -248,6 +276,36 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
             >
                 {workspaceData.name}
             </Box>
+            <div style={{ display: "flex" }}>
+                <EmojiPicker icon={icon} onChange={onIconChange} />
+                <TextField
+                    value={title}
+                    onChange={updateTitle}
+                    placeholder="Untitled"
+                    variant="outlined"
+                    fullWidth
+                    sx={{
+                        width: "100%",
+                        "& .MuiOutlinedInput-input": { padding: 0 },
+                        "& .MuiOutlinedInput-notchedOutline": {
+                            border: "unset ",
+                        },
+                        "& .MuiOutlinedInput-root": {
+                            fontSize: "2.5rem",
+                            fontWeight: "700",
+                        },
+                        marginBottom: "10px",
+                    }}
+                />
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <Typography variant="body2" fontWeight="700" fontSize="10px">
+                    Lần cập nhật cuối{" "}
+                    {data !== undefined
+                        ? Moment(data.updateAt).format("HH:mm A DD-MM-YYYY")
+                        : ""}
+                </Typography>
+            </div>
             <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
                 <Box
                     sx={{
