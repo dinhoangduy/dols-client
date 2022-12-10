@@ -1,0 +1,157 @@
+.user-profile {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  .layout {
+    position: absolute;
+    width: 1080px;
+    height: 720px;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    padding: 15px;
+
+    .title {
+      h1 {
+        span {
+          cursor: pointer;
+          margin-right: 0.2rem;
+          .anticon {
+            border-radius: 5px;
+            padding: 0.3rem;
+            transition: all 0.3s ease-in-out;
+          }
+          .anticon:hover {
+            color: white;
+            background-color: rgba(25, 118, 210);
+          }
+        }
+      }
+    }
+
+    .content {
+      .ant-menu {
+        background-color: transparent;
+        .ant-menu-item {
+          border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+          font-weight: 500;
+          font-size: 1.1rem;
+        }
+      }
+
+      .detail {
+        padding: 0 5%;
+        display: flex;
+        justify-content: center;
+        .information {
+          .form-group {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            label {
+              font-size: 1.2rem;
+              min-width: 150px;
+              font-weight: 500;
+            }
+            .ant-radio-group,
+            input,
+            .ant-picker {
+              max-width: 450px;
+            }
+            .ant-radio-group {
+              padding-left: 1rem;
+              span {
+                font-size: 1rem;
+                font-weight: 400;
+              }
+            }
+            input,
+            .ant-picker {
+              background-color: transparent;
+              border: none;
+              border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+              font-size: 1rem;
+            }
+          }
+          .avatar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+            font-weight: 500;
+            .ant-upload-picture-card-wrapper {
+              display: flex !important;
+              justify-content: center;
+              .ant-upload {
+                margin: 0 0 1rem 0;
+              }
+            }
+          }
+          .button-submit {
+            position: absolute;
+            top: -45px;
+            right: 15px;
+            width: 150px;
+            height: 3rem;
+            border-radius: 5px;
+            border: 2px solid black;
+            font-size: 1.2rem;
+            font-weight: 500;
+            transition: all 0.3s ease-in-out;
+            outline: none;
+            cursor: pointer;
+          }
+          .button-submit:hover {
+            background-color: rgba(25, 118, 210);
+            color: white;
+            border: none;
+          }
+        }
+        .password {
+          .form-group {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            label {
+              font-size: 1.2rem;
+              min-width: 150px;
+              font-weight: 500;
+            }
+            input {
+              max-width: 600px;
+              background-color: transparent;
+              border: none;
+              border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+              font-size: 1rem;
+            }
+          }
+          .button-change {
+            display: flex;
+            justify-content: center;
+            align-items: center ;
+            width: 100px;
+            height: 40px;
+            border-radius: 5px;
+            border: 2px solid black;
+            font-size: 1.2rem;
+            font-weight: 500;
+            transition: all 0.3s ease-in-out;
+            outline: none;
+            cursor: pointer;
+          }
+          .button-change:hover {
+            background-color: rgba(25, 118, 210);
+            color: white;
+            border: none;
+          }
+        }
+      }
+    }
+  }
+}
