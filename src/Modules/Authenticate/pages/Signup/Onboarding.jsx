@@ -28,7 +28,6 @@ import logo from '../../../../assets/images/logo.png';
 import { store } from '../../../../../firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import authApi from '../../../../api/authApi';
-import { async } from '@firebase/util';
 import Loading from '../../../../Component/Common/Loading';
 
 const Onboarding = () => {
