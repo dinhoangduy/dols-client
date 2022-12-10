@@ -39,10 +39,12 @@ export const currentWorkspace = createSlice({
         },
         deleteBoard: (state, action) => {
             const { boardID } = action.payload;
+            console.log(boardID);
             const clone = state.value;
             let newBoard = state.value.board?.filter((item) => {
                 return item.id !== boardID;
             });
+            console.log(newBoard);
             clone.board = newBoard;
             state.value = clone;
         },

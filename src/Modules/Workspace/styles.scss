@@ -4,7 +4,11 @@
     width: 100%;
     min-height: 100vh;
     .ant-layout-sider-trigger {
-        background-color: #ddd;
+        background-color: #caf0f8;
+    }
+
+    .slider-menu::-webkit-scrollbar{
+        width: 0;
     }
 
     .main {
