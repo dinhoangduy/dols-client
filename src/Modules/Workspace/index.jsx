@@ -125,7 +125,7 @@ const Workspace = () => {
         );
         allTitle?.children.push(
             getItem(
-                "Quản lí tài khoản",
+                <span onClick={() => navigate('../profile')}>Quản lí tài khoản</span>,
                 "quanlitaikhoang",
                 <UserOutlined style={{ color: "blue" }} />
             )

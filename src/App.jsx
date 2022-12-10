@@ -15,6 +15,7 @@ import TeamLayout from "./Component/Layouts/TeamLayout/TeamLayout";
 import TeamApp from "./Modules/Team/App";
 
 import Workspace from "./Modules/Workspace";
+import Profile from "./Modules/Profile/Profile";
 import NotFound from "./Modules/NotFound";
 
 function App() {
@@ -37,6 +38,10 @@ function App() {
                         <Route
                             path="/single/:workspaceID"
                             element={<Workspace />}
+                        />
+                        <Route
+                            path="/profile"
+                            element={<Profile />}
                         />
                     </Route>
                     <Route path="/" element={<TeamLayout />}>
