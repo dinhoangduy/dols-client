@@ -62,10 +62,14 @@ const Profile = () => {
 
   const updateProfile = async (data) => {
     const res = await userApi.update(data);
-    return res;
+    if(res) {
+      message.success("Lưu thông tin thành công!")
+      return res;
+    }
   };
 
-  const submitChange = () => {
+  const submitChange = (e) => {
+    e.preventDefault();
     const data = {
       firstName: name,
       gender: gender,
@@ -158,7 +162,7 @@ const Profile = () => {
           <div className="layout">
             <Row className="title">
               <h1>
-                <span onClick={() => navigate(-1)}>
+                <span onClick={() => navigate("/")}>
                   <RollbackOutlined />
                 </span>
                 Settings

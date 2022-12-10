@@ -110,7 +110,6 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
             destinationTasks.forEach((item,index) => {
                 item.position = index + 1;
             })
-            setData(clone);
             // ** save
             try {
                 await taskApi.updateTaskOfData({
@@ -337,13 +336,10 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
             <Divider sx={{ margin: "40px 0" }} />
             <DragDropContext onDragEnd={onDragEnd}>
                 <Box
-                    sx={{
-                        display: "flex",
-                        alignItems: "flex-start",
-                        width: "100%",
-                        minHeight: "calc(100% - 100px)",
-                        overflowX: "auto",
-                    }}
+                    className="kannban-wrappers"
+                    // sx={{
+                       
+                    // }}
                 >
                     {data?.map((section) => (
                         <div

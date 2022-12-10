@@ -16,6 +16,7 @@ import TeamApp from "./Modules/Team/App";
 
 import Workspace from "./Modules/Workspace";
 import Profile from "./Modules/Profile/Profile";
+import Settings from "./Modules/Settings/Settings";
 import NotFound from "./Modules/NotFound";
 
 function App() {
@@ -42,6 +43,10 @@ function App() {
                         <Route
                             path="/profile"
                             element={<Profile />}
+                        />
+                        <Route
+                            path="/settings"
+                            element={<Settings />}
                         />
                     </Route>
                     <Route path="/" element={<TeamLayout />}>

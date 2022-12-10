@@ -41,6 +41,7 @@ import { useSelector } from "react-redux";
 import { setUserData } from "../../redux/features/userDataSlice";
 import dataApi from "../../api/dataApi";
 import taskApi from "../../api/taskApi";
+import { Settings } from "@mui/icons-material";
 // ** End of-> Api
 
 const Workspace = () => {
@@ -128,6 +129,13 @@ const Workspace = () => {
                 <span onClick={() => navigate('../profile')}>Quản lí tài khoản</span>,
                 "quanlitaikhoang",
                 <UserOutlined style={{ color: "blue" }} />
+            )
+        );
+        allTitle?.children.push(
+            getItem(
+                <span onClick={() => navigate('../settings')}>Cài đặt</span>,
+                "quanlivunglamviec",
+                <Settings style={{ color: "#000" }} />
             )
         );
         allTitle?.children.push(
