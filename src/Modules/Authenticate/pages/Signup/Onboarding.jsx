@@ -95,6 +95,7 @@ const Onboarding = () => {
       if (!res) return setLoading(false);
 
       localStorage.setItem('token', res?.data);
+      if(data.layout === "team") return navigate('/team');
       navigate('/');
     } catch (error) {
       setLoading(false);

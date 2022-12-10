@@ -24,7 +24,7 @@ const Authenticate = () => {
     '/forgot-password': {
       component: <Forgot />,
     },
-    '/': {
+    '/home': {
       component: <Home />,
     },
     '/pricing': {

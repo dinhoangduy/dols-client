@@ -6,7 +6,7 @@ const authUtils = {
     if (!token) return false
     try {
       const res = await authApi.verifyToken()
-      return res.user
+      return res.data;
     } catch {
       return false
     }
