@@ -4,13 +4,16 @@
   width: 100vw;
   .layout {
     position: absolute;
+    background-color: rgb(246, 238, 247);
+    z-index: 1;
     width: 1080px;
     height: 720px;
     top: 50%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 5px 5px rgba(0, 0, 0, 0.05);
     border-radius: 15px;
     padding: 15px;
 
@@ -39,6 +42,7 @@
           border-bottom: 1px solid rgba(0, 0, 0, 0.2);
           font-weight: 500;
           font-size: 1.1rem;
+          width: 250px;
         }
       }
 
@@ -88,7 +92,11 @@
               display: flex !important;
               justify-content: center;
               .ant-upload {
+                background-color: transparent;
+                border-radius: 5px;
                 margin: 0 0 1rem 0;
+                height: 150px;
+                width: 150px;
               }
             }
           }
@@ -113,6 +121,7 @@
           }
         }
         .password {
+          position: relative;
           .form-group {
             margin-bottom: 1rem;
             display: flex;
@@ -132,9 +141,10 @@
             }
           }
           .button-change {
+            position: absolute;
             display: flex;
             justify-content: center;
-            align-items: center ;
+            align-items: center;
             width: 100px;
             height: 40px;
             border-radius: 5px;
@@ -144,6 +154,7 @@
             transition: all 0.3s ease-in-out;
             outline: none;
             cursor: pointer;
+            right: 0;
           }
           .button-change:hover {
             background-color: rgba(25, 118, 210);
@@ -153,5 +164,16 @@
         }
       }
     }
+  }
+  .background-image {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background: url(./background.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
   }
 }
