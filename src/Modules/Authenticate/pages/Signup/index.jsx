@@ -49,9 +49,11 @@ const Signup = () => {
             dispatch(
               setUserRegister({
                 ...userData,
-                fistName: result.user.displayName,
+                firstName: result.user.displayName,
               })
             );
+            localStorage.setItem('token', res.data);
+
             navigate('/onboarding');
           })
           .catch((err) => {
@@ -178,11 +180,10 @@ const Signup = () => {
                       rules={[{ required: true, message: 'Vui lòng nhập mã!' }]}
                     >
                       <Input placeholder="Dán mã đăng ký..." />
-
-                      <Button className="btn-resend" onClick={handleResendMail}>
-                        Gửi lại
-                      </Button>
                     </Form.Item>
+                    <Button className="btn-resend" onClick={handleResendMail}>
+                      Gửi lại
+                    </Button>
                   </>
                 )}
 

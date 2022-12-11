@@ -9,7 +9,7 @@ const taskApi = {
   update: (id, params) => axiosClient.put(`tasks/${id}`, params),
   getFavourites: () => axiosClient.get('tasks/favourites'),
   updateFavouritePosition: (params) => axiosClient.put('tasks/favourites', params),
-  updateTaskOfData: (params) => axiosClient.put('tasks/update-task-of-data', params)
+  updateTaskOfData: (params) => axiosClient.post('tasks/update-task-of-data', params)
 }
 
 export default taskApi

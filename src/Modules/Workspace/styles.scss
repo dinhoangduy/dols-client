@@ -1,8 +1,9 @@
 .workspace {
     display: flex;
-    // grid-template-columns: 200px 1fr ;
     width: 100%;
     min-height: 100vh;
+
+    overflow: hidden;
     .ant-layout-sider-trigger {
         background-color: #caf0f8;
     }
@@ -13,9 +14,21 @@
 
     .main {
         padding: 10px 20px;
-        width: 100%;
+        // width: 100%;
+        flex-grow: 2;
         display: flex;
         flex-direction: column;
+        overflow-x: scroll;
+        padding: 10px;
+        &::-webkit-scrollbar{
+            height: 10px;
+        }
+        &::-webkit-scrollbar-thumb { /* Foreground */
+            background: #05668d;
+        }
+        &::-webkit-scrollbar-track { /* Background */
+            background: #00a896;
+          }
         .main__top {
             position: absolute;
             top: 10px;

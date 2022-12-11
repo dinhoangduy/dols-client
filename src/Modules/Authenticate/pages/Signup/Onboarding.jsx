@@ -87,6 +87,9 @@ const Onboarding = () => {
 
   const handleSignUp = async (value) => {
     setLoading(true);
+
+    if (user.name) return navigate('/');
+
     const data = { ...user, ...value };
 
     try {
@@ -95,7 +98,7 @@ const Onboarding = () => {
       if (!res) return setLoading(false);
 
       localStorage.setItem('token', res?.data);
-      if(data.layout === "team") return navigate('/team');
+      if (data.layout === 'team') return navigate('/team');
       navigate('/');
     } catch (error) {
       setLoading(false);

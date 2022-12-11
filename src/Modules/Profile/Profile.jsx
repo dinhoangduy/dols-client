@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import userApi from "../../api/userApi";
-import moment from "moment";
-import dayjs from "dayjs";
-import "./style.scss";
-import Loading from "../../Component/Common/Loading";
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import userApi from '../../api/userApi';
+import './style.scss';
+import Loading from '../../Component/Common/Loading';
+// Moment
+import moment from 'moment';
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+dayjs.extend(customParseFormat);
 // AntD
 import {
   Col,
@@ -18,24 +21,28 @@ import {
   Avatar,
   Form,
   Button,
-} from "antd";
-import ImgCrop from "antd-img-crop";
-import { RollbackOutlined, LoadingOutlined } from "@ant-design/icons";
+} from 'antd';
+import ImgCrop from 'antd-img-crop';
+import { RollbackOutlined, LoadingOutlined } from '@ant-design/icons';
 // Firebase
-import { store } from "../../../firebase";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { store } from '../../../firebase';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { isEmpty } from 'lodash';
 
 const Profile = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const dateFormat = 'YYYY-MM-DD';
+  const [messageApi, contextHolder] = message.useMessage();
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState();
-  const [name, setName] = useState();
-  const [gender, setGender] = useState();
-  const [email, setEmail] = useState();
-  const [birthday, setBirthday] = useState();
-  const [avatar, setAvatar] = useState();
-  const [menuKey, setMenuKey] = useState("1");
+  const [name, setName] = useState('');
+  const [gender, setGender] = useState('');
+  const [email, setEmail] = useState('');
+  const [birthday, setBirthday] = useState('');
+  const [avatar, setAvatar] = useState('');
+  const [menuKey, setMenuKey] = useState('1');
+  const [password, setPassword] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,8 +55,9 @@ const Profile = () => {
         setName(res.data.firstName);
         setGender(res.data.gender);
         setEmail(res.data.email);
-        setBirthday(res.data.birthday);
+        setBirthday(res.data.birthDay);
         setAvatar(res.data.avatar);
+        setPassword(res.data.password);
         setLoading(false);
       })
       .catch((err) => {
@@ -57,26 +65,51 @@ const Profile = () => {
       });
   }, [location]);
 
-  // Main
-  console.log(userData);
+  // Information
 
   const updateProfile = async (data) => {
     const res = await userApi.update(data);
-    return res;
+    if (res) {
+      return res;
+    }
   };
 
-  const submitChange = () => {
+  const submitChange = (e) => {
+    e.preventDefault();
+
+    if (name == '') {
+      message.error('Tên không được để trống');
+    } else {
+      const data = {
+        firstName: name,
+        gender: gender,
+        birthDay: birthday,
+        avatar: avatar,
+        email: email,
+      };
+
+      updateProfile(data)
+        .then((res) => message.success('Lưu thông tin thành công!'))
+        .catch((err) => console.log(err));
+    }
+  };
+
+  // Password
+  const updatePassword = async (data) => {
+    const res = await userApi.updatePW(data);
+    if (res) {
+      return res;
+    }
+  };
+
+  const changePassword = (e) => {
     const data = {
-      firstName: name,
-      gender: gender,
-      birthDay: birthday,
-      avatar: avatar,
-      email: email,
+      oldPass: e.oldPassword,
+      newPass: e.newPassword,
     };
 
-    console.log(data);
-    updateProfile(data)
-      .then((res) => console.log(res))
+    updatePassword(data)
+      .then((res) => message.success('Đổi pass thành công!'))
       .catch((err) => console.log(err));
   };
 
@@ -89,8 +122,8 @@ const Profile = () => {
   }
 
   const menuItems = [
-    getItem("1", "Basic Information"),
-    getItem("2", "Password"),
+    getItem('1', 'Thông tin cá nhân'),
+    getItem('2', 'Mật khẩu'),
   ];
 
   const onChangeMenu = (e) => {
@@ -109,10 +142,11 @@ const Profile = () => {
   };
 
   // Birthday
-  const dateFormat = "YYYY/MM/DD";
   const onChangeBirthday = (e) => {
-    const date = moment(e._d).format("YYYY/MM/DD");
-    setBirthday(date);
+    if (e._d) {
+      const date = moment(e._d).format(dateFormat);
+      setBirthday(date);
+    }
   };
 
   // Avatar
@@ -133,14 +167,14 @@ const Profile = () => {
   };
 
   const beforeUpload = (file) => {
-    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
     if (!isJpgOrPng) {
-      message.error("Chỉ hỗ trợ file JPG/PNG!");
+      message.error('Chỉ hỗ trợ file JPG/PNG!');
       setImgErr(true);
     }
     const isLt2M = file.size / 1024 / 1024 < 2;
     if (!isLt2M) {
-      message.error("Hình ảnh kích cỡ tối đa là 2MB!");
+      message.error('Hình ảnh kích cỡ tối đa là 2MB!');
       setImgErr(true);
     }
 
@@ -155,20 +189,21 @@ const Profile = () => {
         <Loading />
       ) : (
         <div className="user-profile">
+          <div className="background-image"></div>
           <div className="layout">
             <Row className="title">
               <h1>
-                <span onClick={() => navigate(-1)}>
+                <span onClick={() => navigate('/')}>
                   <RollbackOutlined />
                 </span>
-                Settings
+                Quản lí cá nhân
               </h1>
             </Row>
 
             <Row className="content">
               <Col flex={1} className="menu">
                 <Menu
-                  defaultSelectedKeys={["1"]}
+                  defaultSelectedKeys={['1']}
                   mode="inline"
                   onClick={onChangeMenu}
                   items={menuItems}
@@ -197,8 +232,8 @@ const Profile = () => {
                             <Avatar
                               src={avatar}
                               style={{
-                                width: "100%",
-                                height: "100%",
+                                width: '100%',
+                                height: '100%',
                               }}
                             />
                           )}
@@ -208,7 +243,7 @@ const Profile = () => {
                     </div>
 
                     <div className="form-group">
-                      <label htmlFor="">User name </label>
+                      <label htmlFor="">Họ tên </label>
                       <Input
                         name="name"
                         placeholder="Name"
@@ -218,14 +253,14 @@ const Profile = () => {
                     </div>
 
                     <div className="form-group">
-                      <label htmlFor="">Gender </label>
+                      <label htmlFor="">Giới tính </label>
                       <Radio.Group
                         name="gender"
                         onChange={onChangeGender}
                         value={gender}
                       >
-                        <Radio value="male">Male</Radio>
-                        <Radio value="female">Female</Radio>
+                        <Radio value="male">Nam</Radio>
+                        <Radio value="female">Nữ</Radio>
                       </Radio.Group>
                     </div>
 
@@ -244,7 +279,7 @@ const Profile = () => {
                       <DatePicker
                         name="birthday"
                         onChange={onChangeBirthday}
-                        defaultValue={dayjs(birthday, dateFormat)}
+                        defaultValue={moment(birthday, dateFormat)}
                         format={dateFormat}
                       />
                     </div>
@@ -257,21 +292,39 @@ const Profile = () => {
                     </button>
                   </form>
                 ) : (
-                  <Form className="password">
+                  <Form className="password" onFinish={changePassword}>
                     <div className="form-group">
                       <Form.Item
-                        name="password"
+                        name="oldPassword"
+                        label="Nhập mật khẩu cũ"
+                        rules={[
+                          {
+                            pattern:
+                              /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&*()-_=+[{\]}\\|;:'",<.>/?]).{8,20}$/,
+                            message:
+                              'Mật khẩu cần phải có 8 - 20 kí tự, 1 kí tự in hoa, 1 số!',
+                          },
+                          {
+                            required: true,
+                            message: 'Vui lòng nhập mật khẩu cũ!',
+                          },
+                        ]}
+                      >
+                        <Input.Password placeholder="Mật khẩu cũ" />
+                      </Form.Item>
+                      <Form.Item
+                        name="newPassword"
                         label="Đặt mật khẩu mới"
                         rules={[
                           {
                             pattern:
                               /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&*()-_=+[{\]}\\|;:'",<.>/?]).{8,20}$/,
                             message:
-                              "Mật khẩu cần phải có 8 - 20 kí tự, 1 kí tự đặc biệt, 1 số!",
+                              'Mật khẩu cần phải có 8 - 20 kí tự, 1 kí tự in hoa, 1 số!',
                           },
                           {
                             required: true,
-                            message: "Vui lòng nhập mật khẩu!",
+                            message: 'Vui lòng nhập mật khẩu mới!',
                           },
                         ]}
                       >
