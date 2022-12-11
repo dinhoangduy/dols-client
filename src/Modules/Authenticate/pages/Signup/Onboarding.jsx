@@ -28,7 +28,6 @@ import logo from '../../../../assets/images/logo.png';
 import { store } from '../../../../../firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import authApi from '../../../../api/authApi';
-import { async } from '@firebase/util';
 import Loading from '../../../../Component/Common/Loading';
 
 const Onboarding = () => {
@@ -88,6 +87,9 @@ const Onboarding = () => {
 
   const handleSignUp = async (value) => {
     setLoading(true);
+
+    if (user.name) return navigate('/');
+
     const data = { ...user, ...value };
 
     try {
@@ -96,7 +98,7 @@ const Onboarding = () => {
       if (!res) return setLoading(false);
 
       localStorage.setItem('token', res?.data);
-      if(data.layout === "team") return navigate('/team');
+      if (data.layout === 'team') return navigate('/team');
       navigate('/');
     } catch (error) {
       setLoading(false);

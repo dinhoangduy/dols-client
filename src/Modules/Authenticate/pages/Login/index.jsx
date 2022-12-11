@@ -27,25 +27,37 @@ const Login = () => {
         setLoading(true);
 
         const userData = {
+          name: result.user.displayName,
           email: result.user.email,
-          password: result.user.uid,
+          password: 'Dolsmaidinh@1234',
+          avatar: result.user.photoURL,
         };
 
-        console.log(userData);
+        setLoading(true);
+        authApi
+          .signUpWithGoogle(userData)
+          .then((res) => {
+            console.log(res);
 
-        setTimeout(() => {
-          setLoading(false);
-        }, 5000);
+            if (!res) return setLoading(false);
+
+            localStorage.setItem('token', res.data);
+            navigate('/');
+          })
+          .catch((err) => {
+            setLoading(false);
+            message.error(err);
+          });
       })
       .catch((err) => {
-        alert(err);
+        message.error(err.data.message);
       });
   };
 
   const mapErorToVn = {
-    'The account has been baned!' : 'Tài khoản của bạn đã bị khoá!',
-    'The password is incorrect!': 'Sai mật khẩu!'
-  }
+    'The account has been baned!': 'Tài khoản của bạn đã bị khoá!',
+    'The password is incorrect!': 'Sai mật khẩu!',
+  };
 
   const handleLogin = async (value) => {
     setLoading(true);
@@ -60,7 +72,9 @@ const Login = () => {
       navigate('/');
     } catch (error) {
       setLoading(false);
-      let message2 = mapErorToVn[error.data.message] ? mapErorToVn[error.data.message] : 'Xảy ra lỗi!';
+      let message2 = mapErorToVn[error.data.message]
+        ? mapErorToVn[error.data.message]
+        : 'Xảy ra lỗi!';
       message.error(message2);
     }
   };
