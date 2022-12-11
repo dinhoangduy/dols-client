@@ -1,6 +1,7 @@
 .auth {
   &__logo {
-    width: 86px;
+    margin-top: 20px;
+    width: 120px;
     height: 60px;
 
     img {
@@ -84,6 +85,17 @@
     color: rgb(17, 17, 17);
     background: rgba(55, 53, 47, 0.08);
     box-shadow: rgb(15 15 15 / 5%) 0px 1px 2px;
+
+    &.btn-resend {
+      position: absolute;
+      right: -1px;
+      top: -1px;
+      height: 34px;
+      width: 80px;
+
+      background: rgb(253, 245, 242);
+      border-radius: 0;
+    }
 
     img {
       width: 14px;

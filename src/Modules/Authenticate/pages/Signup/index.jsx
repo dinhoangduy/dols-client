@@ -22,25 +22,45 @@ const Signup = () => {
   const [verify, setVerify] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const [form] = Form.useForm();
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSignInWithGoogle = async () => {
     signInWithPopup(auth, provider)
       .then((result) => {
+        if (!result) return;
+
         const userData = {
+          name: result.user.displayName,
           email: result.user.email,
-          password: result.user.uid,
-          image: result.user.photoURL,
-          firstName: result.user.displayName,
+          password: 'Dolsmaidinh@1234',
+          avatar: result.user.photoURL,
         };
 
-        dispatch(setUserRegister(userData));
+        setLoading(true);
+        authApi
+          .signUpWithGoogle(userData)
+          .then((res) => {
+            console.log(res);
 
-        navigate('/onboarding');
+            if (!res) return setLoading(false);
+            dispatch(
+              setUserRegister({
+                ...userData,
+                fistName: result.user.displayName,
+              })
+            );
+            navigate('/onboarding');
+          })
+          .catch((err) => {
+            setLoading(false);
+            message.error(err.data.message);
+          });
       })
       .catch((err) => {
-        alert(err);
+        message.error(err);
       });
   };
 
@@ -50,11 +70,18 @@ const Signup = () => {
     try {
       const res = await authApi.sendMail(value);
 
-      if (!res.data) return;
+      if (!res) return setLoading(false);
+
+      if (!res.data) {
+        setLoading(false);
+
+        return message.error('Email này đã được đăng ký rồi!');
+      }
 
       setVerify(true);
       setLoading(false);
     } catch (err) {
+      setLoading(false);
       message.error(err.data.message);
     }
   };
@@ -63,6 +90,8 @@ const Signup = () => {
     setLoading(true);
     try {
       const res = await authApi.active(value);
+
+      if (!res) return setLoading(false);
 
       if (!res.data) {
         setLoading(false);
@@ -83,6 +112,23 @@ const Signup = () => {
     verify && setVerify(false);
   };
 
+  const handleResendMail = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const data = { email: form.getFieldValue('email') };
+
+    try {
+      const res = await authApi.resendMail(data);
+      if (!res) return setLoading(loading(false));
+
+      setLoading(false);
+      message.success('Gửi lại thành công!');
+    } catch (error) {
+      setLoading(false);
+      message.error(error.data.message);
+    }
+  };
+
   return (
     <>
       {loading && <Loading />}
@@ -98,7 +144,10 @@ const Signup = () => {
             <Col xs={24} md={10} xl={6} className="auth__main">
               <h1>Đăng ký</h1>
 
-              <Form onFinish={verify ? handleVerifyMail : handleSendMail}>
+              <Form
+                form={form}
+                onFinish={verify ? handleVerifyMail : handleSendMail}
+              >
                 <Form.Item
                   name="email"
                   label="Email"
@@ -129,6 +178,10 @@ const Signup = () => {
                       rules={[{ required: true, message: 'Vui lòng nhập mã!' }]}
                     >
                       <Input placeholder="Dán mã đăng ký..." />
+
+                      <Button className="btn-resend" onClick={handleResendMail}>
+                        Gửi lại
+                      </Button>
                     </Form.Item>
                   </>
                 )}
