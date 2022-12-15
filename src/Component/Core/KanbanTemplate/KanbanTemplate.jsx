@@ -265,16 +265,6 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
     };
     return (
         <>
-              
-            <Box
-                sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                }}
-            >
-                {workspaceData.name}
-            </Box>
             <div style={{ display: "flex" }}>
                 <EmojiPicker icon={icon} onChange={onIconChange} />
                 <TextField
@@ -298,14 +288,14 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
                 />
             </div>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <Typography variant="body2" fontWeight="700" fontSize="10px">
+                <Typography variant="body2" fontWeight="700" fontSize="10px" style={{paddingLeft: "10px"}}>
                     Lần cập nhật cuối{" "}
                     {data !== undefined
                         ? Moment(data.updateAt).format("HH:mm A DD-MM-YYYY")
                         : ""}
                 </Typography>
             </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "20px", marginTop:"10px", paddingLeft:"10px"}}>
                 <Box
                     sx={{
                         display: "flex",
@@ -313,7 +303,7 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
                         justifyContent: "space-between",
                     }}
                 >
-                    <Button onClick={createSection}>Thêm cột</Button>
+                    <Button onClick={createSection} style={{backgroundColor: "#fff"}}>Thêm cột</Button>
                 </Box>
                 <Popconfirm
                     title="Bạn thật sự muốn xóa chứ？"
@@ -322,7 +312,7 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
                     cancelText="Trở về"
                     onConfirm={handleDeleteBoard}
                 >
-                    <Tooltip title="Xóa bảng" placement="left">
+                    <Tooltip title="Xóa bảng" placement="bottom">
                         <DeleteOutlined
                             style={{
                                 color: "red",
@@ -337,9 +327,7 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
             <DragDropContext onDragEnd={onDragEnd}>
                 <Box
                     className="kannban-wrappers"
-                    // sx={{
-                       
-                    // }}
+                
                 >
                     {data?.map((section) => (
                         <div

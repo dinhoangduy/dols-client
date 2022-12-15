@@ -161,7 +161,7 @@ const BlankTemplate = ({
                 />
             </div>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <Typography variant="body2" fontWeight="700" fontSize="10px">
+                <Typography variant="body2" fontWeight="700" fontSize="10px" style={{paddingLeft: "10px"}}>
                     Lần cập nhật cuối{" "}
                     {data !== undefined
                         ? Moment(data.updateAt).format("HH:mm A DD-MM-YYYY")

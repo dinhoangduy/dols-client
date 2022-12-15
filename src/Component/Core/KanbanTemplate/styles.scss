@@ -1,7 +1,11 @@
 .ant-picker-dropdown{
     z-index: 10000;
 }
-
+.ant-layout-sider{
+     background: rgba(255, 255, 255, .7);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
 .kannban-wrappers{
     width: 100%;
     display: flex;

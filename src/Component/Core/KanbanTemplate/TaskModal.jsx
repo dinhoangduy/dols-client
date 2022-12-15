@@ -14,7 +14,7 @@ import Moment from "moment";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import taskApi from "/src/api/taskApi";
-import { DatePicker, Space } from "antd";
+import { DatePicker, message, Space } from "antd";
 import './styles.scss'
 import "/src/css/custom-editor.css";
 
@@ -68,8 +68,21 @@ const TaskModal = (props) => {
         console.log("Selected Time: ", value);
         console.log("Formatted Selected Time: ", dateString);
     };
-    const onOk = (value) => {
-        console.log("onOk: ", value);
+    const onOk = async (value) => {
+        let value2= `${value._d}`;
+        console.log(value);
+        try {
+            const res = await taskApi.updateTaskDeadline({
+                taskId: task.id,
+                dealine: value2
+            })
+            if(res){
+                message.success("Thêm thông báo thành công!");
+            }
+        }
+        catch{
+
+        }
     };
 
     const onClose = () => {
@@ -188,7 +201,7 @@ const TaskModal = (props) => {
                             marginBottom={"10px"}
                             fontWeight="400"
                         >
-                            Deadline
+                           Thời hạn 
                         </Typography>
                         <Space direction="vertical" size={12} >
                             <DatePicker
