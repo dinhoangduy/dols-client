@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Col, message, Row } from "antd";
 import { Avatar, Image } from "antd";
 import { TreeSelect } from "antd";
+
+import Tour from "reactour";
+
 import {
     AppstoreOutlined,
     ContainerOutlined,
@@ -49,6 +52,39 @@ const Workspace = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const [newBoardForm] = Form.useForm();
+
+    const [isTourOpen, setIsTourOpen] = useState(true);
+
+    // useEffect(()=> {
+    //     let isTourOver = localStorage.getItem("isTourOver");
+    //     console.log("🚀 ~ file: index.jsx:60 ~ useEffect ~ isTourOver", isTourOver)
+        
+    //     if(!isTourOver) {
+    //         setIsTourOpen(true);
+    //         localStorage.setItem("isTourOver", "okla");
+    //     }else{
+    //         setIsTourOpen(false);
+    //     }
+    // },[])
+    
+    const steps = [
+        {
+            selector: "#dashboard",
+            content: "Nhấn vào đây để xem thêm thông tin và chức nằng",
+        },
+        {
+            selector: "#addboard",
+            content: "Nhấn vào đây để thêm bảng mới",
+        },
+        {
+            selector: "#board",
+            content: "Đây là một bảng, nhấn vào để mở bảng",
+        },
+        {
+            selector: "#dashboard4",
+            content: "Đây là bảng điều khiển4",
+        },
+    ];
 
     // ** Menu slider
     const [collapsed, setCollapsed] = useState(false);
@@ -128,9 +164,9 @@ const Workspace = () => {
     const renderAllWorkspaceAndBoard = () => {
         let res = [];
         let allTitle = getItem(
-            "Bảng điều khiển",
+           <span id="dashboard">"Bảng điều khiển"</span> ,
             "bangdieukhine",
-            <ContainerOutlined />
+            <ContainerOutlined/>
         );
         allTitle[`children`] = [];
         let allBoard = [];
@@ -141,7 +177,7 @@ const Workspace = () => {
             });
         allTitle?.children.push(
             getItem(
-                "Tạo vùng làm việc",
+                <span>Tạo vùng làm việc</span> ,
                 "taovunglamviec",
                 <FileAddOutlined style={{ color: "green" }} />
             )
@@ -173,7 +209,7 @@ const Workspace = () => {
 
         res.push(
             getItem(
-                <span onClick={showModal}>Thêm bảng mới</span>,
+                <span onClick={showModal} id="addboard">Thêm bảng mới</span>,
                 "thembangmoi",
                 <AppstoreAddOutlined onClick={showModal} />
             )
@@ -263,20 +299,22 @@ const Workspace = () => {
             },
             create: async ({ template, title }) => {
                 let typeMapTemplate = {
-                    'today': {
+                    today: {
                         heading: ["Việc cần làm", "Đang làm", "Đã xong"],
-                        icon: "🚀"
+                        icon: "🚀",
                     },
-                    'week': {
+                    week: {
                         heading: ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6"],
-                        icon: "🚗"
-                    }
-                }
+                        icon: "🚗",
+                    },
+                };
                 console.log(title);
                 try {
                     let data = {
                         title: title.split("-")[0],
-                        icon: typeMapTemplate[title.split("-")[1]].icon || typeMapTemplate['today'].icon,
+                        icon:
+                            typeMapTemplate[title.split("-")[1]].icon ||
+                            typeMapTemplate["today"].icon,
                         description: `<h2><a href="https://emojipedia.org/travel-places">🚀</a>Xin chào bạn, lại là DOLS đây !<a href="https://emojipedia.org/travel-places">🚀</a></h2><p>&nbsp;</p><h2><a href="https://emojipedia.org/four-leaf-clover/">🍀</a>Đây là nơi mà bạn có thể ghi bất cứ thứ gì mà bạn muốn…</h2><p>&nbsp;</p><h2><a href="https://emojipedia.org/new-years-eve/">🎊</a>Chỉ có cái bạn không nghĩ ra chứ không có cái DOLS không có&nbsp;</h2>`,
                         position: currentWorkspaceData.board.length + 4,
                         favourite: "string",
@@ -287,10 +325,11 @@ const Workspace = () => {
                     };
                     let res = await boardApi.create(data);
 
-
                     if (res) {
                         let res2 = await dataApi.create({
-                            heading: typeMapTemplate[title.split("-")[1]].heading || typeMapTemplate['today'].heading,
+                            heading:
+                                typeMapTemplate[title.split("-")[1]].heading ||
+                                typeMapTemplate["today"].heading,
                             boardId: res.data,
                         });
 
@@ -401,7 +440,7 @@ const Workspace = () => {
 
         console.log(template);
 
-        if(template === "today" || template === "week") {
+        if (template === "today" || template === "week") {
             title += "-" + template;
             template = "f73f93fe-2cde-48be-8478-2e632b8564fa";
         }
@@ -594,6 +633,12 @@ const Workspace = () => {
                     ></Form.Item>
                 </Form>
             </Modal>
+
+            <Tour
+                steps={steps}
+                isOpen={isTourOpen}
+                onRequestClose={() => setIsTourOpen(false)}
+            />
         </>
     );
 };

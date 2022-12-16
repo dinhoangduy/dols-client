@@ -327,7 +327,6 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
             <DragDropContext onDragEnd={onDragEnd}>
                 <Box
                     className="kannban-wrappers"
-                
                 >
                     {data?.map((section) => (
                         <div
@@ -337,6 +336,8 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
                                 minHeight: "400px",
                                 backgroundColor: "#1d3557",
                                 marginRight: "10px",
+                                borderRadius:"10px",
+                                // backdropFilter: "blur(10px)"
                             }}
                         >
                             <Droppable
@@ -351,6 +352,7 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
                                             width: "300px",
                                             padding: "10px",
                                             marginRight: "10px",
+                                            borderRadius: "5px"
                                         }}
                                     >
                                         <Box
@@ -360,6 +362,8 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
                                                 justifyContent: "space-between",
                                                 marginBottom: "10px",
                                                 backgroundColor: "#faedcd",
+                                                borderRadius: "5px",
+                                                padding: "10px 0"
                                             }}
                                         >
                                             <TextField
