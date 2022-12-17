@@ -5,7 +5,6 @@ import "./style.scss";
 import Loading from "../../Component/Common/Loading";
 // Moment
 import moment from "moment";
-import dayjs from "dayjs";
 // AntD
 import {
   Col,
@@ -44,7 +43,6 @@ const Profile = () => {
   const [birthday, setBirthday] = useState();
   const [avatar, setAvatar] = useState("");
   const [menuKey, setMenuKey] = useState("1");
-  const [password, setPassword] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,7 +57,6 @@ const Profile = () => {
         setEmail(res.data.email);
         setBirthday(res.data.birthDay);
         setAvatar(res.data.avatar);
-        setPassword(res.data.password);
         setLoading(false);
       })
       .catch((err) => {
@@ -167,7 +164,9 @@ const Profile = () => {
   };
 
   const getValueForBirthday = () => {
-    return moment(birthday);
+    if(birthday){
+      return moment(birthday);
+    }
   };
 
   // Avatar
@@ -335,7 +334,7 @@ const Profile = () => {
                             pattern:
                               /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&*()-_=+[{\]}\\|;:'",<.>/?]).{8,20}$/,
                             message:
-                              "Mật khẩu cần phải có 8 - 20 kí tự, 1 kí tự in hoa, 1 số!",
+                              "Mật khẩu cần phải có 8 - 20 kí tự, 1 kí tự in hoa và 1 số!",
                           },
                           {
                             required: true,
@@ -343,7 +342,7 @@ const Profile = () => {
                           },
                         ]}
                       >
-                        <Input.Password placeholder="Mật khẩu cũ" />
+                        <Input.Password placeholder="Mật khẩu cũ" autoComplete="" />
                       </Form.Item>
                       <Form.Item
                         name="newPassword"
@@ -353,7 +352,7 @@ const Profile = () => {
                             pattern:
                               /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&*()-_=+[{\]}\\|;:'",<.>/?]).{8,20}$/,
                             message:
-                              "Mật khẩu cần phải có 8 - 20 kí tự, 1 kí tự in hoa, 1 số!",
+                              "Mật khẩu cần phải có 8 - 20 kí tự, 1 kí tự in hoa và 1 số!",
                           },
                           {
                             required: true,
@@ -361,7 +360,7 @@ const Profile = () => {
                           },
                         ]}
                       >
-                        <Input.Password placeholder="Mật khẩu mới" />
+                        <Input.Password placeholder="Mật khẩu mới" autoComplete="" />
                       </Form.Item>
                     </div>
                     <Button className="button-change" htmlType="submit">
