@@ -53,24 +53,21 @@ const Workspace = () => {
     const navigate = useNavigate();
     const [newBoardForm] = Form.useForm();
 
-    const [isTourOpen, setIsTourOpen] = useState(true);
+    const [isTourOpen, setIsTourOpen] = useState(false);
 
-    // useEffect(()=> {
-    //     let isTourOver = localStorage.getItem("isTourOver");
-    //     console.log("🚀 ~ file: index.jsx:60 ~ useEffect ~ isTourOver", isTourOver)
-        
-    //     if(!isTourOver) {
-    //         setIsTourOpen(true);
-    //         localStorage.setItem("isTourOver", "okla");
-    //     }else{
-    //         setIsTourOpen(false);
-    //     }
-    // },[])
-    
+    useEffect(() => {
+        let isTourOver = localStorage.getItem("isTourOver");
+        if (!isTourOver) {
+            setIsTourOpen(true);
+        } else {
+            setIsTourOpen(false);
+        }
+    }, []);
+
     const steps = [
         {
             selector: "#dashboard",
-            content: "Nhấn vào đây để xem thêm thông tin và chức nằng",
+            content: "Nhấn vào đây để xem thêm thông tin và chức năng",
         },
         {
             selector: "#addboard",
@@ -81,8 +78,8 @@ const Workspace = () => {
             content: "Đây là một bảng, nhấn vào để mở bảng",
         },
         {
-            selector: "#dashboard4",
-            content: "Đây là bảng điều khiển4",
+            selector: "#board-content",
+            content: "Đây là vùng hoạt động của bảng",
         },
     ];
 
@@ -126,6 +123,7 @@ const Workspace = () => {
                 onClick={() => {
                     handleChangeBoard(item);
                 }}
+                id="board"
             >
                 {item.title}
             </span>,
@@ -164,9 +162,9 @@ const Workspace = () => {
     const renderAllWorkspaceAndBoard = () => {
         let res = [];
         let allTitle = getItem(
-           <span id="dashboard">"Bảng điều khiển"</span> ,
+            <span id="dashboard">Bảng điều khiển</span>,
             "bangdieukhine",
-            <ContainerOutlined/>
+            <ContainerOutlined />
         );
         allTitle[`children`] = [];
         let allBoard = [];
@@ -177,7 +175,7 @@ const Workspace = () => {
             });
         allTitle?.children.push(
             getItem(
-                <span>Tạo vùng làm việc</span> ,
+                <span>Tạo vùng làm việc</span>,
                 "taovunglamviec",
                 <FileAddOutlined style={{ color: "green" }} />
             )
@@ -209,7 +207,9 @@ const Workspace = () => {
 
         res.push(
             getItem(
-                <span onClick={showModal} id="addboard">Thêm bảng mới</span>,
+                <span onClick={showModal} id="addboard">
+                    Thêm bảng mới
+                </span>,
                 "thembangmoi",
                 <AppstoreAddOutlined onClick={showModal} />
             )
@@ -479,7 +479,7 @@ const Workspace = () => {
                     collapsed={collapsed}
                     theme="light"
                     onCollapse={(value) => setCollapsed(value)}
-
+                    width="250px"
                     // className="slider-menu"
                 >
                     <div className="logo" />
@@ -496,7 +496,7 @@ const Workspace = () => {
                         className="slider-menu"
                     />
                 </Sider>
-                <div className="main">
+                <div className="main" id="board-content">
                     <div className="main__top">
                         <div
                             style={{
@@ -637,7 +637,10 @@ const Workspace = () => {
             <Tour
                 steps={steps}
                 isOpen={isTourOpen}
-                onRequestClose={() => setIsTourOpen(false)}
+                onRequestClose={() => {
+                    setIsTourOpen(false);
+                    localStorage.setItem("isTourOver", true);
+                }}
             />
         </>
     );
