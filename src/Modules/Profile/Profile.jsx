@@ -6,8 +6,6 @@ import Loading from "../../Component/Common/Loading";
 // Moment
 import moment from "moment";
 import dayjs from "dayjs";
-import customParseFormat from "dayjs/plugin/customParseFormat";
-dayjs.extend(customParseFormat);
 // AntD
 import {
   Col,
@@ -37,14 +35,13 @@ import { isEmpty } from "lodash";
 const Profile = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const dateFormat = "DD-MM-YYYY";
   const [messageApi, contextHolder] = message.useMessage();
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState();
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
   const [email, setEmail] = useState("");
-  const [birthday, setBirthday] = useState("00-00-0000");
+  const [birthday, setBirthday] = useState();
   const [avatar, setAvatar] = useState("");
   const [menuKey, setMenuKey] = useState("1");
   const [password, setPassword] = useState("");
@@ -60,9 +57,7 @@ const Profile = () => {
         setName(res.data.firstName);
         setGender(res.data.gender);
         setEmail(res.data.email);
-        if (res.data.birthDay) {
-          setBirthday(res.data.birthDay);
-        }
+        setBirthday(res.data.birthDay);
         setAvatar(res.data.avatar);
         setPassword(res.data.password);
         setLoading(false);
@@ -164,11 +159,15 @@ const Profile = () => {
   };
 
   // Birthday
+  const dateFormat = "DD/MM/YYYY";
+  const dbFormat = "YYYY/MM/DD"
   const onChangeBirthday = (e) => {
-    if (e) {
-      const date = moment(e._d).format(dateFormat);
-      setBirthday(date);
-    }
+    const date = moment(e._d).format(dbFormat);
+    setBirthday(date);
+  };
+
+  const getValueForBirthday = () => {
+    return moment(birthday);
   };
 
   // Avatar
@@ -311,7 +310,7 @@ const Profile = () => {
                       <DatePicker
                         name="birthday"
                         onChange={onChangeBirthday}
-                        defaultValue={moment(birthday, dateFormat)}
+                        defaultValue={getValueForBirthday}
                         format={dateFormat}
                         allowClear={false}
                         bordered={false}
