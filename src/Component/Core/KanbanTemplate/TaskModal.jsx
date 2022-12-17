@@ -208,6 +208,7 @@ const TaskModal = (props) => {
                                 showTime
                                 onChange={onChange}
                                 onOk={onOk}
+                                defaultValue={Moment(task?.deadline) }
                             />
                         </Space>
                         <Typography
