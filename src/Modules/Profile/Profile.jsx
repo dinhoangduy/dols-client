@@ -122,7 +122,7 @@ const Profile = () => {
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        message.error("Mật khẩu hiện tại không hợp trùng khớp!")
         setLoading(false);
       });
   };
@@ -157,14 +157,14 @@ const Profile = () => {
 
   // Birthday
   const dateFormat = "DD/MM/YYYY";
-  const dbFormat = "YYYY/MM/DD"
+  const dbFormat = "YYYY/MM/DD";
   const onChangeBirthday = (e) => {
     const date = moment(e._d).format(dbFormat);
     setBirthday(date);
   };
 
   const getValueForBirthday = () => {
-    if(birthday){
+    if (birthday) {
       return moment(birthday);
     }
   };
@@ -290,10 +290,11 @@ const Profile = () => {
                       >
                         <Radio value="male">Nam</Radio>
                         <Radio value="female">Nữ</Radio>
+                        <Radio value="other">Khác</Radio>
                       </Radio.Group>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group readOnly">
                       <label htmlFor="">Email </label>
                       <Input
                         name="email"
@@ -328,21 +329,24 @@ const Profile = () => {
                     <div className="form-group">
                       <Form.Item
                         name="oldPassword"
-                        label="Nhập mật khẩu cũ"
+                        label="Nhập mật khẩu hiện tại"
                         rules={[
                           {
                             pattern:
                               /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&*()-_=+[{\]}\\|;:'",<.>/?]).{8,20}$/,
                             message:
-                              "Mật khẩu cần phải có 8 - 20 kí tự, 1 kí tự in hoa và 1 số!",
+                              "Mật khẩu có 8 - 20 kí tự, 1 kí tự in hoa và 1 số!",
                           },
                           {
                             required: true,
-                            message: "Vui lòng nhập mật khẩu cũ!",
+                            message: "Vui lòng nhập mật khẩu hiện tại!",
                           },
                         ]}
                       >
-                        <Input.Password placeholder="Mật khẩu cũ" autoComplete="" />
+                        <Input.Password
+                          placeholder="Mật khẩu cũ"
+                          autoComplete=""
+                        />
                       </Form.Item>
                       <Form.Item
                         name="newPassword"
@@ -352,7 +356,7 @@ const Profile = () => {
                             pattern:
                               /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&*()-_=+[{\]}\\|;:'",<.>/?]).{8,20}$/,
                             message:
-                              "Mật khẩu cần phải có 8 - 20 kí tự, 1 kí tự in hoa và 1 số!",
+                              "Mật khẩu có 8 - 20 kí tự, 1 kí tự in hoa và 1 số!",
                           },
                           {
                             required: true,
@@ -360,7 +364,39 @@ const Profile = () => {
                           },
                         ]}
                       >
-                        <Input.Password placeholder="Mật khẩu mới" autoComplete="" />
+                        <Input.Password
+                          placeholder="Mật khẩu mới"
+                          autoComplete=""
+                        />
+                      </Form.Item>
+                      <Form.Item
+                        name="re-newPassword"
+                        label="Xác nhận mật khẩu mới"
+                        dependencies={["newPassword"]}
+                        hasFeedback
+                        rules={[
+                          {
+                            required: true,
+                            message: "Vui lòng xác nhận mật khẩu mới",
+                          },
+                          ({ getFieldValue }) => ({
+                            validator(_, value) {
+                              if (
+                                !value ||
+                                getFieldValue("newPassword") === value
+                              ) {
+                                return Promise.resolve();
+                              }
+                              return Promise.reject(
+                                new Error(
+                                  "Mật khẩu mới không khớp!"
+                                )
+                              );
+                            },
+                          }),
+                        ]}
+                      >
+                        <Input.Password placeholder="Xác nhận mật khẩu mới" autoComplete=""/>
                       </Form.Item>
                     </div>
                     <Button className="button-change" htmlType="submit">
