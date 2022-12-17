@@ -218,7 +218,7 @@ const TaskModal = (props) => {
                         >
                             Lần cập nhật cuối{" "}
                             {task !== undefined
-                                ? Moment(task.updateAt).format("MM/DD HH:mm")
+                                ? Moment(task.updateAt).format("HH:mm DD/MM")
                                 : ""}
                         </Typography>
                         <Divider sx={{ margin: "1.5rem 0" }} />

@@ -4,14 +4,14 @@
     min-height: 100vh;
     background: linear-gradient(90deg, #edc0bf 0,#c4caef 58%);
 
-    .ant-menu-submenu-title{
-        background: rgba(255,255,255,0.4);
-        border-radius: 10px;
-        border: 1px solid rgba(255,255,255,0.2);
-        z-index: 4;
-        backdrop-filter: blur(5px);
-        -webkit-backdrop-filter: blur(5px);
-    }
+    // .ant-menu-submenu-title{
+    //     background: rgba(255,255,255,0.4);
+    //     border-radius: 10px;
+    //     border: 1px solid rgba(255,255,255,0.2);
+    //     z-index: 4;
+    //     backdrop-filter: blur(5px);
+    //     -webkit-backdrop-filter: blur(5px);
+    // }
 
     overflow: hidden;
     .ant-layout-sider-trigger {
@@ -61,5 +61,12 @@
     .ant-menu {
         user-select: none;
         background-color: transparent;
+
+
+        .ant-menu-item-active,
+        .ant-menu-submenu-active {
+            background-color: #fff;
+            border-radius: 10px;
+        }
     }
 }
