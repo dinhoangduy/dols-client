@@ -3,7 +3,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Col, message, Row } from "antd";
 import { Avatar, Image } from "antd";
 import { TreeSelect } from "antd";
-
 import Tour from "reactour";
 
 import {
@@ -20,6 +19,7 @@ import {
     LogoutOutlined,
     AppstoreAddOutlined,
     UserOutlined,
+    RocketOutlined,
 } from "@ant-design/icons";
 import { Divider } from "@mui/material";
 import { Button, Menu, Layout, Checkbox, Form, Input, Select } from "antd";
@@ -47,6 +47,7 @@ import dataApi from "../../api/dataApi";
 import taskApi from "../../api/taskApi";
 import { Settings } from "@mui/icons-material";
 // ** End of-> Api
+
 
 const Workspace = () => {
     const location = useLocation();
@@ -214,6 +215,15 @@ const Workspace = () => {
                 <AppstoreAddOutlined onClick={showModal} />
             )
         );
+        res.push(
+            getItem(
+                <span onClick={handleUpgrade} id="upgrade">
+                    Nâng cấp tài khoản
+                </span>,
+                "nangcaptaikhoan",
+                <RocketOutlined onClick={handleUpgrade} />
+            )
+        );
         res.push(getItem(<Divider />, "divider2", <Divider />));
         currentWorkspaceData?.board?.forEach((item) => {
             res.push(renderBoardTitle(item));
@@ -221,6 +231,13 @@ const Workspace = () => {
 
         return res;
     };
+
+    // ** Upgrade
+   
+    const handleUpgrade = () => {
+      
+    };
+    // ** End of -> Upgrade
 
     // ** Get board ID and load board
     const nameMapTemplate = {

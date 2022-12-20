@@ -1,8 +1,7 @@
 import axios from 'axios';
 import queryString from 'query-string';
 
-const baseUrl =
-  'http://apiservice-env.eba-vgrg7cua.us-east-1.elasticbeanstalk.com/api/v1';
+const baseUrl = 'https://3.84.99.235/api/v1'
 // const baseUrl = 'http://http://webapiservice-env-1.eba-me2tu2kp.us-east-1.elasticbeanstalk.com/api/v1'
 const getToken = () => localStorage.getItem('token');
 
