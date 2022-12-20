@@ -30,6 +30,8 @@ const modalStyle = {
     boxShadow: 24,
     p: 1,
     height: "80%",
+    borderRadius: "10px",
+    border: "1px solid rgba( 255, 255, 255, 0.18 )"
 };
 
 let timer;

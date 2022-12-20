@@ -4,6 +4,7 @@ import { Col, message, Row } from "antd";
 import { Avatar, Image } from "antd";
 import { TreeSelect } from "antd";
 import Tour from "reactour";
+import wave from '/src/assets/images/wave.svg';
 
 import {
     AppstoreOutlined,
@@ -73,6 +74,10 @@ const Workspace = () => {
         {
             selector: "#addboard",
             content: "Nhấn vào đây để thêm bảng mới",
+        },
+        {
+            selector: "#payment",
+            content: "Bạn có thể nâng cấp tài khoản để trãi nghiệm thêm nhiều tính năng ở đây!",
         },
         {
             selector: "#board",
@@ -217,7 +222,7 @@ const Workspace = () => {
         );
         res.push(
             getItem(
-                <span onClick={handleUpgrade} id="upgrade">
+                <span onClick={handleUpgrade} id="payment">
                     Nâng cấp tài khoản
                 </span>,
                 "nangcaptaikhoan",
@@ -234,8 +239,9 @@ const Workspace = () => {
 
     // ** Upgrade
    
-    const handleUpgrade = () => {
-      
+    const handleUpgrade =  async () => {
+      const res = await userApi.payment();
+      console.log("🚀 ~ file: index.jsx:244 ~ handleUpgrade ~ res", res)
     };
     // ** End of -> Upgrade
 
@@ -555,6 +561,7 @@ const Workspace = () => {
                         )}
                     </div>
                     <div className="main__content">
+                       
                         {isLoading ? (
                             <Loading />
                         ) : (

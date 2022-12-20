@@ -334,11 +334,11 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
                             style={{
                                 width: "300px",
                                 minHeight: "400px",
-                                backgroundColor: "#1d3557",
+        
                                 marginRight: "10px",
-                                borderRadius:"10px",
-                                // backdropFilter: "blur(10px)"
+                               
                             }}
+                            className="column-kanban"
                         >
                             <Droppable
                                 key={section.id}
@@ -354,6 +354,7 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
                                             marginRight: "10px",
                                             borderRadius: "5px"
                                         }}
+                                      
                                     >
                                         <Box
                                             sx={{
