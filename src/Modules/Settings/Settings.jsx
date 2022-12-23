@@ -45,6 +45,9 @@ const Settings = () => {
     fetchData()
       .then((res) => {
         setWorkspaceData(res.data);
+        if (workspaceData[0].image != "") {
+          setAvatar(workspaceData[0].image);
+        }
         setLoading(false);
       })
       .catch((err) => {
@@ -55,6 +58,11 @@ const Settings = () => {
   // Main
   console.log(workspaceData);
 
+  const submitChange = (e) => {
+    const data = { name: e.wsTitle, image: avatar };
+    console.log(data);
+  };
+
   // Menu
   function getItem(key, label) {
     return {
@@ -63,7 +71,7 @@ const Settings = () => {
     };
   }
 
-  const menuItems = [getItem("1", "Tiêu đề")];
+  const menuItems = [getItem("1", "Cơ bản")];
 
   const onChangeMenu = (e) => {
     setMenuKey(e.key);
@@ -72,6 +80,7 @@ const Settings = () => {
   // Avatar
   const [imgErr, setImgErr] = useState(false);
   const [uploading, setUploading] = useState(false);
+
   const handleChange = (info) => {
     if (info.file && !imgErr) {
       setUploading(true);
@@ -124,7 +133,7 @@ const Settings = () => {
                 <span onClick={() => navigate("/")}>
                   <RollbackOutlined />
                 </span>
-                Cài đặt
+                Cài đặt workspace
               </h1>
             </Row>
 
@@ -138,23 +147,56 @@ const Settings = () => {
                 />
               </Col>
               <Col flex={9} className="detail">
-                <Form>
+                <Form className="basic-form" onFinish={submitChange}>
                   <Form.Item
-                    name="name"
-                    label="Tiêu đề workspace"
+                    label="Tên workspace"
+                    name="wsTitle"
                     rules={[
                       {
-                        pattern: /^$|\s+/,
-                        message:
-                          "2 dấu cách không được liền nhau!",
-                      },
-                      {
                         required: true,
-                        message: "Không được để trống!",
+                        message: "Vui lòng không để trống",
                       },
                     ]}
+                    initialValue={workspaceData[0].name}
                   >
-                    <Input/>
+                    <Input placeholder="Nhập tên workspace" />
+                  </Form.Item>
+                  <Form.Item
+                    name="wsImage"
+                    label="Ảnh đại diện"
+                    className="image-field"
+                  >
+                    <ImgCrop rotate>
+                      <Upload
+                        name="avatar"
+                        listType="picture-card"
+                        className="avatar-uploader"
+                        showUploadList={false}
+                        beforeUpload={beforeUpload}
+                        onChange={handleChange}
+                        maxCount={1}
+                      >
+                        {uploading ? (
+                          <>
+                            <LoadingOutlined />
+                            <span> Đang tải ...</span>
+                          </>
+                        ) : (
+                          <Avatar
+                            src={avatar}
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                            }}
+                          />
+                        )}
+                      </Upload>
+                    </ImgCrop>
+                  </Form.Item>
+                  <Form.Item>
+                    <button type="submit" className="submit-btn">
+                      Lưu thông tin
+                    </button>
                   </Form.Item>
                 </Form>
               </Col>

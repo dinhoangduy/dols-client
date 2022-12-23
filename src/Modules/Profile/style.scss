@@ -28,6 +28,7 @@
             border-radius: 5px;
             padding: 0.3rem;
             transition: all 0.3s ease-in-out;
+            border: 1px dashed rgba(25, 118, 210, 0.4);
           }
           .anticon:hover {
             color: white;
@@ -55,6 +56,9 @@
         display: flex;
         justify-content: center;
         .information {
+          .ant-avatar{
+            border: 1px dashed rgba(0, 0, 0, 0.2);
+          }
           .form-group {
             margin-bottom: 1rem;
             display: flex;
@@ -105,6 +109,7 @@
             font-size: 1.2rem;
             margin-bottom: 0.3rem;
             font-weight: 500;
+            padding-bottom: 1rem;
             .ant-upload-picture-card-wrapper {
               display: flex !important;
               justify-content: center;

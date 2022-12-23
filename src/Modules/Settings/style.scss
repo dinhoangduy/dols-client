@@ -28,6 +28,7 @@
             border-radius: 5px;
             padding: 0.3rem;
             transition: all 0.3s ease-in-out;
+            border: 1px dashed rgba(25, 118, 210, 0.4);
           }
           .anticon:hover {
             color: white;
@@ -53,9 +54,65 @@
       .detail {
         padding: 0 5%;
         display: flex;
-        justify-content: center;
-        .information {
-          
+
+        .basic-form {
+          min-width: 80%;
+        }
+        .ant-input {
+          background: transparent;
+          border: none;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+          font-size: 1rem;
+          font-weight: 400;
+        }
+        .ant-form-item-label {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          min-width: 170px;
+        }
+        label {
+          font-size: 1.2rem;
+          font-weight: 500;
+        }
+        .avatar-uploader {
+          display: flex;
+          justify-content: center;
+        }
+        .ant-upload {
+          background: transparent;
+          margin: 0;
+        }
+        .ant-avatar {
+          border: 1px dashed rgba(0, 0, 0, 0.2);
+        }
+        img {
+          font-size: 1rem;
+          font-weight: 400;
+          color: black;
+          padding: 0;
+          margin: 0;
+          display: flex;
+          overflow: hidden;
+        }
+        .submit-btn {
+          position: absolute;
+          right: 0;
+          font-size: 1.2rem;
+          font-weight: 500;
+          padding: 0.5rem 1rem;
+          transition: all 0.3s ease-in-out;
+          border: 1px solid rgba(0, 0, 0, 0.3);
+          border-radius: 5px;
+          outline: none;
+          cursor: pointer;
+          right: 0;
+          background: rgba(255, 255, 255, 0.25);
+        }
+        .submit-btn:hover {
+          background-color: rgba(25, 118, 210, 0.8);
+          color: white;
+          border: 1px solid rgba(0, 0, 0, 0);
         }
       }
     }
