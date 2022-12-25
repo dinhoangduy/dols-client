@@ -179,13 +179,13 @@ const Workspace = () => {
             .forEach((item) => {
                 allTitle?.children.push(renderWorkspaceTitle(item));
             });
-        allTitle?.children.push(
-            getItem(
-                <span>Tạo vùng làm việc</span>,
-                "taovunglamviec",
-                <FileAddOutlined style={{ color: "green" }} />
-            )
-        );
+        // allTitle?.children.push(
+        //     getItem(
+        //         <span>Tạo vùng làm việc</span>,
+        //         "taovunglamviec",
+        //         <FileAddOutlined style={{ color: "green" }} />
+        //     )
+        // );
         allTitle?.children.push(
             getItem(
                 <span onClick={() => navigate("../profile")}>
@@ -240,9 +240,13 @@ const Workspace = () => {
     // ** Upgrade
    
     const handleUpgrade =  async () => {
-      fetch("https://3.84.99.235/api/v1/payment",{method: 'POST', rejectUnauthorized: false})
-      .then(data => data.json())
-      .then(data => console.log(data))
+        try {
+            let res = await userApi.payment();
+            console.log(res);
+            
+        } catch (error) {
+            
+        }
     };
     // ** End of -> Upgrade
 
