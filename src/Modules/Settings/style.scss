@@ -58,12 +58,15 @@
         .basic-form {
           min-width: 80%;
         }
-        .ant-input {
+        .ant-input-affix-wrapper {
           background: transparent;
           border: none;
           border-bottom: 1px solid rgba(0, 0, 0, 0.1);
           font-size: 1rem;
           font-weight: 400;
+        }
+        .ant-input-affix-wrapper input{
+          background: transparent;
         }
         .ant-form-item-label {
           display: flex;

@@ -4,30 +4,16 @@ import workspaceApi from "../../api/workspaceApi";
 import "./style.scss";
 import Loading from "../../Component/Common/Loading";
 // Moment
-import moment from "moment";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(customParseFormat);
 // AntD
-import {
-  Col,
-  Row,
-  Menu,
-  message,
-  Radio,
-  Input,
-  DatePicker,
-  Upload,
-  Avatar,
-  Form,
-  Button,
-} from "antd";
+import { Col, Row, Menu, message, Input, Upload, Avatar, Form } from "antd";
 import ImgCrop from "antd-img-crop";
 import { RollbackOutlined, LoadingOutlined } from "@ant-design/icons";
 // Firebase
 import { store } from "../../../firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { isEmpty } from "lodash";
 
 const Settings = () => {
   const navigate = useNavigate();
@@ -36,6 +22,7 @@ const Settings = () => {
   const [workspaceData, setWorkspaceData] = useState("");
   const [menuKey, setMenuKey] = useState("1");
   const [avatar, setAvatar] = useState("");
+  const [name, setName] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,8 +32,9 @@ const Settings = () => {
     fetchData()
       .then((res) => {
         setWorkspaceData(res.data);
-        if (workspaceData[0].image != "") {
-          setAvatar(workspaceData[0].image);
+        setName(res.data[0].name);
+        if (res.data[0].image != "") {
+          setAvatar(res.data[0].image);
         }
         setLoading(false);
       })
@@ -56,11 +44,24 @@ const Settings = () => {
   }, [location]);
 
   // Main
-  console.log(workspaceData);
+  const serverChange = async (data) => {
+    const res = await workspaceApi.update(workspaceData[0].id, data);
+    if (res) {
+      setLoading(false);
+      return res;
+    }
+  };
 
   const submitChange = (e) => {
+    setName(e.wsTitle);
     const data = { name: e.wsTitle, image: avatar };
-    console.log(data);
+    setLoading(true);
+    serverChange(data)
+      .then((res) => message.success("Đổi thành công"))
+      .catch((err) => {
+        message.error("Đổi thất bại");
+        console.log(err);
+      });
   };
 
   // Menu
@@ -157,9 +158,9 @@ const Settings = () => {
                         message: "Vui lòng không để trống",
                       },
                     ]}
-                    initialValue={workspaceData[0].name}
+                    initialValue={name}
                   >
-                    <Input placeholder="Nhập tên workspace" />
+                    <Input placeholder="Nhập tên workspace" showCount maxLength={40}/>
                   </Form.Item>
                   <Form.Item
                     name="wsImage"
