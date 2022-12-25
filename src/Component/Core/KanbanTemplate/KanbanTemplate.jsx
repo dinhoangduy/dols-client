@@ -18,9 +18,13 @@ import taskApi from "/src/api/taskApi";
 import TaskModal from "./TaskModal";
 import boardApi from "../../../api/boardApi";
 import dataApi from "../../../api/dataApi";
-import { DatePicker, message, Popconfirm } from "antd";
+import { DatePicker, message, Popconfirm, Skeleton } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
-import { deleteBoard, upadateIconBoard, upadateTitleBoard } from "../../../redux/features/currentWorkspaceSlice";
+import {
+    deleteBoard,
+    upadateIconBoard,
+    upadateTitleBoard,
+} from "../../../redux/features/currentWorkspaceSlice";
 import { useDispatch } from "react-redux";
 import EmojiPicker from "../../../Modules/Workspace/EmojiPicker";
 
@@ -31,6 +35,7 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
     const dispatch = useDispatch();
     const [selectedTask, setSelectedTask] = useState(undefined);
     const [currentBoardData, setCurrentBoardData] = useState({});
+    const [isSkelaton, setIsSkelaton] = useState(true);
     const [data, setData] = useState([]);
     useEffect(() => {
         workspaceData.board.forEach((item) => {
@@ -45,7 +50,7 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
 
     useEffect(() => {
         refreshBoard();
-    },[boardId])
+    }, [boardId]);
 
     const onDragEnd = async ({ source, destination }) => {
         if (!destination) return;
@@ -103,19 +108,31 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
         } else {
             const [removed] = destinationTasks.splice(source.index, 1);
             destinationTasks.splice(destination.index, 0, removed);
-           
-            
+
             // ** update position
-            destinationTasks.forEach((item,index) => {
+            destinationTasks.forEach((item, index) => {
                 item.position = index + 1;
-            })
+            });
             // ** save
+            const clone = [];
+            data.forEach((item) => {
+                let taskClone = [...item.task];
+                let itemClone = { ...item };
+                itemClone.task = taskClone;
+
+                clone.push(itemClone);
+            });
+            clone[destinationColIndex].task = [...destinationTasks];
+
+            setData(clone);
+
             try {
+
                 await taskApi.updateTaskOfData({
                     tasks: destinationTasks,
-                    dataId: data[destinationColIndex].id
+                    dataId: data[destinationColIndex].id,
                 });
-                refreshBoard();
+                // refreshBoard();
             } catch (err) {
                 alert(err);
             }
@@ -123,20 +140,28 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
     };
 
     const refreshBoard = async () => {
+        setIsSkelaton(true);
         let boardAfterUpdate = await boardApi.getOne(boardId);
-        let res = boardAfterUpdate.data.datas.sort((a,b) => {
-           return parseInt(a.content) - parseInt(b.content);
-        })
-        console.log("resss",res);
+        let res = boardAfterUpdate.data.datas.sort((a, b) => {
+            return parseInt(a.content) - parseInt(b.content);
+        });
         setData(res);
-    }
+        setIsSkelaton(false);
+    };
+    const refreshBoard2 = async () => {
+        let boardAfterUpdate = await boardApi.getOne(boardId);
+        let res = boardAfterUpdate.data.datas.sort((a, b) => {
+            return parseInt(a.content) - parseInt(b.content);
+        });
+        setData(res);
+    };
 
     const createSection = async () => {
         try {
             const section = await dataApi.create({
                 heading: "Chưa có tiêu đề",
                 boardId: boardId,
-                content: `${data.length + 2}`
+                content: `${data.length + 2}`,
             });
             if (section) {
                 const res = await dataApi.getOne(section.data);
@@ -189,7 +214,7 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
 
     const createTask = async (sectionId) => {
         try {
-            let res = data.filter(item => item.id === sectionId);
+            let res = data.filter((item) => item.id === sectionId);
             console.log(res[0]);
 
             const task = await taskApi.create({
@@ -198,21 +223,19 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
                 position: res[0].task.length + 2,
                 dataId: sectionId,
             });
-            console.log(task);
 
             refreshBoard();
-
         } catch (err) {
-            alert(err);
+            message.error("Đã đạt số lần tạo task nhiều nhất trong một cột, vui lòng nâng cấp tài khoản!")
         }
     };
 
     const onUpdateTask = (task) => {
-        refreshBoard();
+        refreshBoard2();
     };
 
     const onDeleteTask = (task) => {
-        refreshBoard();
+        refreshBoard2();
     };
 
     const handleDeleteBoard = async () => {
@@ -241,7 +264,12 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
                 workspaceId: workspaceData.id,
             });
             if (res) {
-                dispatch(upadateTitleBoard({ boardID: boardId, title: e.target.value }));
+                dispatch(
+                    upadateTitleBoard({
+                        boardID: boardId,
+                        title: e.target.value,
+                    })
+                );
             }
         } catch (err) {
             alert(err);
@@ -287,14 +315,27 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
                 />
             </div>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <Typography variant="body2" fontWeight="700" fontSize="10px" style={{paddingLeft: "10px"}}>
+                <Typography
+                    variant="body2"
+                    fontWeight="700"
+                    fontSize="10px"
+                    style={{ paddingLeft: "10px" }}
+                >
                     Lần cập nhật cuối{" "}
                     {data !== undefined
                         ? Moment(data.updateAt).format("HH:mm A DD-MM-YYYY")
                         : ""}
                 </Typography>
             </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "20px", marginTop:"10px", paddingLeft:"10px"}}>
+            <div
+                style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "20px",
+                    marginTop: "10px",
+                    paddingLeft: "10px",
+                }}
+            >
                 <Box
                     sx={{
                         display: "flex",
@@ -302,7 +343,12 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
                         justifyContent: "space-between",
                     }}
                 >
-                    <Button onClick={createSection} style={{backgroundColor: "#fff"}}>Thêm cột</Button>
+                    <Button
+                        onClick={createSection}
+                        style={{ backgroundColor: "#fff" }}
+                    >
+                        Thêm cột
+                    </Button>
                 </Box>
                 <Popconfirm
                     title="Bạn thật sự muốn xóa chứ？"
@@ -324,18 +370,15 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
             </div>
             <Divider sx={{ margin: "40px 0" }} />
             <DragDropContext onDragEnd={onDragEnd}>
-                <Box
-                    className="kannban-wrappers"
-                >
+                <Box className="kannban-wrappers">
                     {data?.map((section) => (
                         <div
                             key={section.id}
                             style={{
                                 width: "300px",
                                 minHeight: "400px",
-        
+
                                 marginRight: "10px",
-                               
                             }}
                             className="column-kanban"
                         >
@@ -351,9 +394,8 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
                                             width: "300px",
                                             padding: "10px",
                                             marginRight: "10px",
-                                            borderRadius: "5px"
+                                            borderRadius: "5px",
                                         }}
-                                      
                                     >
                                         <Box
                                             sx={{
@@ -363,33 +405,42 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
                                                 marginBottom: "10px",
                                                 backgroundColor: "#faedcd",
                                                 borderRadius: "5px",
-                                                padding: "10px 0"
+                                                padding: "10px 0",
                                             }}
                                         >
-                                            <TextField
-                                                value={section.heading}
-                                                onChange={(e) =>
-                                                    updateSectionTitle(
-                                                        e,
-                                                        section.id
-                                                    )
-                                                }
-                                                placeholder="Untitled"
-                                                variant="outlined"
-                                                sx={{
-                                                    flexGrow: 1,
-                                                    "& .MuiOutlinedInput-input":
-                                                        { padding: 0 },
-                                                    "& .MuiOutlinedInput-notchedOutline":
-                                                        { border: "unset" },
-                                                    "& .MuiOutlinedInput-root":
-                                                        {
-                                                            fontSize: "1rem",
-                                                            fontWeight: "700",
-                                                        },
-                                                }}
-                                                style={{ paddingLeft: "10px" }}
-                                            />
+                                            {isSkelaton ? (
+                                                <Skeleton.Input  active />
+                                            ) : (
+                                                <TextField
+                                                    value={section.heading}
+                                                    onChange={(e) =>
+                                                        updateSectionTitle(
+                                                            e,
+                                                            section.id
+                                                        )
+                                                    }
+                                                    placeholder="Untitled"
+                                                    variant="outlined"
+                                                    sx={{
+                                                        flexGrow: 1,
+                                                        "& .MuiOutlinedInput-input":
+                                                            { padding: 0 },
+                                                        "& .MuiOutlinedInput-notchedOutline":
+                                                            { border: "unset" },
+                                                        "& .MuiOutlinedInput-root":
+                                                            {
+                                                                fontSize:
+                                                                    "1rem",
+                                                                fontWeight:
+                                                                    "700",
+                                                            },
+                                                    }}
+                                                    style={{
+                                                        paddingLeft: "10px",
+                                                    }}
+                                                />
+                                            )}
+
                                             <IconButton
                                                 variant="outlined"
                                                 size="small"
@@ -420,40 +471,48 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
                                             </IconButton>
                                         </Box>
                                         {/* task */}
-                                        {section.task.map((task, index) => (
-                                            <Draggable
-                                                key={task.id}
-                                                draggableId={task.id}
-                                                index={index}
-                                            >
-                                                {(provided, snapshot) => (
-                                                    <Card
-                                                        ref={provided.innerRef}
-                                                        {...provided.draggableProps}
-                                                        {...provided.dragHandleProps}
-                                                        sx={{
-                                                            padding: "10px",
-                                                            marginBottom:
-                                                                "10px",
-                                                            cursor: snapshot.isDragging
-                                                                ? "grab"
-                                                                : "pointer!important",
-                                                        }}
-                                                        onClick={() =>
-                                                            setSelectedTask(
-                                                                task
-                                                            )
-                                                        }
-                                                    >
-                                                        <Typography>
-                                                            {task.title === ""
-                                                                ? "Untitled"
-                                                                : task.title}
-                                                        </Typography>
-                                                    </Card>
-                                                )}
-                                            </Draggable>
-                                        ))}
+
+                                        {isSkelaton ? (
+                                            <Skeleton active />
+                                        ) : (
+                                            section.task.map((task, index) => (
+                                                <Draggable
+                                                    key={task.id}
+                                                    draggableId={task.id}
+                                                    index={index}
+                                                >
+                                                    {(provided, snapshot) => (
+                                                        <Card
+                                                            ref={
+                                                                provided.innerRef
+                                                            }
+                                                            {...provided.draggableProps}
+                                                            {...provided.dragHandleProps}
+                                                            sx={{
+                                                                padding: "10px",
+                                                                marginBottom:
+                                                                    "10px",
+                                                                cursor: snapshot.isDragging
+                                                                    ? "grab"
+                                                                    : "pointer!important",
+                                                            }}
+                                                            onClick={() =>
+                                                                setSelectedTask(
+                                                                    task
+                                                                )
+                                                            }
+                                                        >
+                                                            <Typography>
+                                                                {task.title ===
+                                                                ""
+                                                                    ? "Untitled"
+                                                                    : task.title}
+                                                            </Typography>
+                                                        </Card>
+                                                    )}
+                                                </Draggable>
+                                            ))
+                                        )}
                                         {provided.placeholder}
                                     </Box>
                                 )}

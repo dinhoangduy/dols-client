@@ -2,7 +2,7 @@
     display: flex;
     width: 100%;
     min-height: 100vh;
-    background: linear-gradient(90deg, #edc0bf 0, #c4caef 58%);
+    // background: linear-gradient(90deg, #edc0bf 0, #c4caef 58%);
 
     // .ant-menu-submenu-title{
     //     background: rgba(255,255,255,0.4);
@@ -82,4 +82,21 @@
 
 .ck-toolbar{
     background-color: "#fff" ;
+}
+
+.color-template{
+    display: flex;
+    gap: 10px;
+    // background-color: #361b1;
+
+   
+    .color-item{
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 2px solid #000;
+    }
+    .check{
+        border: 2px solid rgb(160, 23, 23);
+    }
 }

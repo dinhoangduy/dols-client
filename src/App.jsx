@@ -19,6 +19,7 @@ import Profile from './Modules/Profile/Profile';
 import Settings from './Modules/Settings/Settings';
 import NotFound from './Modules/NotFound';
 import SuccessPage from './Modules/SuccessPage/SuccessPage';
+import FailPage from './Modules/FailPage/FailPage';
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/success" element={<SuccessPage />} />
+            <Route path="/cancel" element={<FailPage />} />
 
           </Route>
           <Route path="/" element={<TeamLayout />}>

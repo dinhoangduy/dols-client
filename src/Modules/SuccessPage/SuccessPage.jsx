@@ -1,27 +1,58 @@
+import { Button, Result, Spin } from "antd";
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import userApi from "../../api/userApi";
-import { Spin } from 'antd';
-import { useNavigate } from "react-router-dom";
-const SuccessPage = () => {
-    // const [isLoading, setIsLoading] = useState(true);
-    const navigate = useNavigate()
-    const handleUpdatePaymentStatus = () => {
+const App = () => {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const navigate = useNavigate();
+    const [extra, setExtra] = useState([
+        <span>
+            Server đang cập nhật dữ liệu cho bạn, vui lòng không refresh trang!
+        </span>,
+        <Spin />,
+    ]);
+    console.log(searchParams.get('paymentId'));
+
+    useEffect(() => {
+        handleUpgrade();
+    }, []);
+
+    const handleUpgrade = async () => {
         try {
-            const res = userApi.updatePayStatus();
+            const res = await userApi.updatePayStatus();
 
             if (res) {
-                navigate("/");
+                setTimeout(() => {
+                    setExtra([
+                        <span>Dữ liệu đã được đồng bộ!</span>,
+                        <Button type="primary" onClick={()=>  navigate('/')} key="back">
+                            Về vùng làm việc
+                        </Button>,
+                    ]);
+                }, 5000);
             }
-            else{
-                console.log(" Thanh toan loi")
-            }
-        } catch {}
+        } catch (error) {}
     };
 
-    return <>
-        <Spin></Spin>
-        <h2>Đang xử lí thanh toán, vui lòng không refresh!</h2>
-    </>;
+    return (
+        <div
+            style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                height: "100vh",
+            }}
+        >
+            <Result
+                status="success"
+                title="Chúc mừng, bạn đã thanh toán  thành công!"
+                subTitle={`Mã đơn hàng : ${searchParams.get('paymentId')} `}
+                extra={extra}
+            />
+        </div>
+    );
 };
-
-export default SuccessPage;
+export default App;

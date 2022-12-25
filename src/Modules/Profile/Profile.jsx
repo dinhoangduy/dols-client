@@ -30,6 +30,7 @@ import {
 import { store } from "../../../firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { isEmpty } from "lodash";
+import { RocketLaunch } from "@mui/icons-material";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ const Profile = () => {
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
   const [email, setEmail] = useState("");
+  const [pay, setPay] = useState("Chưa nâng cấp");
   const [birthday, setBirthday] = useState();
   const [avatar, setAvatar] = useState("");
   const [menuKey, setMenuKey] = useState("1");
@@ -57,6 +59,9 @@ const Profile = () => {
         setEmail(res.data.email);
         setBirthday(res.data.birthDay);
         setAvatar(res.data.avatar);
+        if(res.data.pay === "ispay") {
+          setPay("Đã nâng cấp")
+        }
         setLoading(false);
       })
       .catch((err) => {
@@ -302,6 +307,16 @@ const Profile = () => {
                         defaultValue={email}
                         readOnly
                         addonAfter={<MailOutlined />}
+                      />
+                    </div>
+                    <div className="form-group readOnly">
+                      <label htmlFor="">Trạng thái tài khoản </label>
+                      <Input
+                        name="pay"
+                        placeholder="Trạng thái tài khoản"
+                        defaultValue={pay}
+                        readOnly
+                        addonAfter={<RocketLaunch />}
                       />
                     </div>
 

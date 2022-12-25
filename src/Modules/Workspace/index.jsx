@@ -4,7 +4,7 @@ import { Col, message, Row } from "antd";
 import { Avatar, Image } from "antd";
 import { TreeSelect } from "antd";
 import Tour from "reactour";
-import wave from '/src/assets/images/wave.svg';
+import wave from "/src/assets/images/wave.svg";
 
 import {
     AppstoreOutlined,
@@ -21,6 +21,7 @@ import {
     AppstoreAddOutlined,
     UserOutlined,
     RocketOutlined,
+    BgColorsOutlined,
 } from "@ant-design/icons";
 import { Divider } from "@mui/material";
 import { Button, Menu, Layout, Checkbox, Form, Input, Select } from "antd";
@@ -49,13 +50,14 @@ import taskApi from "../../api/taskApi";
 import { Settings } from "@mui/icons-material";
 // ** End of-> Api
 
-
 const Workspace = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const [newBoardForm] = Form.useForm();
 
     const [isTourOpen, setIsTourOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [color, setColor] = useState("#fff");
 
     useEffect(() => {
         let isTourOver = localStorage.getItem("isTourOver");
@@ -77,7 +79,8 @@ const Workspace = () => {
         },
         {
             selector: "#payment",
-            content: "Bạn có thể nâng cấp tài khoản để trãi nghiệm thêm nhiều tính năng ở đây!",
+            content:
+                "Bạn có thể nâng cấp tài khoản để trãi nghiệm thêm nhiều tính năng ở đây!",
         },
         {
             selector: "#board",
@@ -165,6 +168,15 @@ const Workspace = () => {
         },
     ];
 
+    const colorList = [
+        "#fff",
+        "#d4a373",
+        "#a2d2ff",
+        "#f2b5d4",
+        "#8d99ae",
+        "#ffdab9",
+    ];
+
     const renderAllWorkspaceAndBoard = () => {
         let res = [];
         let allTitle = getItem(
@@ -189,7 +201,7 @@ const Workspace = () => {
         allTitle?.children.push(
             getItem(
                 <span onClick={() => navigate("../profile")}>
-                    Quản lí tài khoản
+                    Thông tin người dùng
                 </span>,
                 "quanlitaikhoang",
                 <UserOutlined style={{ color: "blue" }} />
@@ -222,13 +234,36 @@ const Workspace = () => {
         );
         res.push(
             getItem(
-                <span onClick={handleUpgrade} id="payment">
-                    Nâng cấp tài khoản
-                </span>,
-                "nangcaptaikhoan",
-                <RocketOutlined onClick={handleUpgrade} />
+                <div className="color-template">
+                    {
+                        colorList.map(item => {
+                             return <div
+                            className={`color-item ${color === item ? 'check': ''} `}
+                            style={{ background: item }}
+                            onClick={() => handleChangeColor(item)}
+                        ></div>
+                        })
+                    }
+                   
+                  
+                </div>,
+                "bangmau",
+                <BgColorsOutlined />
             )
         );
+
+        if (userData?.pay !== "ispay") {
+            res.push(
+                getItem(
+                    <span onClick={handleUpgrade} id="payment">
+                        Nâng cấp tài khoản
+                    </span>,
+                    "nangcaptaikhoan",
+                    <RocketOutlined onClick={handleUpgrade} />
+                )
+            );
+        }
+
         res.push(getItem(<Divider />, "divider2", <Divider />));
         currentWorkspaceData?.board?.forEach((item) => {
             res.push(renderBoardTitle(item));
@@ -237,15 +272,21 @@ const Workspace = () => {
         return res;
     };
 
+    const handleChangeColor = (value) => {
+        setColor(value);
+    };
     // ** Upgrade
-   
-    const handleUpgrade =  async () => {
+
+    const handleUpgrade = async () => {
+        setLoading(true);
         try {
             let res = await userApi.payment();
-            console.log(res);
-            
+            if (res) {
+                window.open(res.link, "_blank");
+                setLoading(false);
+            }
         } catch (error) {
-            
+            setLoading(false);
         }
     };
     // ** End of -> Upgrade
@@ -501,176 +542,187 @@ const Workspace = () => {
 
     return (
         <>
-            <div className="workspace">
-                <Sider
-                    collapsible
-                    collapsed={collapsed}
-                    theme="light"
-                    onCollapse={(value) => setCollapsed(value)}
-                    width="250px"
-                    // className="slider-menu"
-                >
-                    <div className="logo" />
-                    <Menu
-                        theme="light"
-                        // defaultSelectedKeys={[currentBoardID]}
-                        selectedKeys={[currentBoardID]}
-                        mode="inline"
-                        items={items}
+            {loading ? (
+                <Loading />
+            ) : (
+                <>
+                    <div
+                        className="workspace"
                         style={{
-                            height: "calc(100vh - 48px)",
-                            overflowY: "scroll",
+                            backgroundColor: `${color}`,
                         }}
-                        className="slider-menu"
-                    />
-                </Sider>
-                <div className="main" id="board-content">
-                    <div className="main__top">
-                        <div
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "10px",
-                            }}
+                    >
+                        <Sider
+                            collapsible
+                            collapsed={collapsed}
+                            theme="light"
+                            onCollapse={(value) => setCollapsed(value)}
+                            width="250px"
+                            // className="slider-menu"
                         >
-                            <Avatar
-                                src={
-                                    <Image
-                                        src={userData?.avatar}
-                                        style={{
-                                            width: 32,
-                                        }}
-                                    />
-                                }
+                            <div className="logo" />
+                            <Menu
+                                theme="light"
+                                // defaultSelectedKeys={[currentBoardID]}
+                                selectedKeys={[currentBoardID]}
+                                mode="inline"
+                                items={items}
+                                style={{
+                                    height: "calc(100vh - 48px)",
+                                    overflowY: "scroll",
+                                }}
+                                className="slider-menu"
                             />
-                            {/* <p style={{ margin: "0" }}>
-                                {currentWorkspaceData?.name}
-                            </p> */}
-                        </div>
-                        {currentTemplate ===
-                            "674e1995-80a0-467a-b48f-312502538210" && (
-                            <div className="other">
-                                {/* <StarOutlined /> */}
-                                <Button
-                                    loading={isSaveLoading}
-                                    type={"text"}
-                                    className="saving-btn"
-                                    // onClick={handleOk}
+                        </Sider>
+                        <div className="main" id="board-content">
+                            <div className="main__top">
+                                <div
                                     style={{
-                                        color: isSaveLoading ? "blue" : "#000",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: "10px",
                                     }}
                                 >
-                                    Lưu tự động
-                                </Button>
+                                    <Avatar
+                                        src={
+                                            <Image
+                                                src={userData?.avatar}
+                                                style={{
+                                                    width: 32,
+                                                }}
+                                            />
+                                        }
+                                    />
+                                    {/* <p style={{ margin: "0" }}>
+                                {currentWorkspaceData?.name}
+                            </p> */}
+                                </div>
+                                {currentTemplate ===
+                                    "674e1995-80a0-467a-b48f-312502538210" && (
+                                    <div className="other">
+                                        {/* <StarOutlined /> */}
+                                        <Button
+                                            loading={isSaveLoading}
+                                            type={"text"}
+                                            className="saving-btn"
+                                            // onClick={handleOk}
+                                            style={{
+                                                color: isSaveLoading
+                                                    ? "blue"
+                                                    : "#000",
+                                            }}
+                                        >
+                                            Lưu tự động
+                                        </Button>
+                                    </div>
+                                )}
                             </div>
-                        )}
+                            <div className="main__content">
+                                {isLoading ? (
+                                    <Loading />
+                                ) : (
+                                    nameMapTemplate[currentTemplate]?.handle(
+                                        currentBoardID,
+                                        currentWorkspaceData,
+                                        setIsSavaLoading,
+                                        setCurrentBoardID
+                                    )
+                                )}
+                            </div>
+                        </div>
                     </div>
-                    <div className="main__content">
-                       
-                        {isLoading ? (
-                            <Loading />
-                        ) : (
-                            nameMapTemplate[currentTemplate]?.handle(
-                                currentBoardID,
-                                currentWorkspaceData,
-                                setIsSavaLoading,
-                                setCurrentBoardID
-                            )
-                        )}
-                    </div>
-                </div>
-            </div>
-            <Modal
-                title="Tạo bảng mới"
-                open={open}
-                onOk={handleOk}
-                confirmLoading={confirmLoading}
-                onCancel={handleCancel}
-                footer={[
-                    <Button key="back" onClick={handleCancel}>
-                        Thoát
-                    </Button>,
-                    <Button
-                        key="submit"
-                        loading={confirmLoading}
-                        type="primary"
-                        onClick={handleOk}
-                    >
-                        Tạo bảng mới
-                    </Button>,
-                ]}
-            >
-                <Form
-                    name="basic"
-                    labelCol={{
-                        span: 8,
-                    }}
-                    wrapperCol={{
-                        span: 16,
-                    }}
-                    form={newBoardForm}
-                    // onFinish={onFinish}
-                    // onFinishFailed={onFinishFailed}
-                    autoComplete="off"
-                >
-                    <Form.Item
-                        label="Tên bảng"
-                        name="title"
-                        rules={[
-                            {
-                                required: true,
-                                message: "Vui lòng nhập tên bảng!",
-                            },
+                    <Modal
+                        title="Tạo bảng mới"
+                        open={open}
+                        onOk={handleOk}
+                        confirmLoading={confirmLoading}
+                        onCancel={handleCancel}
+                        footer={[
+                            <Button key="back" onClick={handleCancel}>
+                                Thoát
+                            </Button>,
+                            <Button
+                                key="submit"
+                                loading={confirmLoading}
+                                type="primary"
+                                onClick={handleOk}
+                            >
+                                Tạo bảng mới
+                            </Button>,
                         ]}
                     >
-                        <Input placeholder="Vui lòng nhập tên bảng" />
-                    </Form.Item>
-
-                    <Form.Item
-                        name="template"
-                        label="Chọn mẫu"
-                        rules={[
-                            {
-                                required: true,
-                                message: "Vui lòng chọn mẫu!",
-                            },
-                        ]}
-                    >
-                        <TreeSelect
-                            showSearch
-                            style={{
-                                width: "100%",
+                        <Form
+                            name="basic"
+                            labelCol={{
+                                span: 8,
                             }}
-                            value={value}
-                            dropdownStyle={{
-                                maxHeight: 400,
-                                overflow: "auto",
+                            wrapperCol={{
+                                span: 16,
                             }}
-                            placeholder="Chọn một mẫu dưới đây"
-                            allowClear
-                            treeDefaultExpandAll
-                            onChange={onChange}
-                            treeData={treeData}
-                        />
-                    </Form.Item>
+                            form={newBoardForm}
+                            // onFinish={onFinish}
+                            // onFinishFailed={onFinishFailed}
+                            autoComplete="off"
+                        >
+                            <Form.Item
+                                label="Tên bảng"
+                                name="title"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "Vui lòng nhập tên bảng!",
+                                    },
+                                ]}
+                            >
+                                <Input placeholder="Vui lòng nhập tên bảng" />
+                            </Form.Item>
 
-                    <Form.Item
-                        wrapperCol={{
-                            offset: 8,
-                            span: 16,
+                            <Form.Item
+                                name="template"
+                                label="Chọn mẫu"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "Vui lòng chọn mẫu!",
+                                    },
+                                ]}
+                            >
+                                <TreeSelect
+                                    showSearch
+                                    style={{
+                                        width: "100%",
+                                    }}
+                                    value={value}
+                                    dropdownStyle={{
+                                        maxHeight: 400,
+                                        overflow: "auto",
+                                    }}
+                                    placeholder="Chọn một mẫu dưới đây"
+                                    allowClear
+                                    treeDefaultExpandAll
+                                    onChange={onChange}
+                                    treeData={treeData}
+                                />
+                            </Form.Item>
+
+                            <Form.Item
+                                wrapperCol={{
+                                    offset: 8,
+                                    span: 16,
+                                }}
+                            ></Form.Item>
+                        </Form>
+                    </Modal>
+                    <Tour
+                        steps={steps}
+                        isOpen={isTourOpen}
+                        onRequestClose={() => {
+                            setIsTourOpen(false);
+                            localStorage.setItem("isTourOver", true);
                         }}
-                    ></Form.Item>
-                </Form>
-            </Modal>
-
-            <Tour
-                steps={steps}
-                isOpen={isTourOpen}
-                onRequestClose={() => {
-                    setIsTourOpen(false);
-                    localStorage.setItem("isTourOver", true);
-                }}
-            />
+                    />
+                </>
+            )}
         </>
     );
 };
