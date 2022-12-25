@@ -240,8 +240,9 @@ const Workspace = () => {
     // ** Upgrade
    
     const handleUpgrade =  async () => {
-      const res = await userApi.payment();
-      console.log("🚀 ~ file: index.jsx:244 ~ handleUpgrade ~ res", res)
+      fetch("https://3.84.99.235/api/v1/payment",{method: 'POST', rejectUnauthorized: false})
+      .then(data => data.json())
+      .then(data => console.log(data))
     };
     // ** End of -> Upgrade
 

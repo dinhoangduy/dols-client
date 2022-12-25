@@ -42,7 +42,6 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
     useEffect(() => {
         setData(currentBoardData?.datas);
     }, [currentBoardData]);
-    console.log(data);
 
     useEffect(() => {
         refreshBoard();
