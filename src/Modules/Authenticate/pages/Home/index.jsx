@@ -1,8 +1,8 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import "./style.scss";
-import vite from "./vite.svg";
-
+import logo from "../../../../assets/images/logo.png";
+import { Link } from "react-router-dom";
 // AntD
 import { Layout, Menu, Col, Row, Space, Typography, Carousel } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
@@ -19,7 +19,6 @@ function getItem(label, key) {
 }
 
 const { Header, Content, Footer } = Layout;
-const { Title, Paragraph, Text, Link } = Typography;
 
 const Home = () => {
   const language = [
@@ -59,7 +58,11 @@ const Home = () => {
                       DOLS để làm việc theo cách của bạn.
                     </p>
                   </div>
-                  <button className="btnPrimary">Sử dụng DOLS miễn phí</button>
+                  <Link to="/sign-up">
+                    <button className="btnPrimary">
+                      Sử dụng DOLS miễn phí
+                    </button>
+                  </Link>
                   <div className="textAssociate">
                     <p>Được tin bởi</p>
                   </div>
@@ -208,7 +211,9 @@ const Home = () => {
                         DOLS giải quyết các vấn đề thường gặp và duy nhất cho
                         các team. Đây chỉ là chút ít.
                       </p>
-                      <button className="btn">Sử dụng DOLS miễn phí</button>
+                      <Link to="/sign-up">
+                        <button className="btn">Sử dụng DOLS miễn phí</button>
+                      </Link>
                     </div>
                   </Col>
                   <Col flex="auto" className="secondaryImg">
@@ -432,12 +437,12 @@ const Home = () => {
 
               <Row className="tertiarySection">
                 <div className="imgWrapper">
-                  <img src={vite} alt="" />
+                  <img src={logo} alt="" />
                 </div>
                 <div className="textWrapper">
-                  <h1>Thử DOLS ngày hôm nay</h1>
+                  <h1>Thử ngày hôm nay</h1>
                   <p>
-                    Bắt đầu miễn phí. Thêm cả nhóm bạn với nhu cầu phát triển. 
+                    Bắt đầu miễn phí. Thêm cả nhóm bạn với nhu cầu phát triển.
                   </p>
                   <button className="btn">Thử DOLS miễn phí</button>
                   <p>

@@ -19,12 +19,16 @@ const AuthenHeader = () => {
   const products = (
     <Menu>
       <Menu.Item>
-        <a href="##" style={{ color: "black" }}>
-          <p style={{ margin: 0, fontSize: "1rem", fontWeight: "500" }}>Trang chủ</p>
-          <small style={{ fontSize: "0.8rem", color: "gray" }}>
-            Tài liệu, dự án và từ điển
-          </small>
-        </a>
+        <Link to="/home">
+          <a href="##" style={{ color: "black" }}>
+            <p style={{ margin: 0, fontSize: "1rem", fontWeight: "500" }}>
+              Trang chủ
+            </p>
+            <small style={{ fontSize: "0.8rem", color: "gray" }}>
+              Tài liệu, dự án và từ điển
+            </small>
+          </a>
+        </Link>
       </Menu.Item>
       <Menu.Item>
         <a href="##" style={{ color: "black" }}>
