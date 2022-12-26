@@ -224,7 +224,7 @@ const KanbanTemplate = ({ boardId, workspaceData, setCurrentBoardID }) => {
                 dataId: sectionId,
             });
 
-            refreshBoard();
+            refreshBoard2();
         } catch (err) {
             message.error("Đã đạt số lần tạo task nhiều nhất trong một cột, vui lòng nâng cấp tài khoản!")
         }
