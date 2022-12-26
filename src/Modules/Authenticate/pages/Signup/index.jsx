@@ -203,6 +203,9 @@ const Signup = () => {
                   />{' '}
                   Tiếp tục với google
                 </Button>
+                <div className="option">
+                  <Link to="/login">Bạn đã có tài khoản! Hãy đăng nhập</Link>
+                </div>
               </div>
             </Col>
           </Row>
