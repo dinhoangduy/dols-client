@@ -238,6 +238,7 @@ const Workspace = () => {
                     {
                         colorList.map(item => {
                              return <div
+                             key={item}
                             className={`color-item ${color === item ? 'check': ''} `}
                             style={{ background: item }}
                             onClick={() => handleChangeColor(item)}
