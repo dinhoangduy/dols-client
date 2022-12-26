@@ -130,7 +130,10 @@ const Login = () => {
                 </Button>
               </Form.Item>
               <div className="option">
-                <Link to="../">Quên mật khẩu?</Link>
+                <Link to="/sign-up">Bạn chưa có tài khoản! Hãy đăng ký</Link>
+              </div>
+              <div className="option">
+                <Link to="/forgot-password">Quên mật khẩu?</Link>
               </div>
             </Form>
           </Col>

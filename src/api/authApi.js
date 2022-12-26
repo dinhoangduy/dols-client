@@ -9,6 +9,7 @@ const authApi = {
   resendMail: (params) => axiosClient.post('clients/resend-activekey', params),
   active: (params) => axiosClient.post('clients/active', params),
   verifyToken: () => axiosClient.get('workspace'),
+  forgotPass: (params) => axiosClient.post('clients/forgot-pass', params),
 };
 
 export default authApi;
