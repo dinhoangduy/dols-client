@@ -24,3 +24,9 @@
     border-radius: 10px;
     border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
+
+.ck-toolbar__items{
+    .ck-button__icon, .ck-button__label{
+        color: #fff !important;
+    }
+}
